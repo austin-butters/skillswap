@@ -18,8 +18,9 @@
     "baseUrl": ".",
     "paths": {
       "#models": ["models/index.ts"],
-      "#models/*": ["models/*"]
+      "#models/*": ["models/*"],
+      "#server-constants": ["server/utils/constants"],
+      "#client-constants": ["server/utils/constants"]
     }
-
   }
 }
