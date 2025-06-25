@@ -11,7 +11,7 @@ export function up(knex) {
       .notNullable()
       .references('id')
       .inTable('users')
-    table.text('inptut').notNullable()
+    table.text('input').notNullable()
     table.text('output')
   })
 }
