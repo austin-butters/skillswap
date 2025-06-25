@@ -12,6 +12,14 @@
     "strict": true,
     "allowImportingTsExtensions": true,
     "allowJs": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+
+     /* Paths for importing */
+    "baseUrl": ".",
+    "paths": {
+      "#models": ["models/index.ts"],
+      "#models/*": ["models/*"]
+    }
+
   }
 }
