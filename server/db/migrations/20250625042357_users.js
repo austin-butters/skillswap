@@ -9,6 +9,7 @@ export function up(knex) {
     table.string('email').notNullable()
     table.string('name').notNullable()
     table.string('bio')
+    table.string('profile_picture').notNullable()
   })
 }
 
