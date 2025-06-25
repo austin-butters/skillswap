@@ -1,7 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react'
 
 export default function Auth0Button() {
-  const { loginWithRedirect, logout } = useAuth0()
+  const { loginWithRedirect, logout, user } = useAuth0()
 
   function handleLogin() {
     loginWithRedirect()
@@ -11,5 +11,5 @@ export default function Auth0Button() {
     logout()
   }
 
-  return <button onClick={handleLogin}>Log In</button>
+  return {user : <button>Logout</button> ? <button onClick={handleLogin}>Log in</button>}
 }
