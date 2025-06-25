@@ -1,12 +1,17 @@
 import connection from '../connection'
 
-export async function addQuestion(
-  userId: number,
-  title: string,
-  body: string,
-  db = connection,
-) {
+interface question {
+  userId: number
+  title: string
+  body: string
+}
+
+export async function addQuestion(question: question, db = connection) {
   await db('questions')
-    .insert({ user_id: userId, title: title, body: body })
+    .insert({
+      user_id: question.userId,
+      title: question.title,
+      body: question.body,
+    })
     .returning('*')
 }
