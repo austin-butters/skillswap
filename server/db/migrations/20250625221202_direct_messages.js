@@ -17,7 +17,7 @@ export function up(knex) {
       .notNullable()
       .references('id')
       .inTable('users')
-    table.timestamp('time').notNullable()
+    table.timestamp('time').notNullable().defaultTo(knex.fn.now)
     table.text('body').notNullable()
   })
 }
