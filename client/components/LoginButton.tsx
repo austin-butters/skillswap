@@ -7,5 +7,5 @@ export default function LoginButton() {
     loginWithRedirect()
   }
 
-  return <button>Log In</button>
+  return <button onClick={handleLogin}>Log In</button>
 }
