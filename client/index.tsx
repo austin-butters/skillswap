@@ -15,11 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
      * TODO: replace domain, clientId, and audience
      */
     <Auth0Provider
-      domain=""
-      clientId=""
+      domain="lane-piwakawaka-25.au.auth0.com"
+      clientId="lQLGSDiPQpPueDqz6rw8qT50nrQ7H7uf"
       authorizationParams={{
         redirect_uri: window.location.origin,
-        audience: '',
+        audience: 'https://SkillShare/api',
       }}
     >
       <QueryClientProvider client={queryClient}>
