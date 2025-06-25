@@ -3,7 +3,7 @@ import request from 'superagent'
 
 export function useAddQuestion() {
   const queryClient = useQueryClient()
-  useMutation({
+  return useMutation({
     mutationFn: async (question: {
       userId: number
       title: string
