@@ -41,10 +41,53 @@ router.post('/', async (req, res) => {
 })
 
 // ------------------------------ READ ------------------------------ //
+router.get('/byemail/:email', async (req, res) => {
+  console.log('server route: users, GET /byemail/:email') // TEST LOG
+  try {
+    const email: UserEmail | string = req.params.email
+    const user: User | undefined = await Users.getUserByEmail(email)
+    if (!user) {
+      return res.status(404).json({ error: 'Not Found' })
+    }
+    return res.status(200).json(user)
+  } catch (err) {
+    return res.status(500).json({ error: 'Internal Server Error' })
+  }
+})
+
+router.get('/:id', async (req, res) => {
+  console.log('server route: users, GET /:id') // TEST LOG
+  try {
+    const userId: UserId | number = Number(req.params.id)
+    if (isNaN(userId) || !Number.isInteger(userId)) {
+      return res.status(400).json({ error: 'Bad request: invalid user id' })
+    }
+    const user: User | undefined = await Users.getUser(userId as UserId)
+    if (!user) {
+      return res.status(404).json({ error: 'Not Found' })
+    }
+    return res.status(200).json(user)
+  } catch (err) {
+    return res.status(500).json({ error: 'Internal Server Error' })
+  }
+})
 
 // ------------------------------ UPDATE ------------------------------ //
 
 // ------------------------------ DELETE ------------------------------ //
+router.delete('/:id', async (req, res) => {
+  console.log('server route: users, DELETE /:id') // TEST LOG
+  try {
+    const userId: UserId | number = Number(req.params.id)
+    if (isNaN(userId) || !Number.isInteger(userId)) {
+      return res.status(400).json({ error: 'Bad request: invalid user id' })
+    }
+    await Users.deleteUser(userId)
+    return res.sendStatus(204)
+  } catch (err) {
+    return res.status(500).json({ error: 'Internal Server Error' })
+  }
+})
 
 // ------------------------------ EXPORT ------------------------------ //
 export default router
