@@ -11,5 +11,13 @@ export default function Auth0Button() {
     logout()
   }
 
-  return {user : <button>Logout</button> ? <button onClick={handleLogin}>Log in</button>}
+  return (
+    <>
+      {!user ? (
+        <button onClick={handleLogin}>Login</button>
+      ) : (
+        <button onClick={handleLogout}>Logout</button>
+      )}
+    </>
+  )
 }
