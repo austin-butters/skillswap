@@ -1,4 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react'
+import { useAuth0Id } from '../hooks/useUsers'
 
 export default function LoadingAccount() {
   const { user: auth0User } = useAuth0()
@@ -10,8 +11,7 @@ export default function LoadingAccount() {
   //}
   //I think you'll have to import navigate from react-router-dom by the way
 
-  const userData = false
-  const userLoading = false
+  const { data: userData, isLoading: userLoading } = useAuth0Id(auth0User?.sub)
 
   return (
     <div
