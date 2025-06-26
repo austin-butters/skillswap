@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import Auth0Button from './Auth0Button'
 
 export default function Sidebar() {
   const userId = 1
@@ -86,6 +87,7 @@ export default function Sidebar() {
       >
         Profile
       </Link>
+      <Auth0Button />
     </div>
   )
 }

@@ -20,23 +20,29 @@ export default function LoadingAccount() {
       !userLoading &&
       !userAdded
     ) {
-      addUser.mutate({
-        auth0Uid: String(auth0User.sub),
-        email: String(auth0User.email),
-        name: String(auth0User.name),
-        bio: null,
-        profilePicture: auth0User.picture,
-      })
-      setUserAdded(true)
+      addUser.mutate(
+        {
+          auth0Uid: String(auth0User.sub),
+          email: String(auth0User.email),
+          name: String(auth0User.name),
+          bio: null,
+          profilePicture: auth0User.picture,
+        },
+        {
+          onSuccess: () => {
+            setUserAdded(true)
+          },
+        },
+      )
     }
   }, [auth0User, isAuthenticated, isLoading, userAdded, userData, userLoading])
 
   useEffect(() => {
-    if (userData) {
-      setUserAdded(true)
+    console.log(userData)
+    if (userAdded && userData) {
       navigate(`/profile/${userData.id}`)
     }
-  }, [userData, navigate])
+  }, [userAdded, userData])
 
   return (
     <div
