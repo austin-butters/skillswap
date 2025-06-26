@@ -1,9 +1,24 @@
-import Sidebar from './Sidebar'
+import { useAddQuestion } from '../hooks/useQuestions'
 import '../styles/main.css'
 export default function Home() {
+  const addQuestion = useAddQuestion()
+
+  const userId = 1
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const form = e.target
+    const formData = await new FormData(form)
+
+    addQuestion.mutate({
+      userId: userId,
+      title: String(formData.get('title')),
+      body: String(formData.get('body')),
+    })
+  }
+
   return (
     <>
-      <Sidebar />
       <div className="column-flex">
         <div className="question-box">
           <div className="sidebar-header">
@@ -11,19 +26,40 @@ export default function Home() {
               Post your own question!
             </h1>
           </div>
-          <input type="text" placeholder="Question Title" />
-          <input type="text" placeholder="Question Description" />
-          <button
-            style={{
-              backgroundColor: 'white',
-              fontWeight: 'bold',
-              fontSize: '1.3rem',
-              padding: '5px 30px',
-              borderRadius: '10px',
-            }}
-          >
-            Post!
-          </button>
+          <form onSubmit={handleSubmit} className="question-box">
+            <label htmlFor="name" style={{ width: '100%' }}>
+              <input
+                type="text"
+                placeholder="Question Title"
+                name="title"
+                className="input-fields"
+              />
+            </label>
+
+            <label htmlFor="body" style={{ width: '100%', marginTop: '20px' }}>
+              <input
+                type="text"
+                placeholder="Question Description"
+                name="body"
+                className="input-fields"
+              />
+            </label>
+
+            <button
+              type="submit"
+              style={{
+                backgroundColor: 'white',
+                fontWeight: 'bold',
+                fontSize: '1.3rem',
+                padding: '10px 30px',
+                borderRadius: '10px',
+                marginTop: '20px',
+                cursor: 'pointer',
+              }}
+            >
+              Post!
+            </button>
+          </form>
         </div>
         <div style={{ marginTop: '30px' }}>
           <div className="block">

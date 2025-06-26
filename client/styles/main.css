@@ -21,9 +21,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family:
-    'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans',
-    Arial, sans-serif, sans-serif;
+  font-family: 'Roboto Mono', monospace;
 }
 
 .sidebar-header {
@@ -33,6 +31,7 @@ body {
   padding: 32px 0 24px 0;
   width: 100%;
   text-align: center;
+  font-family: 'Boldonse', sans-serif;
 }
 
 .sidebar-button {
@@ -61,7 +60,7 @@ body {
 }
 
 .sidebar {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Roboto Mono', monospace;
 }
 
 .sidebar-menu li:last-child {
@@ -109,16 +108,30 @@ body {
   width: 40vw;
 }
 
+.form-group {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: black;
+}
+
 .question-box {
   display: flex;
   flex-direction: column;
-  background-color: #a2aadb;
   align-items: center;
+  justify-content: center; /* Center form vertically */
+  background-color: #a2aadb;
   padding: 20px;
   border-radius: 10px;
-  justify-content: space-between;
   height: 50vh;
   width: 40vw;
+  gap: 20px;
+  font-family: 'Roboto Mono', monospace;
 }
 
 .question-box-other {
@@ -140,10 +153,19 @@ body {
 }
 
 .input-fields {
-  width: 80%;
-  height: 40%;
-  padding: 7px 10px;
+  width: 100%;
+  padding: 10px;
   background-color: #a2aadb;
+  border: 1px solid #fff2e0;
+  border-radius: 5px;
+  color: white;
+  font-size: 1rem;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+input:first-child {
+  margin-top: 30px;
 }
 
 input::placeholder {
@@ -177,6 +199,25 @@ input {
 }
 .block:nth-last-child(2) {
   animation-range: entry 00% cover 30%;
+}
+
+.loading-indicator {
+  display: block;
+  width: 20vh;
+  height: 20vh;
+  border: 2.5vh solid rgba(255, 255, 255, 0);
+  border-radius: 50%;
+
+  border-top-color: rgba(0, 0, 0, 0.5);
+  border-bottom-color: rgba(0, 0, 0, 0.5);
+
+  animation: spin 2s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* <--Inbox HTML--> */

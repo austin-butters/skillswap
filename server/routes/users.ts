@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
     ) {
       return res
         .status(400)
-        .json({ error: 'Bad request: invalid request body.' })
+        .json({ error: 'Bad request: invalid request body' })
     }
 
     const userData: UnassignedUser = {
@@ -67,6 +67,17 @@ router.get('/:id', async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: 'Not Found' })
     }
+    return res.status(200).json(user)
+  } catch (err) {
+    return res.status(500).json({ error: 'Internal Server Error' })
+  }
+})
+
+router.get('/auth0/:id', async (req, res) => {
+  console.log('server route: users, GET /auth0/:id')
+  try {
+    const auth0Id: string | undefined = req.params.id
+    const user: User | undefined = await Users.getUserByAuth0Uid(auth0Id)
     return res.status(200).json(user)
   } catch (err) {
     return res.status(500).json({ error: 'Internal Server Error' })

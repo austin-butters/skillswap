@@ -1,9 +1,6 @@
-import Sidebar from './Sidebar'
-
 export default function Profile() {
   return (
     <>
-      <Sidebar />
       <div
         style={{
           marginTop: '20vh',

@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import Sidebar from './Sidebar'
 
 export default function Inbox() {
   const testArr = [1, 2, 3, 4, 5, 6, 7, 8, 9]

@@ -1,10 +1,8 @@
 import { Link } from 'react-router-dom'
-import Sidebar from './Sidebar'
 
 export default function Connect() {
   return (
     <>
-      <Sidebar />
       <div
         style={{
           paddingRight: '10vw',

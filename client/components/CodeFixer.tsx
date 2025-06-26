@@ -1,9 +1,11 @@
-import Sidebar from './Sidebar'
+import { getAiResponse } from '../api/ai.ts'
+import { useState } from 'react'
 
 export default function CodeFixer() {
+  const [input, setInput] = useState('')
+  const [response, setResponse] = useState('')
   return (
     <>
-      <Sidebar />
       <div
         style={{
           display: 'flex',
@@ -35,6 +37,15 @@ export default function CodeFixer() {
               backgroundColor: 'lightgray',
               borderRadius: '10px',
             }}
+            onChange={(e) => {
+              setInput(e.target.value)
+            }}
+            onKeyDown={async (e) => {
+              if (e.key === 'Enter') {
+                const response = await getAiResponse(input)
+                setResponse(response)
+              }
+            }}
           />
           <button
             style={{
@@ -43,6 +54,10 @@ export default function CodeFixer() {
               fontWeight: 'bold',
               padding: '5px 20px',
               borderRadius: '10px',
+            }}
+            onClick={async () => {
+              const response = await getAiResponse(input)
+              setResponse(response)
             }}
           >
             Fix Now!
@@ -58,7 +73,7 @@ export default function CodeFixer() {
             color: 'white',
           }}
         >
-          <p>This is a response I guess?</p>
+          <p>{response}</p>
         </div>
       </div>
     </>
