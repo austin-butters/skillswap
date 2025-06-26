@@ -1,6 +1,10 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { Link } from 'react-router-dom'
 
 export default function Sidebar() {
+  const { isAuthenticated } = useAuth0()
+  const loginPageLinkPath: string = '/login'
+
   const userId = 1
   return (
     <div
@@ -45,7 +49,7 @@ export default function Sidebar() {
         Connect
       </Link>
       <Link
-        to="/codeFixer"
+        to={isAuthenticated ? '/codeFixer' : loginPageLinkPath}
         style={{
           marginLeft: 'auto',
           marginRight: 'auto',
@@ -59,7 +63,7 @@ export default function Sidebar() {
         Code Fixer
       </Link>
       <Link
-        to={`/inbox/${userId}`}
+        to={isAuthenticated ? `/inbox/${userId}` : loginPageLinkPath}
         style={{
           marginLeft: 'auto',
           marginRight: 'auto',
@@ -73,7 +77,7 @@ export default function Sidebar() {
         Inbox
       </Link>
       <Link
-        to={`/profile/${userId}`}
+        to={isAuthenticated ? `/profile/${userId}` : loginPageLinkPath}
         style={{
           marginLeft: 'auto',
           marginRight: 'auto',

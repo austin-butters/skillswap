@@ -1,10 +1,12 @@
-import Home from './Home.tsx'
+import { Outlet } from 'react-router-dom'
+import Sidebar from './Sidebar.tsx'
 
 function App() {
   return (
     <>
       <div className="app">
-        <Home />
+        <Sidebar />
+        <Outlet />
       </div>
     </>
   )
