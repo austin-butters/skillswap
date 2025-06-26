@@ -11,6 +11,7 @@ export function up(knex) {
       .notNullable()
       .references('id')
       .inTable('users')
+      .onDelete('CASCADE')
     table.string('title').notNullable()
     table.text('body').notNullable()
   })
