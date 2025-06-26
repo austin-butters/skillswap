@@ -84,6 +84,16 @@ router.get('/auth0/:id', async (req, res) => {
   }
 })
 
+router.get('/search/:searchTerm', async (req, res) => {
+  const searchTerm = req.params.searchTerm
+  try {
+    const response = await Users.fuzzyUserSearch(String(searchTerm))
+    return res.status(200).json(response)
+  } catch (err) {
+    return res.status(500).json({ error: 'Internal Server Error' })
+  }
+})
+
 // ------------------------------ UPDATE ------------------------------ //
 
 // ------------------------------ DELETE ------------------------------ //
