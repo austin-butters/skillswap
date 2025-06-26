@@ -67,7 +67,7 @@ export default function Home() {
         <div style={{ marginTop: '30px' }}>
           {!questions
             ? null
-            : questions.map((question, i) => {
+            : questions.reverse().map((question, i) => {
                 return (
                   <QuestionDisplayBlock
                     key={i}
