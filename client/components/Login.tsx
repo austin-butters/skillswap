@@ -10,9 +10,7 @@ function Login() {
   }
 
   loginWithRedirect({
-    authorizationParams: {
-      redirectUri: `${window.location.origin}/`,
-    },
+    appState: { returnTo: '/loadingUser' },
   })
 
   return null
