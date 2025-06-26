@@ -38,7 +38,6 @@ export default function LoadingAccount() {
   }, [auth0User, isAuthenticated, isLoading, userAdded, userData, userLoading])
 
   useEffect(() => {
-    console.log(userData)
     if (userAdded && userData) {
       navigate(`/profile/${userData.id}`)
     }
