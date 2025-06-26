@@ -1,4 +1,5 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { getAllQuestions } from 'client/api/questions'
 import request from 'superagent'
 
 export function useAddQuestion() {
@@ -14,4 +15,13 @@ export function useAddQuestion() {
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['questions'] }),
   })
+}
+
+export function useQuestions() {
+  const { data: questions, ...properties } = useQuery({
+    queryKey: ['questions'],
+    queryFn: getAllQuestions,
+  })
+
+  return { questions, ...properties }
 }
