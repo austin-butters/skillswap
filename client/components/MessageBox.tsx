@@ -1,10 +1,7 @@
-import Sidebar from './Sidebar'
-
 export default function MessageBox() {
   const testArr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
   return (
     <>
-      <Sidebar />
       <div style={{ display: 'flex', marginTop: '10vh' }}>
         <div
           style={{

@@ -1,9 +1,6 @@
-import Sidebar from './Sidebar'
-
 export default function CodeFixer() {
   return (
     <>
-      <Sidebar />
       <div
         style={{
           display: 'flex',
