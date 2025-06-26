@@ -1,24 +1,15 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { useAuth0Id } from '../hooks/useUsers'
+import { useAddUser, useAuth0Id } from '../hooks/useUsers'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function LoadingAccount() {
   const { user: auth0User, isAuthenticated, isLoading } = useAuth0()
-
   const [userAdded, setUserAdded] = useState(false)
-
-  //Here you would check the database for the user using the auth0 sub i think?
-  //If there isnt then post info to database using the user object
-  //Finally you can do something like if (userData) {
-  //  navigate(`/user/${userData.id}`)
-  //}
-  //I think you'll have to import navigate from react-router-dom by the way
+  const navigate = useNavigate()
 
   const { data: userData, isLoading: userLoading } = useAuth0Id(auth0User?.sub)
-
-  if (userData) {
-    setUserAdded(true)
-  }
+  const addUser = useAddUser()
 
   useEffect(() => {
     if (
@@ -29,10 +20,23 @@ export default function LoadingAccount() {
       !userLoading &&
       !userAdded
     ) {
-      console.log('Adding user')
+      addUser.mutate({
+        auth0Uid: String(auth0User.sub),
+        email: String(auth0User.email),
+        name: String(auth0User.name),
+        bio: null,
+        profilePicture: auth0User.picture,
+      })
       setUserAdded(true)
     }
   }, [auth0User, isAuthenticated, isLoading, userAdded, userData, userLoading])
+
+  useEffect(() => {
+    if (userData) {
+      setUserAdded(true)
+      navigate(`/profile/${userData.id}`)
+    }
+  }, [userData, navigate])
 
   return (
     <div
@@ -47,13 +51,13 @@ export default function LoadingAccount() {
     >
       <span className="loading-indicator" />
       {!auth0User ? (
-        <h1>Connecting</h1>
+        <h1>Connecting...</h1>
       ) : userLoading ? (
-        <h1>Grabbing user info</h1>
+        <h1>Loading your account...</h1>
       ) : !userAdded ? (
-        <h1>Creating account</h1>
+        <h1>Creating your profile...</h1>
       ) : (
-        <h1>Done!</h1>
+        <h1>Redirecting...</h1>
       )}
     </div>
   )
