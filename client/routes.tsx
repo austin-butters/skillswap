@@ -6,8 +6,10 @@ import CodeFixer from './components/CodeFixer.tsx'
 import Profile from './components/Profile.tsx'
 import Inbox from './components/Inbox.tsx'
 import Call from './components/Call.tsx'
+
 import Login from './components/Login.tsx'
 import Home from './components/Home.tsx'
+import LoadingUser from './components/LoadingUser.tsx'
 export default createRoutesFromElements(
   <>
     <Route path="/" element={<App />}>
@@ -19,6 +21,7 @@ export default createRoutesFromElements(
       <Route path="/profile/:id" element={<Profile />} />
       <Route path="/inbox/:id" element={<Inbox />} />
       <Route path="/call/:id" element={<Call />} />
+      <Route path="/loadingUser" element={<LoadingUser />} />
     </Route>
   </>,
 )

@@ -1,4 +1,4 @@
-import { useAddQuestion } from 'client/hooks/useQuestions'
+import { useAddQuestion } from '../hooks/useQuestions'
 import '../styles/main.css'
 export default function Home() {
   const addQuestion = useAddQuestion()
