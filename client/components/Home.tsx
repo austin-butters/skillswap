@@ -1,9 +1,7 @@
-import Sidebar from './Sidebar'
 import '../styles/main.css'
 export default function Home() {
   return (
     <>
-      <Sidebar />
       <div className="column-flex">
         <div className="question-box">
           <div className="sidebar-header">
