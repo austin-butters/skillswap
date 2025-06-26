@@ -1,9 +1,18 @@
+import { useGetUsersSearch } from 'client/hooks/useUsers'
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
-export default function Connect() {
+export default function SearchResults() {
   const [search, setSearch] = useState('')
   const navigate = useNavigate()
+
+  const { searchTerm } = useParams()
+
+  const { data: usersData, isLoading: usersLoading } = useGetUsersSearch(
+    String(searchTerm),
+  )
+
+  console.log(usersData)
 
   return (
     <>
