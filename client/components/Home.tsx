@@ -4,7 +4,7 @@ import '../styles/main.css'
 export default function Home() {
   const addQuestion = useAddQuestion()
 
-  const { questions, isPending, isError, error } = useQuestions()
+  const { questions, isPending, isError } = useQuestions()
 
   const userId = 1
 
@@ -19,6 +19,9 @@ export default function Home() {
       body: String(formData.get('body')),
     })
   }
+
+  if (isPending) return <p>Loading Questions...</p>
+  if (isError) return <p>Error displaying questions.</p>
 
   return (
     <>
