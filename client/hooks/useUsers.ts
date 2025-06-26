@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { addUser, getUserByAuth0Uid } from '../api/users'
-import { UnassignedUser } from '#models'
+import { addUser, getUserByAuth0Uid, getUserById } from '../api/users'
+import { UnassignedUser, UserId } from '#models'
 
 export function useAuth0Id(auth0Id: string | undefined) {
   const query = useQuery({
@@ -18,4 +18,12 @@ export function useAddUser() {
       queryClient.invalidateQueries({ queryKey: ['userAuth0'] })
     },
   })
+}
+
+export function useUser(userId: UserId) {
+  const { data: user, ...properties } = useQuery({
+    queryKey: ['otherUsers'],
+    queryFn: () => getUserById(userId),
+  })
+  return { user, ...properties }
 }
