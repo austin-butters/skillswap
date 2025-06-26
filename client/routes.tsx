@@ -7,9 +7,11 @@ import Profile from './components/Profile.tsx'
 import Inbox from './components/Inbox.tsx'
 import Call from './components/Call.tsx'
 import Login from './components/Login.tsx'
+import Home from './components/Home.tsx'
 export default createRoutesFromElements(
   <>
     <Route path="/" element={<App />}>
+      <Route index element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/message/:id" element={<MessageBox />} />
       <Route path="/connect" element={<Connect />} />
