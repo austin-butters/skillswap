@@ -11,13 +11,15 @@ export function up(knex) {
       .notNullable()
       .references('id')
       .inTable('users')
+      .onDelete('CASCADE')
     table
       .integer('question_id')
       .unsigned()
       .notNullable()
       .references('id')
       .inTable('questions')
-    table.integer('reply_to').defaultTo(null)
+      .onDelete('CASCADE')
+    table.integer('reply_to').nullable().defaultTo(null)
     table.text('body').notNullable()
   })
 }

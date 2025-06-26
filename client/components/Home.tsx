@@ -1,6 +1,5 @@
-import { useAddQuestion } from '../hooks/useQuestions'
-import Sidebar from './Sidebar'
-
+import { useAddQuestion } from 'client/hooks/useQuestions'
+import '../styles/main.css'
 export default function Home() {
   const addQuestion = useAddQuestion()
 
@@ -20,34 +19,13 @@ export default function Home() {
 
   return (
     <>
-      <Sidebar />
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          paddingTop: '7vh',
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          width: '40vw',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            backgroundColor: 'lightgrey',
-            alignItems: 'center',
-            padding: '20px',
-            borderRadius: '10px',
-            justifyContent: 'space-between',
-            height: '50vh',
-            width: '40vw',
-          }}
-        >
-          <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
-            Post your own question!
-          </h1>
+      <div className="column-flex">
+        <div className="question-box">
+          <div className="sidebar-header">
+            <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
+              Post your own question!
+            </h1>
+          </div>
           <form onSubmit={handleSubmit}>
             <label htmlFor="name">
               Title
@@ -81,61 +59,104 @@ export default function Home() {
           </form>
         </div>
         <div style={{ marginTop: '30px' }}>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              backgroundColor: 'lightgrey',
-              alignItems: 'center',
-              padding: '20px',
-              borderRadius: '10px',
-              width: '40vw',
-              marginBottom: '20px',
-            }}
-          >
-            <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
-              Question title
-            </h1>
-            <p
-              style={{
-                backgroundColor: 'white',
-                padding: '10px 10px',
-                borderRadius: '5px',
-                marginTop: '10px',
-              }}
-            >
-              Question description blah blah blah blah blah blahblah blahblah
-              blah blah blah blah blah blah blah blah blah blah blah
-            </p>
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              backgroundColor: 'lightgrey',
-              alignItems: 'center',
-              padding: '20px',
-              borderRadius: '10px',
-              width: '40vw',
-              marginBottom: '20px',
-            }}
-          >
-            <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
-              Question title
-            </h1>
-            <p
-              style={{
-                backgroundColor: 'white',
-                padding: '10px 10px',
-                borderRadius: '5px',
-                marginTop: '10px',
-              }}
-            >
-              Question description blah blah blah blah blah blahblah blahblah
-              blah blah blah blah blah blah blah blah blah blah blah blah blah
-              blah blah blah blah blah blah blah blah blah blah blah blah blah
-              blah blah blah blah blah blah blah
-            </p>
+          <div className="block">
+            <div className="question-box-other">
+              <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
+                Question title
+              </h1>
+              <div className="question-box-text">
+                <p>
+                  Question description blah blah blah blah blah blahblah
+                  blahblah blah blah blah blah blah blah blah blah blah blah
+                  blah
+                </p>
+              </div>
+            </div>
+            <div className="block">
+              <div className="question-box-other">
+                <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
+                  Question title
+                </h1>
+                <div className="question-box-text">
+                  <p>
+                    Question description blah blah blah blah blah blahblah
+                    blahblah blah blah blah blah blah blah blah blah blah blah
+                    blah blah blah blah blah blah blah blah blah blah blah blah
+                    blah blah blah blah blah blah blah blah blah blah blah
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="block">
+              <div className="question-box-other">
+                <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
+                  Question title
+                </h1>
+                <div className="question-box-text">
+                  <p>
+                    Question description blah blah blah blah blah blahblah
+                    blahblah blah blah blah blah blah blah blah blah blah blah
+                    blah
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="block">
+              <div className="question-box-other">
+                <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
+                  Question title
+                </h1>
+                <div className="question-box-text">
+                  <p>
+                    Question description blah blah blah blah blah blahblah
+                    blahblah blah blah blah blah blah blah blah blah blah blah
+                    blah
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="block">
+              <div className="question-box-other">
+                <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
+                  Question title
+                </h1>
+                <div className="question-box-text">
+                  <p>
+                    Question description blah blah blah blah blah blahblah
+                    blahblah blah blah blah blah blah blah blah blah blah blah
+                    blah
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="block">
+              <div className="question-box-other">
+                <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
+                  Question title
+                </h1>
+                <div className="question-box-text">
+                  <p>
+                    Question description blah blah blah blah blah blahblah
+                    blahblah blah blah blah blah blah blah blah blah blah blah
+                    blah
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="block">
+              <div className="question-box-other">
+                <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
+                  Question title
+                </h1>
+                <div className="question-box-text">
+                  <p>
+                    Question description blah blah blah blah blah blahblah
+                    blahblah blah blah blah blah blah blah blah blah blah blah
+                    blah
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
