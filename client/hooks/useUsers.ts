@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { addUser, getUserByAuth0Uid } from '../api/users'
+import { addUser, getUserByAuth0Uid, getUsersFromSearch } from '../api/users'
 import { UnassignedUser } from '#models'
 
 export function useAuth0Id(auth0Id: string | undefined) {
@@ -18,4 +18,12 @@ export function useAddUser() {
       queryClient.invalidateQueries({ queryKey: ['userAuth0'] })
     },
   })
+}
+
+export function useGetUsersSearch(searchInput: string) {
+  const query = useQuery({
+    queryKey: ['users'],
+    queryFn: () => getUsersFromSearch(searchInput),
+  })
+  return query
 }
