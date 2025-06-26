@@ -22,7 +22,7 @@
       "#server-constants": ["server/utils/constants"],
       "#client-constants": ["client/utils/constants"],
       "#components": ["client/components/index.ts"],
-      "#components/*": ["client/components"]
+      "#components/*": ["client/components/*"]
     }
   }
 }
