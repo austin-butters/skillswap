@@ -113,6 +113,13 @@ export async function getUserByEmail(
   return user
 }
 
+export async function fuzzyUserSearch(searchTerm: string) {
+  return await db('users')
+    .whereRaw('Lower(name) LIKE ?', [`%${searchTerm.toLowerCase()}%`])
+    .select('*')
+    .limit(10)
+}
+
 // ------------------------------ UPDATE ------------------------------ //
 
 // ------------------------------ DELETE ------------------------------ //
