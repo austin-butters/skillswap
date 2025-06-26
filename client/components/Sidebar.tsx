@@ -1,91 +1,39 @@
 import { Link } from 'react-router-dom'
-
+import '../styles/main.css'
 export default function Sidebar() {
   const userId = 1
   return (
-    <div
-      style={{
-        position: 'fixed',
-        top: '0',
-        left: '0',
-        height: '100%',
-        width: '15vw',
-        backgroundColor: 'gray',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-      }}
-    >
-      <Link
-        to="/"
-        style={{
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          color: 'white',
-          fontWeight: 'bold',
-          fontSize: '1.7rem',
-          marginTop: '5px',
-          marginBottom: '5px',
-        }}
-      >
-        Home
-      </Link>
-      <Link
-        to="/connect"
-        style={{
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          color: 'white',
-          fontWeight: 'bold',
-          fontSize: '1.7rem',
-          marginTop: '5px',
-          marginBottom: '5px',
-        }}
-      >
-        Connect
-      </Link>
-      <Link
-        to="/codeFixer"
-        style={{
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          color: 'white',
-          fontWeight: 'bold',
-          fontSize: '1.7rem',
-          marginTop: '5px',
-          marginBottom: '5px',
-        }}
-      >
-        Code Fixer
-      </Link>
-      <Link
-        to={`/inbox/${userId}`}
-        style={{
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          color: 'white',
-          fontWeight: 'bold',
-          fontSize: '1.7rem',
-          marginTop: '5px',
-          marginBottom: '5px',
-        }}
-      >
-        Inbox
-      </Link>
-      <Link
-        to={`/profile/${userId}`}
-        style={{
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          color: 'white',
-          fontWeight: 'bold',
-          fontSize: '1.7rem',
-          marginTop: '5px',
-          marginBottom: '5px',
-        }}
-      >
-        Profile
-      </Link>
+    <div>
+      <div className="sidebar">
+        <ul className="sidebar-menu">
+          <h2 className="sidebar-header">Skill Swap</h2>
+          <li>
+            <div className="sidebar-button">
+              <Link to="/">Home</Link>
+            </div>
+          </li>
+          <li>
+            <div className="sidebar-button">
+              <Link to="/connect">Connect</Link>
+            </div>
+          </li>
+          <li>
+            <div className="sidebar-button">
+              <Link to="/codeFixer">CodeFixer</Link>
+            </div>
+          </li>
+          <li>
+            <div className="sidebar-button">
+              <Link to={`/inbox/${userId}`}>Inbox</Link>
+            </div>
+          </li>
+          <li>
+            <div className="sidebar-button">
+              <Link to={`/profile/${userId}`}>Profile</Link>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   )
 }
