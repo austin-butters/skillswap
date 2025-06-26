@@ -33,6 +33,7 @@ router.post('/', async (req, res) => {
       bio,
       profilePicture,
     }
+
     const newUserId: UserId = await Users.createUser(userData)
     return res.status(200).json(newUserId)
   } catch (err) {
