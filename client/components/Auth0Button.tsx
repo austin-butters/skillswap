@@ -4,7 +4,9 @@ export default function Auth0Button() {
   const { loginWithRedirect, logout, user } = useAuth0()
 
   function handleLogin() {
-    loginWithRedirect()
+    loginWithRedirect({
+      appState: { returnTo: '/loadingUser' },
+    })
   }
 
   function handleLogout() {
