@@ -56,7 +56,7 @@ export async function createUser(userData: UnassignedUser): Promise<UserId> {
   }
 
   const result = await db('users').insert(DBInsert).returning('id')
-  return result[0].id as UserId // May require changes for PostGreSQL.
+  return result[0].id as UserId // May require changes for PostgreSQL.
 }
 
 // ------------------------------ READ ------------------------------ //
