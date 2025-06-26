@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
     ) {
       return res
         .status(400)
-        .json({ error: 'Bad request: invalid request body.' })
+        .json({ error: 'Bad request: invalid request body' })
     }
 
     const userData: UnassignedUser = {

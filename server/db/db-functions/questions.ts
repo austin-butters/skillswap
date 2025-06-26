@@ -11,7 +11,7 @@ import {
   QuestionBody,
   QuestionTitle,
   QuestionId,
-} from '#models/question'
+} from '#models'
 import { UserId } from '#models'
 
 const questionFieldsToCamelCase: (keyof Question | string)[] = [
