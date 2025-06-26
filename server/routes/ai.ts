@@ -1,10 +1,11 @@
 import { Router } from 'express'
 import { GoogleGenAI } from '@google/genai'
+import 'dotenv/config'
 
 const router = Router()
 
 const genAI = new GoogleGenAI({
-  apiKey: 'AIzaSyAmbCdQfU_AVhuD34BxPbZqN5c37EKFawI',
+  apiKey: process.env.GEMINI_API_KEY,
 })
 
 router.get('/', async (req, res) => {
