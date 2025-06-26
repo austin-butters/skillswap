@@ -12,3 +12,8 @@ export async function addUser(user: UnassignedUser) {
   const response = await request.post(`${rootUrl}`).send(user)
   return response.body
 }
+
+export async function getUsersFromSearch(searchInput: string) {
+  const response = await request.get(`${rootUrl}/search/${searchInput}`)
+  return response.body
+}
