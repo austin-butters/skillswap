@@ -49,6 +49,7 @@ export default function Connect() {
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   navigate(`/search/${search}`)
+                  window.location.reload()
                 }
               }}
             />
@@ -62,6 +63,7 @@ export default function Connect() {
               }}
               onClick={() => {
                 navigate(`/search/${search}`)
+                window.location.reload()
               }}
             >
               Search!

@@ -12,7 +12,9 @@ export default function SearchResults() {
     String(searchTerm),
   )
 
-  console.log(usersData)
+  if (usersLoading) {
+    return <p>Loading users...</p>
+  }
 
   return (
     <>
@@ -58,6 +60,7 @@ export default function SearchResults() {
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   navigate(`/search/${search}`)
+                  window.location.reload()
                 }
               }}
             />
@@ -71,6 +74,7 @@ export default function SearchResults() {
               }}
               onClick={() => {
                 navigate(`/search/${search}`)
+                window.location.reload()
               }}
             >
               Search!
@@ -79,126 +83,57 @@ export default function SearchResults() {
         </div>
 
         <div style={{ marginTop: '30px' }}>
-          <div
-            style={{
-              backgroundColor: 'lightgrey',
-              display: 'flex',
-              justifyContent: 'space-between',
-              padding: '10px 30px',
-              borderRadius: '10px',
-              alignItems: 'center',
-              marginBottom: '20px',
-            }}
-          >
-            <h1 style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>User 1</h1>
-            <div>
-              <Link
-                to={`/message/${1}`}
-                style={{
-                  backgroundColor: 'blue',
-                  padding: '5px 15px',
-                  color: 'white',
-                  borderRadius: '5px',
-                  fontWeight: 'bold',
-                }}
-              >
-                Message
-              </Link>
-              <Link
-                to={`/call/${1}`}
-                style={{
-                  backgroundColor: 'green',
-                  padding: '5px 15px',
-                  color: 'white',
-                  borderRadius: '5px',
-                  fontWeight: 'bold',
-                  marginLeft: '10px',
-                }}
-              >
-                Call
-              </Link>
-            </div>
-          </div>
-          <div
-            style={{
-              backgroundColor: 'lightgrey',
-              display: 'flex',
-              justifyContent: 'space-between',
-              padding: '10px 30px',
-              borderRadius: '10px',
-              alignItems: 'center',
-              marginBottom: '20px',
-            }}
-          >
-            <h1 style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>User 2</h1>
-            <div>
-              <Link
-                to={`/message/${2}`}
-                style={{
-                  backgroundColor: 'blue',
-                  padding: '5px 15px',
-                  color: 'white',
-                  borderRadius: '5px',
-                  fontWeight: 'bold',
-                }}
-              >
-                Message
-              </Link>
-              <Link
-                to={`/call/${2}`}
-                style={{
-                  backgroundColor: 'green',
-                  padding: '5px 15px',
-                  color: 'white',
-                  borderRadius: '5px',
-                  fontWeight: 'bold',
-                  marginLeft: '10px',
-                }}
-              >
-                Call
-              </Link>
-            </div>
-          </div>
-          <div
-            style={{
-              backgroundColor: 'lightgrey',
-              display: 'flex',
-              justifyContent: 'space-between',
-              padding: '10px 30px',
-              borderRadius: '10px',
-              alignItems: 'center',
-              marginBottom: '20px',
-            }}
-          >
-            <h1 style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>User 3</h1>
-            <div>
-              <Link
-                to={`/message/${3}`}
-                style={{
-                  backgroundColor: 'blue',
-                  padding: '5px 15px',
-                  color: 'white',
-                  borderRadius: '5px',
-                  fontWeight: 'bold',
-                }}
-              >
-                Message
-              </Link>
-              <Link
-                to={`/call/${3}`}
-                style={{
-                  backgroundColor: 'green',
-                  padding: '5px 15px',
-                  color: 'white',
-                  borderRadius: '5px',
-                  fontWeight: 'bold',
-                  marginLeft: '10px',
-                }}
-              >
-                Call
-              </Link>
-            </div>
-          </div>
+          {usersData.length === 0 ? (
+            <h1>No Results...</h1>
+          ) : (
+            usersData.map((user, i) => {
+              return (
+                <div
+                  style={{
+                    backgroundColor: 'lightgrey',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    padding: '10px 30px',
+                    borderRadius: '10px',
+                    alignItems: 'center',
+                    marginBottom: '20px',
+                  }}
+                  key={`user-${i}`}
+                >
+                  <h1 style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>
+                    {user.name}
+                  </h1>
+                  <div>
+                    <Link
+                      to={`/message/${user.id}`}
+                      style={{
+                        backgroundColor: 'blue',
+                        padding: '5px 15px',
+                        color: 'white',
+                        borderRadius: '5px',
+                        fontWeight: 'bold',
+                      }}
+                    >
+                      Message
+                    </Link>
+                    <Link
+                      to={`/call/${user.id}`}
+                      style={{
+                        backgroundColor: 'green',
+                        padding: '5px 15px',
+                        color: 'white',
+                        borderRadius: '5px',
+                        fontWeight: 'bold',
+                        marginLeft: '10px',
+                      }}
+                    >
+                      Call
+                    </Link>
+                  </div>
+                </div>
+              )
+            })
+          )}
         </div>
       </div>
     </>
