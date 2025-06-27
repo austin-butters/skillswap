@@ -3,6 +3,7 @@ import * as Path from 'node:path'
 import userRoutes from './routes/users'
 import questionRoutes from './routes/questions.ts'
 import aiRoutes from './routes/ai.ts'
+import answerRoutes from './routes/answers.ts'
 
 const server = express()
 
@@ -11,6 +12,7 @@ server.use(express.json())
 server.use('/api/v1/users', userRoutes)
 server.use('/api/v1/questions', questionRoutes)
 server.use('/api/v1/ai', aiRoutes)
+server.use('/api/v1/answers', answerRoutes)
 
 if (process.env.NODE_ENV === 'production') {
   server.use(express.static(Path.resolve('public')))
