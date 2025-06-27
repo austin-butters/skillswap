@@ -1,5 +1,24 @@
+import { useAuth0 } from '@auth0/auth0-react'
+import { useGetDirectMessages } from 'client/hooks/useDirectMessages'
+import { useAuth0Id } from 'client/hooks/useUsers'
+import { useParams } from 'react-router-dom'
+
 export default function MessageBox() {
-  const testArr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  const { user } = useAuth0()
+
+  const { data: userData } = useAuth0Id(user?.sub)
+
+  const { id } = useParams()
+
+  const { data: messageData } = useGetDirectMessages(
+    Number(userData?.id),
+    Number(id),
+  )
+
+  if (!messageData || !userData || userData === undefined) {
+    return <p>Loading...</p>
+  }
+
   return (
     <>
       <div style={{ display: 'flex', marginTop: '10vh' }}>
@@ -24,22 +43,24 @@ export default function MessageBox() {
               scrollbarWidth: 'none',
               scrollBehavior: 'smooth',
               width: '100%',
+              justifyContent: 'end',
             }}
           >
-            {testArr.map(() => {
-              //Doing this so that I can test multiple messages without cluttering this file with a bunch of html
-              return (
-                <>
+            {messageData.map((message, i) => {
+              if (message.sender_id === userData.id) {
+                return (
                   <div
+                    key={i}
                     style={{
                       display: 'flex',
-                      alignItems: 'center',
+                      alignSelf: 'end',
                       marginBottom: '10px',
+                      alignItems: 'center',
                     }}
                   >
                     <img
-                      alt="other user pfp"
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGh5WFH8TOIfRKxUrIgJZoDCs1yvQ4hIcppw&s"
+                      alt="your pfp"
+                      src={user?.picture}
                       style={{
                         width: '50px',
                         aspectRatio: '1 / 1',
@@ -48,46 +69,35 @@ export default function MessageBox() {
                         marginRight: '10px',
                       }}
                     />
-                    <p
-                      style={{
-                        backgroundColor: 'white',
-                        padding: '10px',
-                        borderRadius: '10px',
-                      }}
-                    >
-                      This is a test message from another user
-                    </p>
+                    <p>{message.body}</p>
                   </div>
+                )
+              } else {
+                return (
                   <div
+                    key={i}
                     style={{
                       display: 'flex',
-                      alignSelf: 'end',
+                      alignSelf: 'start',
                       marginBottom: '10px',
+                      alignItems: 'center',
                     }}
                   >
-                    <p
-                      style={{
-                        backgroundColor: 'white',
-                        padding: '10px',
-                        borderRadius: '10px',
-                      }}
-                    >
-                      This is a test message from the current user
-                    </p>
+                    <p>{message.body}</p>
                     <img
                       alt="your pfp"
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGh5WFH8TOIfRKxUrIgJZoDCs1yvQ4hIcppw&s"
+                      src={user?.picture}
                       style={{
                         width: '50px',
                         aspectRatio: '1 / 1',
                         objectFit: 'cover',
                         borderRadius: '5px',
-                        marginLeft: '10px',
+                        marginRight: '10px',
                       }}
                     />
                   </div>
-                </>
-              )
+                )
+              }
             })}
           </div>
           <input
