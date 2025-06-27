@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
       onRedirectCallback={onRedirectCallback}
     >
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
+        <RouterProvider router={router} future={{ v7_startTransition: true }} />
         <ReactQueryDevtools />
       </QueryClientProvider>
     </Auth0Provider>,
