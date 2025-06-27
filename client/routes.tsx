@@ -13,9 +13,6 @@ import {
   QuestionPage,
 } from '#components'
 
-import Login from './components/Login.tsx'
-import Home from './components/Home.tsx'
-import LoadingUser from './components/LoadingUser.tsx'
 
 export default createRoutesFromElements(
   <>
