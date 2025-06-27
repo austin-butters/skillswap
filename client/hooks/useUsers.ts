@@ -20,7 +20,7 @@ export function useAddUser() {
   })
 }
 
-export function useUser(userId: UserId) {
+export function useUserById(userId: UserId) {
   const { data: user, ...properties } = useQuery({
     queryKey: ['otherUsers'],
     queryFn: () => getUserById(userId),
