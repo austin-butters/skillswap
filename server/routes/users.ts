@@ -42,6 +42,16 @@ router.post('/', async (req, res) => {
 })
 
 // ------------------------------ READ ------------------------------ //
+
+router.get('/all', async (req, res) => {
+  try {
+    const response = await Users.getAllUsers()
+    return res.status(200).json(response)
+  } catch (err) {
+    return res.status(500).json({ error: 'This is a test' })
+  }
+})
+
 router.get('/byemail/:email', async (req, res) => {
   console.log('server route: users, GET /byemail/:email') // TEST LOG
   try {

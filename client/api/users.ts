@@ -17,3 +17,8 @@ export async function getUsersFromSearch(searchInput: string) {
   const response = await request.get(`${rootUrl}/search/${searchInput}`)
   return response.body
 }
+
+export async function getAllUsers() {
+  const response = await request.get(`${rootUrl}/all`)
+  return response.body
+}

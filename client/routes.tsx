@@ -23,7 +23,7 @@ export default createRoutesFromElements(
       <Route path="/inbox/:id" element={<Inbox />} />
       <Route path="/call/:id" element={<Call />} />
       <Route path="/loadingUser" element={<LoadingUser />} />
-      <Route path="/search/:searchTerm" element={<SearchResults />} />
+      <Route path="/search" element={<SearchResults />} />
     </Route>
   </>,
 )

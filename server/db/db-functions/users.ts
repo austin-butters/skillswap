@@ -77,6 +77,11 @@ export async function getUser(userId: UserId): Promise<User | undefined> {
   return user
 }
 
+export async function getAllUsers() {
+  const response = await db('users').select('*').limit(25)
+  return response
+}
+
 /**
  * Returns a user with a given Auth0 uid
  * @async
