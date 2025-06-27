@@ -42,6 +42,17 @@ router.post('/', async (req, res) => {
 })
 
 // ------------------------------ READ ------------------------------ //
+
+router.get('/all', async (req, res) => {
+  console.log('server route: users, GET /all') // TEST LOG
+  try {
+    const response = await Users.getAllUsers()
+    return res.status(200).json(response)
+  } catch (err) {
+    return res.status(500).json({ error: 'Internal Server Error' })
+  }
+})
+
 router.get('/byemail/:email', async (req, res) => {
   console.log('server route: users, GET /byemail/:email') // TEST LOG
   try {
@@ -79,6 +90,17 @@ router.get('/auth0/:id', async (req, res) => {
     const auth0Id: string | undefined = req.params.id
     const user: User | undefined = await Users.getUserByAuth0Uid(auth0Id)
     return res.status(200).json(user)
+  } catch (err) {
+    return res.status(500).json({ error: 'Internal Server Error' })
+  }
+})
+
+router.get('/search/:searchTerm', async (req, res) => {
+  console.log('server route: users, GET /search/:searchTerm') // Test log
+  const searchTerm = req.params.searchTerm
+  try {
+    const response = await Users.fuzzyUserSearch(String(searchTerm))
+    return res.status(200).json(response)
   } catch (err) {
     return res.status(500).json({ error: 'Internal Server Error' })
   }
