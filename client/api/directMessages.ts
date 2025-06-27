@@ -8,3 +8,15 @@ export async function getDirectMessages(userId: number, otherId: number) {
   )
   return response.body
 }
+
+export async function sendDirectMessage(
+  userId: number,
+  receiverId: number,
+  time: string,
+  body: string,
+) {
+  const response = await request
+    .post(`${rootURL}/directMessages/${userId}/${receiverId}`)
+    .send({ time, body })
+  return response.body
+}
