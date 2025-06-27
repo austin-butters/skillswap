@@ -12,14 +12,13 @@ function QuestionPage() {
   if (isError) return <p>Error: {error.message}</p>
   if (!question) return <p>No question found.</p>
 
-  // The Typescript types need to be fixed here - starting with the return value from the database functions, but for now this works.
   return (
     <>
       <p>This is the question page.</p>
-      <p>QuestionId: {question[0].id}</p>
-      <p>Question user id: {question[0].userId}</p>
-      <p>Question Title: {question[0].title}</p>
-      <p>Question Body: {question[0].body}</p>
+      <p>QuestionId: {question.id}</p>
+      <p>Question user id: {question.userId}</p>
+      <p>Question Title: {question.title}</p>
+      <p>Question Body: {question.body}</p>
     </>
   )
 }

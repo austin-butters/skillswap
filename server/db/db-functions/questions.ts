@@ -48,9 +48,10 @@ export async function getQuestions(): Promise<Question[]> {
 }
 
 export async function getQuestion(id: QuestionId): Promise<Question> {
-  return await db('questions')
+  return (await db('questions')
     .where('id', id)
     .select(...questionFieldsToCamelCase)
+    .first()) as Question
 }
 
 export async function getQuestionsByUser(userId: UserId): Promise<Question[]> {
