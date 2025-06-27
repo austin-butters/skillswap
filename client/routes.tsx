@@ -1,19 +1,24 @@
 import { createRoutesFromElements, Route } from 'react-router-dom'
-import App from './components/App.tsx'
-import MessageBox from './components/MessageBox.tsx'
-import Connect from './components/Connect.tsx'
-import CodeFixer from './components/CodeFixer.tsx'
-import Profile from './components/Profile.tsx'
-import Inbox from './components/Inbox.tsx'
-import Call from './components/Call.tsx'
+import {
+  App,
+  MessageBox,
+  Connect,
+  CodeFixer,
+  Profile,
+  Inbox,
+  Call,
+  Login,
+  Home,
+  LoadingUser,
+  QuestionPage,
+} from '#components'
 
-import Login from './components/Login.tsx'
-import Home from './components/Home.tsx'
-import LoadingUser from './components/LoadingUser.tsx'
 export default createRoutesFromElements(
   <>
     <Route path="/" element={<App />}>
       <Route index element={<Home />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/questions/:id" element={<QuestionPage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/message/:id" element={<MessageBox />} />
       <Route path="/connect" element={<Connect />} />
