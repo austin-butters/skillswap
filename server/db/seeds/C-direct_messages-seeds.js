@@ -7,14 +7,14 @@ export async function seed(knex) {
   await knex('direct_messages').del()
   await knex('direct_messages').insert([
     {
-      sender_id: 1, // CodeWizard42
+      sender_id: 9, // CodeWizard42
       receiver_id: 2, // Pythonista
       time: '2024-03-15T09:30:00Z',
       body: 'Hey! Loved your answer on my React question. Do you have a GitHub repo for that performance optimization demo you mentioned?',
     },
     {
       sender_id: 2, // Pythonista
-      receiver_id: 1, // CodeWizard42
+      receiver_id: 9, // CodeWizard42
       time: '2024-03-15T10:15:00Z',
       body: "Thanks! Here's the repo: [link]. Btw, are you going to the React Conf next month? I'm giving a talk on Python/JS interop.",
     },
