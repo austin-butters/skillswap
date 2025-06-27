@@ -1,4 +1,4 @@
-import { UnassignedUser } from '#models'
+import { UnassignedUser, User, UserId } from '#models'
 import request from 'superagent'
 
 const rootUrl = new URL(`/api/v1/users`, document.baseURI)
@@ -10,5 +10,10 @@ export async function getUserByAuth0Uid(auth0Id: string | undefined) {
 
 export async function addUser(user: UnassignedUser) {
   const response = await request.post(`${rootUrl}`).send(user)
+  return response.body
+}
+
+export async function getUserById(userId: UserId): Promise<User | undefined> {
+  const response = await request.get(`${rootUrl}/${userId}`)
   return response.body
 }
