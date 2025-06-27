@@ -3,6 +3,7 @@ import { useUserById } from '../hooks/useUsers'
 import { useAddQuestion, useQuestions } from '../hooks/useQuestions'
 import '../styles/main.css'
 import { DEFAULT_PROFILE_PICTURE } from '#server-constants'
+import { Link } from 'react-router-dom'
 export default function Home() {
   const addQuestion = useAddQuestion()
 
@@ -98,9 +99,11 @@ function QuestionDisplayBlock(question: Question) {
         src={user?.profilePicture ?? DEFAULT_PROFILE_PICTURE}
         alt={user?.name}
       />
-      <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
-        {title ?? 'Missing or deleted question title'}
-      </h1>
+      <Link to={`/questions/${question.id}`}>
+        <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
+          {title ?? 'Missing or deleted question title'}
+        </h1>
+      </Link>
       <div className="question-box-text">
         <p>{body ?? 'No question body provided.'}</p>
       </div>

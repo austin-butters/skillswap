@@ -1,5 +1,7 @@
+import { QuestionId } from '#models'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { getAllQuestions } from 'client/api/questions'
+import { getQuestionById } from '../api/questions'
 import request from 'superagent'
 
 export function useAddQuestion() {
@@ -24,4 +26,12 @@ export function useQuestions() {
   })
 
   return { questions, ...properties }
+}
+
+export function useQuestionById(id: QuestionId) {
+  const { data: question, ...properties } = useQuery({
+    queryKey: ['question'],
+    queryFn: () => getQuestionById(id),
+  })
+  return { question, ...properties }
 }
