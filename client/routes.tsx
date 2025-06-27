@@ -10,7 +10,7 @@ import Call from './components/Call.tsx'
 import Login from './components/Login.tsx'
 import Home from './components/Home.tsx'
 import LoadingUser from './components/LoadingUser.tsx'
-import SearchResults from '#components/SearchResults.tsx'
+
 export default createRoutesFromElements(
   <>
     <Route path="/" element={<App />}>
@@ -23,7 +23,6 @@ export default createRoutesFromElements(
       <Route path="/inbox/:id" element={<Inbox />} />
       <Route path="/call/:id" element={<Call />} />
       <Route path="/loadingUser" element={<LoadingUser />} />
-      <Route path="/search" element={<SearchResults />} />
     </Route>
   </>,
 )
