@@ -12,7 +12,6 @@ function QuestionPage() {
   if (isError) return <p>Error: {error.message}</p>
   if (!question) return <p>No question found.</p>
 
-  // The Typescript types need to be fixed here - starting with the return value from the database functions, but for now this works.
   return (
     <>
       <p>This is the question page.</p>
