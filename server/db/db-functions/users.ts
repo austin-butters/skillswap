@@ -77,7 +77,12 @@ export async function getUser(userId: UserId): Promise<User | undefined> {
   return user
 }
 
-export async function getAllUsers() {
+/**
+ * Returns 25 users.
+ * @async
+ * @returns {Promise<User[] | undefined>} The user, if found.
+ */
+export async function getAllUsers(): Promise<User[] | undefined> {
   const response = await db('users').select('*').limit(25)
   return response
 }
@@ -118,11 +123,19 @@ export async function getUserByEmail(
   return user
 }
 
-export async function fuzzyUserSearch(searchTerm: string) {
+/**
+ * Returns a users that are close to a search input.
+ * @async
+ * @param {String} searchTerm The user's email.
+ * @returns {Promise<User | User[] | undefined>} The user, if found.
+ */
+export async function fuzzyUserSearch(
+  searchTerm: string,
+): Promise<User | User[] | undefined> {
   return await db('users')
     .whereRaw('Lower(name) LIKE ?', [`%${searchTerm.toLowerCase()}%`])
     .select('*')
-    .limit(10)
+    .limit(25)
 }
 
 // ------------------------------ UPDATE ------------------------------ //

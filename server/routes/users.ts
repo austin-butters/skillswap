@@ -44,11 +44,12 @@ router.post('/', async (req, res) => {
 // ------------------------------ READ ------------------------------ //
 
 router.get('/all', async (req, res) => {
+  console.log('server route: users, GET /all') // TEST LOG
   try {
     const response = await Users.getAllUsers()
     return res.status(200).json(response)
   } catch (err) {
-    return res.status(500).json({ error: 'This is a test' })
+    return res.status(500).json({ error: 'Internal Server Error' })
   }
 })
 
@@ -95,6 +96,7 @@ router.get('/auth0/:id', async (req, res) => {
 })
 
 router.get('/search/:searchTerm', async (req, res) => {
+  console.log('server route: users, GET /search/:searchTerm') // Test log
   const searchTerm = req.params.searchTerm
   try {
     const response = await Users.fuzzyUserSearch(String(searchTerm))
