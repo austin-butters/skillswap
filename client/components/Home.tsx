@@ -1,11 +1,16 @@
-import { useAddQuestion } from '../hooks/useQuestions'
+import { Question } from '#models'
+import { useUserById } from '../hooks/useUsers'
+import { useAddQuestion, useQuestions } from '../hooks/useQuestions'
 import '../styles/main.css'
+import { DEFAULT_PROFILE_PICTURE } from '#server-constants'
 export default function Home() {
   const addQuestion = useAddQuestion()
 
+  const { questions, isPending, isError } = useQuestions()
+
   const userId = 1
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
     const form = e.target
     const formData = await new FormData(form)
@@ -16,6 +21,9 @@ export default function Home() {
       body: String(formData.get('body')),
     })
   }
+
+  if (isPending) return <p>Loading Questions...</p>
+  if (isError) return <p>Error displaying questions.</p>
 
   return (
     <>
@@ -59,107 +67,43 @@ export default function Home() {
           </form>
         </div>
         <div style={{ marginTop: '30px' }}>
-          <div className="block">
-            <div className="question-box-other">
-              <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
-                Question title
-              </h1>
-              <div className="question-box-text">
-                <p>
-                  Question description blah blah blah blah blah blahblah
-                  blahblah blah blah blah blah blah blah blah blah blah blah
-                  blah
-                </p>
-              </div>
-            </div>
-            <div className="block">
-              <div className="question-box-other">
-                <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
-                  Question title
-                </h1>
-                <div className="question-box-text">
-                  <p>
-                    Question description blah blah blah blah blah blahblah
-                    blahblah blah blah blah blah blah blah blah blah blah blah
-                    blah blah blah blah blah blah blah blah blah blah blah blah
-                    blah blah blah blah blah blah blah blah blah blah blah
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="block">
-              <div className="question-box-other">
-                <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
-                  Question title
-                </h1>
-                <div className="question-box-text">
-                  <p>
-                    Question description blah blah blah blah blah blahblah
-                    blahblah blah blah blah blah blah blah blah blah blah blah
-                    blah
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="block">
-              <div className="question-box-other">
-                <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
-                  Question title
-                </h1>
-                <div className="question-box-text">
-                  <p>
-                    Question description blah blah blah blah blah blahblah
-                    blahblah blah blah blah blah blah blah blah blah blah blah
-                    blah
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="block">
-              <div className="question-box-other">
-                <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
-                  Question title
-                </h1>
-                <div className="question-box-text">
-                  <p>
-                    Question description blah blah blah blah blah blahblah
-                    blahblah blah blah blah blah blah blah blah blah blah blah
-                    blah
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="block">
-              <div className="question-box-other">
-                <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
-                  Question title
-                </h1>
-                <div className="question-box-text">
-                  <p>
-                    Question description blah blah blah blah blah blahblah
-                    blahblah blah blah blah blah blah blah blah blah blah blah
-                    blah
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="block">
-              <div className="question-box-other">
-                <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
-                  Question title
-                </h1>
-                <div className="question-box-text">
-                  <p>
-                    Question description blah blah blah blah blah blahblah
-                    blahblah blah blah blah blah blah blah blah blah blah blah
-                    blah
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+          {!questions
+            ? null
+            : questions.reverse().map((question, i) => {
+                return (
+                  <QuestionDisplayBlock
+                    key={i}
+                    id={question.id}
+                    userId={question.userId}
+                    title={question.title}
+                    body={question.body}
+                  />
+                )
+              })}
         </div>
       </div>
     </>
+  )
+}
+
+function QuestionDisplayBlock(question: Question) {
+  const { title, body, userId } = question
+  const { user } = useUserById(userId)
+
+  console.log(user)
+
+  return (
+    <div className="question-box-other">
+      <img
+        src={user?.profilePicture ?? DEFAULT_PROFILE_PICTURE}
+        alt={user?.name}
+      />
+      <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
+        {title ?? 'Missing or deleted question title'}
+      </h1>
+      <div className="question-box-text">
+        <p>{body ?? 'No question body provided.'}</p>
+      </div>
+    </div>
   )
 }
