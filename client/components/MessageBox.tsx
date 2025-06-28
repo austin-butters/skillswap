@@ -1,9 +1,15 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { useGetDirectMessages } from 'client/hooks/useDirectMessages'
+import {
+  useGetDirectMessages,
+  useSendDirectMessage,
+} from 'client/hooks/useDirectMessages'
 import { useAuth0Id } from 'client/hooks/useUsers'
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 export default function MessageBox() {
+  const [message, setMessage] = useState('')
+
   const { user } = useAuth0()
 
   const { data: userData } = useAuth0Id(user?.sub)
@@ -14,6 +20,17 @@ export default function MessageBox() {
     Number(userData?.id),
     Number(id),
   )
+
+  const sendDirectMessage = useSendDirectMessage()
+
+  function handleSendMessage() {
+    sendDirectMessage.mutate({
+      userId: Number(userData.id),
+      receiverId: Number(id),
+      time: 'idk lol',
+      body: String(message),
+    })
+  }
 
   if (!messageData || !userData || userData === undefined) {
     return <p>Loading...</p>
@@ -58,6 +75,7 @@ export default function MessageBox() {
                       alignItems: 'center',
                     }}
                   >
+                    <p>{message.body}</p>
                     <img
                       alt="your pfp"
                       src={user?.picture}
@@ -69,7 +87,6 @@ export default function MessageBox() {
                         marginRight: '10px',
                       }}
                     />
-                    <p>{message.body}</p>
                   </div>
                 )
               } else {
@@ -83,7 +100,6 @@ export default function MessageBox() {
                       alignItems: 'center',
                     }}
                   >
-                    <p>{message.body}</p>
                     <img
                       alt="your pfp"
                       src={user?.picture}
@@ -95,6 +111,7 @@ export default function MessageBox() {
                         marginRight: '10px',
                       }}
                     />
+                    <p>{message.body}</p>
                   </div>
                 )
               }
@@ -104,6 +121,14 @@ export default function MessageBox() {
             type="text"
             placeholder="Enter message here"
             style={{ width: '90%', padding: '10px 20px', borderRadius: '10px' }}
+            onChange={(e) => {
+              setMessage(e.target.value)
+            }}
+            onKeyDown={async (e) => {
+              if (e.key === 'Enter') {
+                handleSendMessage()
+              }
+            }}
           />
         </div>
         <div
