@@ -1,11 +1,16 @@
 import { User } from '#models'
-import { useGetUsersSearch } from 'client/hooks/useUsers'
+import { useAuth0 } from '@auth0/auth0-react'
+import { useAuth0Id, useGetUsersSearch } from 'client/hooks/useUsers'
 import { useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 
 export default function SearchResults() {
   const [search, setSearch] = useState('')
   const navigate = useNavigate()
+
+  const { user } = useAuth0()
+
+  const { data: userData } = useAuth0Id(user?.sub)
 
   const [searchParams] = useSearchParams()
 
@@ -15,7 +20,7 @@ export default function SearchResults() {
     String(searchTerm),
   )
 
-  if (usersLoading) {
+  if (usersLoading || !userData) {
     return <p>Loading users...</p>
   }
 
@@ -90,6 +95,9 @@ export default function SearchResults() {
             <h1>No Results...</h1>
           ) : (
             usersData.map((user: User, i: number) => {
+              if (user.id === userData.id) {
+                return null
+              }
               return (
                 <div
                   style={{
