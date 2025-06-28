@@ -145,8 +145,14 @@ export default function MessageBox() {
             borderRadius: '10px',
           }}
         >
-          <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>Name</h1>
-          <p>This is the bio I guess?</p>
+          <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
+            {otherUserData.name}
+          </h1>
+          {!otherUserData.bio ? (
+            <p>This user doesnt have a bio...</p>
+          ) : (
+            <p>{otherUserData.bio}</p>
+          )}
         </div>
       </div>
     </>
