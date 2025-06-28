@@ -3,7 +3,7 @@ import {
   useGetDirectMessages,
   useSendDirectMessage,
 } from 'client/hooks/useDirectMessages'
-import { useAuth0Id } from 'client/hooks/useUsers'
+import { useAuth0Id, useUserById } from 'client/hooks/useUsers'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
@@ -15,6 +15,8 @@ export default function MessageBox() {
   const { data: userData } = useAuth0Id(user?.sub)
 
   const { id } = useParams()
+
+  const { user: otherUserData } = useUserById(Number(id))
 
   const { data: messageData } = useGetDirectMessages(
     Number(userData?.id),
@@ -32,7 +34,7 @@ export default function MessageBox() {
     })
   }
 
-  if (!messageData || !userData || userData === undefined) {
+  if (!messageData || !userData || userData === undefined || !otherUserData) {
     return <p>Loading...</p>
   }
 
@@ -84,7 +86,7 @@ export default function MessageBox() {
                         aspectRatio: '1 / 1',
                         objectFit: 'cover',
                         borderRadius: '5px',
-                        marginRight: '10px',
+                        marginLeft: '10px',
                       }}
                     />
                   </div>
@@ -102,7 +104,7 @@ export default function MessageBox() {
                   >
                     <img
                       alt="your pfp"
-                      src={user?.picture}
+                      src={otherUserData.profilePicture}
                       style={{
                         width: '50px',
                         aspectRatio: '1 / 1',
