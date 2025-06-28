@@ -10,8 +10,9 @@ import { UnassignedUser, UserId } from '#models'
 
 export function useAuth0Id(auth0Id: string | undefined) {
   const query = useQuery({
-    queryKey: ['userAuth0'],
+    queryKey: ['userAuth0', auth0Id],
     queryFn: () => getUserByAuth0Uid(auth0Id),
+    enabled: !!auth0Id,
   })
   return query
 }
@@ -20,8 +21,10 @@ export function useAddUser() {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (user: UnassignedUser) => addUser(user),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['userAuth0'] })
+    onSuccess: (data, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: ['userAuth0', variables.auth0Uid],
+      })
     },
   })
 }
