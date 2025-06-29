@@ -32,7 +32,7 @@ export function useAddUser() {
 export function useGetUsersSearch(searchInput: string) {
   const query = useQuery({
     queryKey: ['users'],
-    queryFn: async () => {
+    queryFn: () => {
       if (searchInput === 'null') {
         return getAllUsers()
       } else {
