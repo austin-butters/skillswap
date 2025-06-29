@@ -3,6 +3,7 @@ import {
   useGetDirectMessages,
   useSendDirectMessage,
 } from 'client/hooks/useDirectMessages'
+import { useAddFriend } from 'client/hooks/useFriends'
 import { useAuth0Id, useUserById } from 'client/hooks/useUsers'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -24,6 +25,7 @@ export default function MessageBox() {
   )
 
   const sendDirectMessage = useSendDirectMessage()
+  const addFriend = useAddFriend()
 
   function handleSendMessage() {
     sendDirectMessage.mutate({
@@ -32,6 +34,15 @@ export default function MessageBox() {
       time: 'idk lol',
       body: String(message),
     })
+  }
+
+  function handleFriendRequest() {
+    if (userData && otherUserData) {
+      addFriend.mutate({
+        userId: Number(userData.id),
+        requestId: Number(otherUserData.id),
+      })
+    }
   }
 
   if (!messageData || !userData || userData === undefined || !otherUserData) {
@@ -153,6 +164,7 @@ export default function MessageBox() {
           ) : (
             <p>{otherUserData.bio}</p>
           )}
+          <button onClick={() => handleFriendRequest()}>Add Friend</button>
         </div>
       </div>
     </>
