@@ -3,6 +3,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { useAuth0Id, useGetUsersSearch } from 'client/hooks/useUsers'
 import { useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import FriendButton from './FriendButton'
 
 export default function SearchResults() {
   const [search, setSearch] = useState('')
@@ -115,6 +116,7 @@ export default function SearchResults() {
                     {user.name}
                   </h1>
                   <div>
+                    <FriendButton userId={userData.id} requestId={user.id} />
                     <Link
                       to={`/message/${user.id}`}
                       style={{
