@@ -32,7 +32,7 @@ export function useAddUser() {
 export function useGetUsersSearch(searchInput: string) {
   const query = useQuery({
     queryKey: ['users'],
-    queryFn: () => {
+    queryFn: async () => {
       if (searchInput === 'null') {
         return getAllUsers()
       } else {
@@ -42,6 +42,7 @@ export function useGetUsersSearch(searchInput: string) {
   })
   return query
 }
+
 export function useUserById(userId: UserId) {
   const { data: user, ...properties } = useQuery({
     queryKey: ['otherUsers'],

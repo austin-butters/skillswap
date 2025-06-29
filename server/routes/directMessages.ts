@@ -1,4 +1,7 @@
 import { Router } from 'express'
+import type { JwtRequest } from '../auth0'
+import checkJwt from '../auth0'
+
 import {
   getDirectMessages,
   sendDirectMessage,
@@ -6,7 +9,7 @@ import {
 
 const router = Router()
 
-router.get('/:id/:otherId', async (req, res) => {
+router.get('/:id/:otherId', checkJwt, async (req: JwtRequest, res) => {
   const id = req.params.id
   const otherId = req.params.otherId
   try {
@@ -18,7 +21,7 @@ router.get('/:id/:otherId', async (req, res) => {
   }
 })
 
-router.post('/:userId/:receiverId', async (req, res) => {
+router.post('/:userId/:receiverId', checkJwt, async (req: JwtRequest, res) => {
   const userId = Number(req.params.userId)
   const receiverId = Number(req.params.receiverId)
   const { time, body } = req.body

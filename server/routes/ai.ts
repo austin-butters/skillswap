@@ -2,13 +2,16 @@ import { Router } from 'express'
 import { GoogleGenAI } from '@google/genai'
 import 'dotenv/config'
 
+import checkJwt from '../auth0'
+import type { JwtRequest } from '../auth0'
+
 const router = Router()
 
 const genAI = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 })
 
-router.get('/', async (req, res) => {
+router.get('/', checkJwt, async (req: JwtRequest, res) => {
   const userInput = req.query.prompt
   try {
     const response = await genAI.models.generateContent({
