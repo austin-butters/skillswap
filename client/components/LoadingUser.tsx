@@ -29,8 +29,12 @@ export default function LoadingAccount() {
           profilePicture: auth0User.picture,
         },
         {
-          onSuccess: () => {
+          onSuccess: (data) => {
+            console.log('User created successfully:', data)
             setUserAdded(true)
+          },
+          onError: (error) => {
+            console.error('Failed to create user:', error)
           },
         },
       )
@@ -38,7 +42,7 @@ export default function LoadingAccount() {
   }, [auth0User, isAuthenticated, isLoading, userAdded, userData, userLoading])
 
   useEffect(() => {
-    if (userAdded && userData) {
+    if (userAdded || userData) {
       navigate(`/profile/${userData.id}`)
     }
   }, [userAdded, userData])
