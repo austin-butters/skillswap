@@ -3,8 +3,10 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { getAllQuestions } from 'client/api/questions'
 import { getQuestionById } from '../api/questions'
 import request from 'superagent'
+import { useAuth0 } from '@auth0/auth0-react'
 
 export function useAddQuestion() {
+  const { getAccessTokenSilently } = useAuth0()
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: async (question: {
@@ -12,7 +14,11 @@ export function useAddQuestion() {
       title: string
       body: string
     }) => {
-      const response = await request.post(`/api/v1/questions`).send(question)
+      const token = await getAccessTokenSilently()
+      const response = await request
+        .post(`/api/v1/questions`)
+        .send(question)
+        .set('Authorization', `Bearer ${token}`)
       return response.body
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['questions'] }),
