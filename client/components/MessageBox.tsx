@@ -3,14 +3,10 @@ import {
   useGetDirectMessages,
   useSendDirectMessage,
 } from 'client/hooks/useDirectMessages'
-import {
-  useAddFriend,
-  useGetStatus,
-  useUnaddFriend,
-} from 'client/hooks/useFriends'
 import { useAuth0Id, useUserById } from 'client/hooks/useUsers'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
+import FriendButton from './FriendButton'
 
 export default function MessageBox() {
   const [message, setMessage] = useState('')
@@ -28,14 +24,7 @@ export default function MessageBox() {
     Number(id),
   )
 
-  const { data: friendStatus } = useGetStatus(
-    Number(userData?.id),
-    Number(otherUserData?.id),
-  )
-
   const sendDirectMessage = useSendDirectMessage()
-  const addFriend = useAddFriend()
-  const unaddFriend = useUnaddFriend()
 
   function handleSendMessage() {
     sendDirectMessage.mutate({
@@ -46,33 +35,7 @@ export default function MessageBox() {
     })
   }
 
-  function handleFriendRequest() {
-    if (userData && otherUserData) {
-      addFriend.mutate({
-        userId: Number(userData.id),
-        requestId: Number(otherUserData.id),
-      })
-    }
-  }
-
-  function handleUnfriendRequest() {
-    if (userData && otherUserData) {
-      unaddFriend.mutate({
-        userId: Number(userData.id),
-        requestId: Number(otherUserData.id),
-      })
-    }
-  }
-
-  console.log(friendStatus)
-
-  if (
-    !messageData ||
-    !userData ||
-    userData === undefined ||
-    !otherUserData ||
-    !friendStatus
-  ) {
+  if (!messageData || !userData || userData === undefined || !otherUserData) {
     return <p>Loading...</p>
   }
 
@@ -191,15 +154,7 @@ export default function MessageBox() {
           ) : (
             <p>{otherUserData.bio}</p>
           )}
-          {friendStatus === 'friends' ? (
-            <button onClick={() => handleUnfriendRequest()}>Unfriend</button>
-          ) : friendStatus === 'sent' ? (
-            <button onClick={() => handleUnfriendRequest()}>Cancel</button>
-          ) : friendStatus === 'received' ? (
-            <button onClick={() => handleFriendRequest()}>Accept</button>
-          ) : (
-            <button onClick={() => handleFriendRequest()}>Add</button>
-          )}
+          <FriendButton userId={userData.id} requestId={otherUserData.id} />
         </div>
       </div>
     </>
