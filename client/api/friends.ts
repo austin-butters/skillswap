@@ -7,6 +7,11 @@ export async function addFriend(userId: number, requestId: number) {
   return response.body
 }
 
+export async function unaddFriend(userId: number, requestId: number) {
+  const response = await request.delete(`${rootUrl}/${userId}/${requestId}`)
+  return response.body
+}
+
 export async function getStatus(userId: number, requestId: number) {
   const response = await request.get(`${rootUrl}/status/${userId}/${requestId}`)
   return response.body
