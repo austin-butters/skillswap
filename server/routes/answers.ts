@@ -19,6 +19,7 @@ router.post('/', checkJwt, async (req: JwtRequest, res) => {
   console.log('server route: answers, POST /') // TEST LOG
   try {
     const answer = req.body
+    console.log('answer to post is : ', answer) // TEST LOG
 
     const answerIdValid = (
       answer: UnassignedAnswer,
