@@ -1,9 +1,13 @@
+import { JWT } from '#models'
+import { useAuth0 } from '@auth0/auth0-react'
 import { getAiResponse } from 'client/api/ai'
 import { useState } from 'react'
 
 export default function CodeFixer() {
+  const { getAccessTokenSilently } = useAuth0()
   const [input, setInput] = useState('')
   const [response, setResponse] = useState('')
+
   return (
     <>
       <div
@@ -42,7 +46,8 @@ export default function CodeFixer() {
             }}
             onKeyDown={async (e) => {
               if (e.key === 'Enter') {
-                const response = await getAiResponse(input)
+                const token: JWT = await getAccessTokenSilently()
+                const response = await getAiResponse(input, token)
                 setResponse(response)
               }
             }}
@@ -56,7 +61,8 @@ export default function CodeFixer() {
               borderRadius: '10px',
             }}
             onClick={async () => {
-              const response = await getAiResponse(input)
+              const token: JWT = await getAccessTokenSilently()
+              const response = await getAiResponse(input, token)
               setResponse(response)
             }}
           >
