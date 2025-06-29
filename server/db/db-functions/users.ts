@@ -147,7 +147,7 @@ export async function updateUser(updatedUser: {
 }) {
   console.log(updatedUser)
   return db('users').where('id', updatedUser.id).update({
-    name: updateUser.name,
+    name: updatedUser.name,
     bio: updatedUser.bio,
     profile_picture: updatedUser.profilePicture,
   })

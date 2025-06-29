@@ -107,9 +107,9 @@ router.get('/search/:searchTerm', async (req, res) => {
 })
 
 // ------------------------------ UPDATE ------------------------------ //
-router.patch(':/:id', async (req, res) => {
+router.patch('/:id', async (req, res) => {
   console.log('server route: users, Patch /:id')
-  const id = req.params.id
+  const id = Number(req.params.id)
   try {
     const { name, bio, profilePicture } = req.body
     const updatedUser = {
