@@ -1,5 +1,5 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { addFriend } from 'client/api/friends'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { addFriend, getStatus } from 'client/api/friends'
 
 export function useAddFriend() {
   const queryClient = useQueryClient()
@@ -12,4 +12,12 @@ export function useAddFriend() {
         queryKey: ['friends', userId, requestId],
       }),
   })
+}
+
+export function useGetStatus(userId: number, requestId: number) {
+  const query = useQuery({
+    queryKey: ['friends', userId, requestId],
+    queryFn: () => getStatus(userId, requestId),
+  })
+  return query
 }
