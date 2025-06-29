@@ -6,6 +6,7 @@ import {
 import { useAuth0Id, useUserById } from 'client/hooks/useUsers'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
+import FriendButton from './FriendButton'
 
 export default function MessageBox() {
   const [message, setMessage] = useState('')
@@ -153,6 +154,7 @@ export default function MessageBox() {
           ) : (
             <p>{otherUserData.bio}</p>
           )}
+          <FriendButton userId={userData.id} requestId={otherUserData.id} />
         </div>
       </div>
     </>
