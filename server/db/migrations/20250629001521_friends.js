@@ -12,7 +12,7 @@ export function up(knex) {
       .inTable('users')
       .onDelete('CASCADE')
     table
-      .integer('user_friended_id')
+      .integer('added_friend_id')
       .notNullable()
       .references('id')
       .inTable('users')
