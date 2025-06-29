@@ -97,21 +97,26 @@ function QuestionDisplayBlock(question: Question) {
   const { title, body, userId } = question
   const { user } = useUserById(userId)
 
-  // console.log(user)
-
   return (
     <div className="question-box-other">
-      <img
-        src={user?.profilePicture ?? DEFAULT_PROFILE_PICTURE}
-        alt={user?.name}
-      />
-      <Link to={`/questions/${question.id}`}>
-        <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
-          {title ?? 'Missing or deleted question title'}
-        </h1>
-      </Link>
-      <div className="question-box-text">
-        <p>{body ?? 'No question body provided.'}</p>
+      <div className="column-side">
+        <div className="profile-title-container">
+          <div className="profilepicture-box">
+            <img
+              src={user?.profilePicture ?? DEFAULT_PROFILE_PICTURE}
+              alt={user?.name}
+            />
+          </div>
+          <Link to={`/questions/${question.id}`}>
+            <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
+              {title ?? 'Missing or deleted question title'}
+            </h1>
+          </Link>
+        </div>
+
+        <div className="question-box-text">
+          <p>{body ?? 'No question body provided.'}</p>
+        </div>
       </div>
     </div>
   )
