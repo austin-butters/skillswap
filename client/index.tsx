@@ -19,7 +19,7 @@ function onRedirectCallback(appState: AppState | undefined) {
 document.addEventListener('DOMContentLoaded', () => {
   createRoot(document.getElementById('app') as HTMLElement).render(
     <Auth0Provider
-      domain="lane-piwakawaka-25.au.auth0.com"
+      domain="https://lane-piwakawaka-25.au.auth0.com"
       clientId="lQLGSDiPQpPueDqz6rw8qT50nrQ7H7uf"
       authorizationParams={{
         redirect_uri: window.location.origin,
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
       onRedirectCallback={onRedirectCallback}
     >
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
+        <RouterProvider router={router} future={{ v7_startTransition: true }} />
         <ReactQueryDevtools />
       </QueryClientProvider>
     </Auth0Provider>,

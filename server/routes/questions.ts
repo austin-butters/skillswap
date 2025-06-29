@@ -10,11 +10,15 @@ import { Questions } from '../db/db-functions'
 
 import { Question, QuestionId, UnassignedQuestion } from '#models'
 
+import type { JwtRequest } from 'server/auth0'
+import checkJwt from 'server/auth0'
+
 const router = Router()
 
 // ------------------------------ CREATE ------------------------------ //
-router.post('/', async (req, res) => {
+router.post('/', checkJwt, async (req: JwtRequest, res) => {
   console.log('server route: questions, POST /') // TEST LOG
+
   try {
     const { userId, body, title } = req.body
 
@@ -74,7 +78,7 @@ router.get('/:id', async (req, res) => {
 // ------------------------------ UPDATE ------------------------------ //
 
 // ------------------------------ DELETE ------------------------------ //
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', checkJwt, async (req: JwtRequest, res) => {
   console.log('server route: questions, DELETE /:id') // TEST LOG
   try {
     const questionId: QuestionId | number = Number(req.params.id)

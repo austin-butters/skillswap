@@ -3,16 +3,30 @@
 //====================================================================================================
 
 // ------------------------------ SETUP ------------------------------ //
-import { UnassignedUser, User, UserEmail, UserId } from '#models'
+import { Auth0Uid, UnassignedUser, User, UserEmail, UserId } from '#models'
 import express from 'express'
 import { Users } from '../db/db-functions'
+
+import checkJwt from 'server/auth0'
+import type { JwtRequest } from '../auth0'
+
 const router = express.Router()
 
 // ------------------------------ CREATE ------------------------------ //
-router.post('/', async (req, res) => {
+router.post('/', checkJwt, async (req: JwtRequest, res) => {
   console.log('server route: users, POST /') // TEST LOG
   try {
+    const auth0UidFromReq: Auth0Uid | undefined = req.auth?.sub
+
+    if (!auth0UidFromReq) {
+      return res.status(401).json({ error: 'Unauthorized' })
+    }
+
     const { auth0Uid, email, name, bio, profilePicture } = req.body
+
+    if (auth0UidFromReq !== auth0Uid) {
+      return res.status(401).json({ error: 'Unauthorized' })
+    }
 
     if (
       typeof auth0Uid !== 'string' ||
@@ -42,6 +56,18 @@ router.post('/', async (req, res) => {
 })
 
 // ------------------------------ READ ------------------------------ //
+
+router.get('/all', async (req, res) => {
+  console.log('server route: users, GET /all') // TEST LOG
+
+  try {
+    const response = await Users.getAllUsers()
+    return res.status(200).json(response)
+  } catch (err) {
+    return res.status(500).json({ error: 'Internal Server Error' })
+  }
+})
+
 router.get('/byemail/:email', async (req, res) => {
   console.log('server route: users, GET /byemail/:email') // TEST LOG
   try {
@@ -84,10 +110,21 @@ router.get('/auth0/:id', async (req, res) => {
   }
 })
 
+router.get('/search/:searchTerm', async (req, res) => {
+  console.log('server route: users, GET /search/:searchTerm') // Test log
+  const searchTerm = req.params.searchTerm
+  try {
+    const response = await Users.fuzzyUserSearch(String(searchTerm))
+    return res.status(200).json(response)
+  } catch (err) {
+    return res.status(500).json({ error: 'Internal Server Error' })
+  }
+})
+
 // ------------------------------ UPDATE ------------------------------ //
 
 // ------------------------------ DELETE ------------------------------ //
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', checkJwt, async (req, res) => {
   console.log('server route: users, DELETE /:id') // TEST LOG
   try {
     const userId: UserId | number = Number(req.params.id)

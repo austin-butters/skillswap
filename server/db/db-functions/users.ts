@@ -78,6 +78,16 @@ export async function getUser(userId: UserId): Promise<User | undefined> {
 }
 
 /**
+ * Returns 25 users.
+ * @async
+ * @returns {Promise<User[] | undefined>} The user, if found.
+ */
+export async function getAllUsers(): Promise<User[] | undefined> {
+  const response = await db('users').select('*').limit(25)
+  return response
+}
+
+/**
  * Returns a user with a given Auth0 uid
  * @async
  * @param {Auth0Uid} auth0Uid The user's Auth0 UID ('sub')
@@ -111,6 +121,21 @@ export async function getUserByEmail(
     .select(...userFieldsToCamelCase)
     .first()
   return user
+}
+
+/**
+ * Returns a users that are close to a search input.
+ * @async
+ * @param {String} searchTerm The user's email.
+ * @returns {Promise<User | User[] | undefined>} The user, if found.
+ */
+export async function fuzzyUserSearch(
+  searchTerm: string,
+): Promise<User | User[] | undefined> {
+  return await db('users')
+    .whereRaw('Lower(name) LIKE ?', [`%${searchTerm.toLowerCase()}%`])
+    .select('*')
+    .limit(25)
 }
 
 // ------------------------------ UPDATE ------------------------------ //

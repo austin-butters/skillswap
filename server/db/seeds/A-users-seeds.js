@@ -54,5 +54,11 @@ export async function seed(knex) {
       name: 'CSSArtist',
       bio: 'Frontend developer with a passion for design. CSS, animations, and making the web beautiful.',
     },
+    {
+      auth0_uid: 'google-oauth2|114153722587398130804',
+      email: 'lpearcemetcalfe@gmail.com',
+      name: 'Lane Pearce Metcalfe',
+      bio: 'Test idk',
+    },
   ])
 }
