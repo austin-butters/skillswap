@@ -42,6 +42,7 @@ export function useGetUsersSearch(searchInput: string) {
   })
   return query
 }
+
 export function useUserById(userId: UserId) {
   const { data: user, ...properties } = useQuery({
     queryKey: ['otherUsers'],

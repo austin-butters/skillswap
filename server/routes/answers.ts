@@ -9,14 +9,17 @@ import { Router } from 'express'
 import { Answers } from '../db/db-functions'
 
 import { Answer, AnswerId, QuestionId, UnassignedAnswer, UserId } from '#models'
+import checkJwt from '../auth0'
+import type { JwtRequest } from '../auth0'
 
 const router = Router()
 
 // ------------------------------ CREATE ------------------------------ //
-router.post('/', async (req, res) => {
+router.post('/', checkJwt, async (req: JwtRequest, res) => {
   console.log('server route: answers, POST /') // TEST LOG
   try {
     const answer = req.body
+    console.log('answer to post is : ', answer) // TEST LOG
 
     const answerIdValid = (
       answer: UnassignedAnswer,
@@ -93,7 +96,7 @@ router.get('/:id', async (req, res) => {
 // ------------------------------ UPDATE ------------------------------ //
 
 // ------------------------------ DELETE ------------------------------ //
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', checkJwt, async (req: JwtRequest, res) => {
   console.log('server route, answers: DELETE /:id') // TEST LOg
   try {
     const answerId: AnswerId = Number(req.params.id)
