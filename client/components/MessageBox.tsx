@@ -3,7 +3,11 @@ import {
   useGetDirectMessages,
   useSendDirectMessage,
 } from 'client/hooks/useDirectMessages'
-import { useAddFriend, useGetStatus } from 'client/hooks/useFriends'
+import {
+  useAddFriend,
+  useGetStatus,
+  useUnaddFriend,
+} from 'client/hooks/useFriends'
 import { useAuth0Id, useUserById } from 'client/hooks/useUsers'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -31,6 +35,7 @@ export default function MessageBox() {
 
   const sendDirectMessage = useSendDirectMessage()
   const addFriend = useAddFriend()
+  const unaddFriend = useUnaddFriend()
 
   function handleSendMessage() {
     sendDirectMessage.mutate({
@@ -44,6 +49,15 @@ export default function MessageBox() {
   function handleFriendRequest() {
     if (userData && otherUserData) {
       addFriend.mutate({
+        userId: Number(userData.id),
+        requestId: Number(otherUserData.id),
+      })
+    }
+  }
+
+  function handleUnfriendRequest() {
+    if (userData && otherUserData) {
+      unaddFriend.mutate({
         userId: Number(userData.id),
         requestId: Number(otherUserData.id),
       })
@@ -178,9 +192,9 @@ export default function MessageBox() {
             <p>{otherUserData.bio}</p>
           )}
           {friendStatus === 'friends' ? (
-            <button>Unfriend</button>
+            <button onClick={() => handleUnfriendRequest()}>Unfriend</button>
           ) : friendStatus === 'sent' ? (
-            <button>Cancel</button>
+            <button onClick={() => handleUnfriendRequest()}>Cancel</button>
           ) : friendStatus === 'received' ? (
             <button onClick={() => handleFriendRequest()}>Accept</button>
           ) : (
