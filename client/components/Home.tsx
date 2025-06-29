@@ -91,7 +91,7 @@ function QuestionDisplayBlock(question: Question) {
   const { title, body, userId } = question
   const { user } = useUserById(userId)
 
-  console.log(user)
+  // console.log(user)
 
   return (
     <div className="question-box-other">
