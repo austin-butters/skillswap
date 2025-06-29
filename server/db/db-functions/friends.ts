@@ -7,6 +7,12 @@ export async function addFriend(userId: number, addedFriendId: number) {
   })
 }
 
+export async function unaddFriend(userId: number, addedFriendId: number) {
+  await db('friends')
+    .where({ user_id: userId, added_friend_id: addedFriendId })
+    .del()
+}
+
 type FriendshipStatus = 'none' | 'sent' | 'received' | 'friends'
 
 export async function checkStatus(
