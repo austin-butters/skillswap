@@ -3,7 +3,7 @@
  * @returns { Promise<void> }
  */
 export function up(knex) {
-  return knex.schema.createTable('users', (table) => {
+  return knex.schema.createTable('friends', (table) => {
     table.increments('id').primary()
     table
       .integer('user_id')
@@ -25,5 +25,5 @@ export function up(knex) {
  * @returns { Promise<void> }
  */
 export function down(knex) {
-  return knex.schema.dropTable('users')
+  return knex.schema.dropTable('friends')
 }
