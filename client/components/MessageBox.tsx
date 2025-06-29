@@ -3,7 +3,7 @@ import {
   useGetDirectMessages,
   useSendDirectMessage,
 } from 'client/hooks/useDirectMessages'
-import { useAddFriend } from 'client/hooks/useFriends'
+import { useAddFriend, useGetStatus } from 'client/hooks/useFriends'
 import { useAuth0Id, useUserById } from 'client/hooks/useUsers'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -22,6 +22,11 @@ export default function MessageBox() {
   const { data: messageData } = useGetDirectMessages(
     Number(userData?.id),
     Number(id),
+  )
+
+  const { data: friendStatus } = useGetStatus(
+    Number(userData?.id),
+    Number(otherUserData?.id),
   )
 
   const sendDirectMessage = useSendDirectMessage()
@@ -45,7 +50,15 @@ export default function MessageBox() {
     }
   }
 
-  if (!messageData || !userData || userData === undefined || !otherUserData) {
+  console.log(friendStatus)
+
+  if (
+    !messageData ||
+    !userData ||
+    userData === undefined ||
+    !otherUserData ||
+    !friendStatus
+  ) {
     return <p>Loading...</p>
   }
 
@@ -164,7 +177,15 @@ export default function MessageBox() {
           ) : (
             <p>{otherUserData.bio}</p>
           )}
-          <button onClick={() => handleFriendRequest()}>Add Friend</button>
+          {friendStatus === 'friends' ? (
+            <button>Unfriend</button>
+          ) : friendStatus === 'sent' ? (
+            <button>Cancel</button>
+          ) : friendStatus === 'received' ? (
+            <button onClick={() => handleFriendRequest()}>Accept</button>
+          ) : (
+            <button onClick={() => handleFriendRequest()}>Add</button>
+          )}
         </div>
       </div>
     </>
