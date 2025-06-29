@@ -51,9 +51,6 @@ export default function Profile() {
               Name: <input type="text" />
             </h2>
             <h2>
-              Age: <input type="number" />
-            </h2>
-            <h2>
               Bio: <input type="text" />
             </h2>
             <button

@@ -107,7 +107,23 @@ router.get('/search/:searchTerm', async (req, res) => {
 })
 
 // ------------------------------ UPDATE ------------------------------ //
-
+router.patch(':/:id', async (req, res) => {
+  console.log('server route: users, Patch /:id')
+  const id = req.params.id
+  try {
+    const { name, bio, profilePicture } = req.body
+    const updatedUser = {
+      id: id,
+      name: name,
+      bio: bio,
+      profilePicture: profilePicture,
+    }
+    Users.updateUser(updatedUser)
+    res.sendStatus(204)
+  } catch (err) {
+    return res.status(500).json({ error: 'Internal Server Error' })
+  }
+})
 // ------------------------------ DELETE ------------------------------ //
 router.delete('/:id', async (req, res) => {
   console.log('server route: users, DELETE /:id') // TEST LOG
