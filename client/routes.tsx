@@ -13,12 +13,12 @@ import {
   QuestionPage,
 } from '#components'
 
-
 export default createRoutesFromElements(
   <>
     <Route path="/" element={<App />}>
       <Route index element={<Home />} />
       <Route path="/home" element={<Home />} />
+      <Route path="/questions/" element={<Home />} />
       <Route path="/questions/:id" element={<QuestionPage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/message/:id" element={<MessageBox />} />

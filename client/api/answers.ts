@@ -1,4 +1,11 @@
-import { Answer, AnswerId, QuestionId, UserId } from '#models'
+import {
+  Answer,
+  AnswerId,
+  JWT,
+  QuestionId,
+  UnassignedAnswer,
+  UserId,
+} from '#models'
 import request from 'superagent'
 
 const rootUrl = new URL(`/api/v1/answers`, document.baseURI)
@@ -29,5 +36,21 @@ export async function getAnswersByUser(userId: UserId): Promise<Answer[]> {
     return response.body
   } catch (err) {
     throw new Error('Unknown error fetching answers')
+  }
+}
+
+// Add return type for this.
+export async function addAnswer(
+  newAnswer: UnassignedAnswer,
+  token: JWT,
+): Promise<AnswerId> {
+  try {
+    const response = await request
+      .post(`${rootUrl}/`)
+      .set('Authorization', `Bearer ${token}`)
+      .send(newAnswer)
+    return response.body
+  } catch (err) {
+    throw new Error('Unknown error posting answer')
   }
 }
