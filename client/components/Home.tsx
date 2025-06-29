@@ -26,61 +26,64 @@ export default function Home() {
   return (
     <>
       <div className="column-flex">
-        <div className="question-box">
+        <div className="question-box block">
           <div className="sidebar-header">
-            <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
+            <h1
+              style={{
+                fontWeight: 'bold',
+                fontSize: '2.5rem',
+                marginBottom: '10px',
+              }}
+            >
               Post your own question!
             </h1>
           </div>
-          <form onSubmit={handleSubmit} className="question-box">
-            <label htmlFor="name" style={{ width: '100%' }}>
+          <form
+            onSubmit={handleSubmit}
+            className="question-box"
+            style={{
+              padding: 0,
+              boxShadow: 'none',
+              backgroundColor: 'transparent',
+            }}
+          >
+            <label htmlFor="title" style={{ width: '100%' }}>
               <input
                 type="text"
                 placeholder="Question Title"
                 name="title"
                 className="input-fields"
+                required
               />
             </label>
 
-            <label htmlFor="body" style={{ width: '100%', marginTop: '20px' }}>
-              <input
-                type="text"
+            <label htmlFor="body" style={{ width: '100%' }}>
+              <textarea
                 placeholder="Question Description"
                 name="body"
                 className="input-fields"
-              />
+                rows="4"
+                required
+              ></textarea>
             </label>
 
-            <button
-              type="submit"
-              style={{
-                backgroundColor: 'white',
-                fontWeight: 'bold',
-                fontSize: '1.3rem',
-                padding: '10px 30px',
-                borderRadius: '10px',
-                marginTop: '20px',
-                cursor: 'pointer',
-              }}
-            >
-              Post!
-            </button>
+            <button type="submit">Post Question</button>
           </form>
         </div>
-        <div style={{ marginTop: '30px' }}>
+
+        <div style={{ marginTop: '30px', width: '100%' }}>
           {!questions
             ? null
-            : questions.reverse().map((question, i) => {
-                return (
+            : [...questions].reverse().map((question, i) => (
+                <div className="question-box-other block" key={i}>
                   <QuestionDisplayBlock
-                    key={i}
                     id={question.id}
                     userId={question.userId}
                     title={question.title}
                     body={question.body}
                   />
-                )
-              })}
+                </div>
+              ))}
         </div>
       </div>
     </>
