@@ -6,3 +6,8 @@ export async function addFriend(userId: number, requestId: number) {
   const response = await request.post(`${rootUrl}/${userId}/${requestId}`)
   return response.body
 }
+
+export async function getStatus(userId: number, requestId: number) {
+  const response = await request.get(`${rootUrl}/status/${userId}/${requestId}`)
+  return response.body
+}
