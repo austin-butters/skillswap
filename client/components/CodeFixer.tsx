@@ -10,76 +10,42 @@ export default function CodeFixer() {
 
   return (
     <>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          height: '100vh',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          paddingRight: '10vw',
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: 'gray',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            width: '30vw',
-            height: '60vh',
-            padding: '2vw',
-            borderRadius: '10px',
-          }}
-        >
-          <input
-            type="text"
-            style={{
-              width: '100%',
-              height: '75%',
-              backgroundColor: 'lightgray',
-              borderRadius: '10px',
-            }}
-            onChange={(e) => {
-              setInput(e.target.value)
-            }}
-            onKeyDown={async (e) => {
-              if (e.key === 'Enter') {
+      <div className="ai-container">
+        {/* Input Card */}
+        <div className="input-section">
+          <div className="input-wrapper" style={{ width: '100%', flex: 1 }}>
+            <textarea
+              className="input-box"
+              placeholder="Enter your code or text here..."
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={async (e) => {
+                if (e.key === 'Enter') {
+                  const token: JWT = await getAccessTokenSilently()
+                  const result = await getAiResponse(input, token)
+                  setResponse(result)
+                }
+              }}
+            />
+          </div>
+          <div>
+            <button
+              className="fix-button"
+              onClick={async () => {
                 const token: JWT = await getAccessTokenSilently()
-                const response = await getAiResponse(input, token)
-                setResponse(response)
-              }
-            }}
-          />
-          <button
-            style={{
-              backgroundColor: 'white',
-              fontSize: '1.5rem',
-              fontWeight: 'bold',
-              padding: '5px 20px',
-              borderRadius: '10px',
-            }}
-            onClick={async () => {
-              const token: JWT = await getAccessTokenSilently()
-              const response = await getAiResponse(input, token)
-              setResponse(response)
-            }}
-          >
-            Fix Now!
-          </button>
+                const result = await getAiResponse(input, token)
+                setResponse(result)
+              }}
+            >
+              Fix Now!
+            </button>
+          </div>
         </div>
-        <div
-          style={{
-            backgroundColor: 'gray',
-            width: '30vw',
-            height: '60vh',
-            padding: '2vw',
-            borderRadius: '10px',
-            color: 'white',
-          }}
-        >
-          <p>{response}</p>
+
+        {/* Response Card */}
+        <div className="response-section">
+          <div className="response-box">
+            <p>{response}</p>
+          </div>
         </div>
       </div>
     </>
