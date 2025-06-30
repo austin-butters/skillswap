@@ -8,3 +8,8 @@ export async function saveMeeting(userId: number, meetingId: number) {
   )
   return response.body
 }
+
+export async function getSavedMeetings(userId: number) {
+  const response = await request.get(`${rootURL}/savedMeetings/${userId}`)
+  return response.body
+}
