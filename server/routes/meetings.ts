@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import {
   addMeeting,
+  getMeetingById,
   getPublicMeetings,
   getUsersMeetings,
 } from '../db/db-functions/meetings'
@@ -32,6 +33,17 @@ router.get('/:id', async (req, res) => {
 router.get('/public/all', async (req, res) => {
   try {
     const response = await getPublicMeetings()
+    return res.status(200).json(response)
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ message: 'Something went wrong' })
+  }
+})
+
+router.get('/meeting/:id', async (req, res) => {
+  const meetingId = Number(req.params.id)
+  try {
+    const response = await getMeetingById(meetingId)
     return res.status(200).json(response)
   } catch (err) {
     console.log(err)
