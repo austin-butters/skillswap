@@ -480,6 +480,17 @@ button:hover {
   align-items: center;
 }
 
+.user-bio {
+  background-color: #a2aadb;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 5px;
+  border-radius: 12px;
+  color: black;
+}
+
 .user-greeting {
   background-color: #a2aadb;
   width: 100%;
