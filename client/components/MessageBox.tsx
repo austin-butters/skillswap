@@ -34,7 +34,7 @@ export default function MessageBox() {
     sendDirectMessage.mutate({
       userId: Number(userData.id),
       receiverId: Number(id),
-      time: 'idk lol',
+      time: new Date().toISOString(),
       body: String(message),
     })
   }
@@ -43,7 +43,7 @@ export default function MessageBox() {
     sendDirectMessage.mutate({
       userId: Number(userData.id),
       receiverId: Number(id),
-      time: 'idk lol',
+      time: new Date().toISOString(),
       body: `Come join my meeting! ${mettingUrl}`,
     })
   }

@@ -22,6 +22,7 @@ router.get('/:id/:otherId', checkJwt, async (req: JwtRequest, res) => {
 })
 
 router.post('/:userId/:receiverId', checkJwt, async (req: JwtRequest, res) => {
+  console.log('server route: POST /:userId/:reveiverId') // TEST LOG
   const userId = Number(req.params.userId)
   const receiverId = Number(req.params.receiverId)
   const { time, body } = req.body
