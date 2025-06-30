@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { createMeeting, getUserMeetings } from 'client/api/meetings'
-import { meetingData } from 'server/db/db-functions/meetings'
+import { createMeeting, getUserMeetings } from '../api/meetings'
+import { meetingData } from '../../server/db/db-functions/meetings'
 
 export function useCreateMeeting() {
   const queryClient = useQueryClient()

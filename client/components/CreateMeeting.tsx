@@ -1,6 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { useCreateMeeting } from 'client/hooks/useMeetings'
-import { useAuth0Id } from 'client/hooks/useUsers'
+import { useCreateMeeting } from '../hooks/useMeetings'
+import { useAuth0Id } from '../hooks/useUsers'
 import { useNavigate } from 'react-router-dom'
 
 export default function CreateMeeting() {

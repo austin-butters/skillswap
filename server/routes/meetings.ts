@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { addMeeting, getUsersMeetings } from 'server/db/db-functions/meetings'
+import { addMeeting, getUsersMeetings } from '../db/db-functions/meetings'
 
 const router = Router()
 

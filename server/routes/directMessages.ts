@@ -5,7 +5,7 @@ import checkJwt from '../auth0'
 import {
   getDirectMessages,
   sendDirectMessage,
-} from 'server/db/db-functions/directMessages'
+} from '../db/db-functions/directMessages'
 
 const router = Router()
 

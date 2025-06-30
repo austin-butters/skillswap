@@ -2,13 +2,13 @@ import { useAuth0 } from '@auth0/auth0-react'
 import {
   useGetDirectMessages,
   useSendDirectMessage,
-} from 'client/hooks/useDirectMessages'
-import { useAuth0Id, useUserById } from 'client/hooks/useUsers'
+} from '../hooks/useDirectMessages'
+import { useAuth0Id, useUserById } from '../hooks/useUsers'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import FriendButton from './FriendButton'
-import { useGetUsersMeetings } from 'client/hooks/useMeetings'
-import { meetingData } from 'server/db/db-functions/meetings'
+import { useGetUsersMeetings } from '../hooks/useMeetings'
+import { meetingData } from '../../server/db/db-functions/meetings'
 
 export default function MessageBox() {
   const [message, setMessage] = useState('')
