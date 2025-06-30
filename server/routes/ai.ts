@@ -9,10 +9,26 @@ import { addAiFix } from '../db/db-functions/codeFixer'
 
 const router = Router()
 
+// ------------------------------ CREATE ------------------------------ //
+
+router.post('/', checkJwt, async (req: JwtRequest, res) => {
+  try {
+    const { userId, title, input, output }: AddCodeFixData = req.body
+
+    if (!userId || !title || !input || !output) {
+      return res.status(400).json({ error: `Bad request: Missing inputs` })
+    }
+
+    await addAiFix({ userId, title, input, output })
+  } catch (err) {
+    return res.status(500).json({ error: 'Internal Server Error' })
+  }
+})
+
 const genAI = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 })
-
+// This is techincally creating I guess?
 router.get('/', checkJwt, async (req: JwtRequest, res) => {
   const userInput = req.query.prompt
   try {
@@ -26,20 +42,6 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
     res
       .status(500)
       .json({ message: 'Something went wrong getting ai api response' })
-  }
-})
-
-router.post('/', checkJwt, async (req: JwtRequest, res) => {
-  try {
-    const { userId, title, input, output }: AddCodeFixData = req.body
-
-    if (!userId || !title || !input || !output) {
-      return res.status(400).json({ error: `Bad request: Missing inputs` })
-    }
-
-    await addAiFix({ userId, title, input, output })
-  } catch (err) {
-    return res.status(500).json({ error: 'Internal Server Error' })
   }
 })
 
