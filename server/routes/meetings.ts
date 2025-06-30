@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
   }
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/user/:id', async (req, res) => {
   const userId = Number(req.params.id)
   try {
     const response = await getUsersMeetings(userId)
