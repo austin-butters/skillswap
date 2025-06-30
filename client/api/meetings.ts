@@ -9,7 +9,7 @@ export async function createMeeting(meetingData: meetingData) {
 }
 
 export async function getUserMeetings(userId: number) {
-  const response = await request.get(`${rootURL}/meetings/${userId}`)
+  const response = await request.get(`${rootURL}/meetings/user/${userId}`)
   return response.body
 }
 
