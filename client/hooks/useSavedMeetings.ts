@@ -1,5 +1,5 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { saveMeeting } from '../api/savedMeetings'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { getSavedMeetings, saveMeeting } from '../api/savedMeetings'
 
 export function useSaveMeeting() {
   const queryClient = useQueryClient()
@@ -12,4 +12,12 @@ export function useSaveMeeting() {
       })
     },
   })
+}
+
+export function useGetSavedMeetings(userId: number) {
+  const query = useQuery({
+    queryKey: ['savedMeetings', userId],
+    queryFn: () => getSavedMeetings(userId),
+  })
+  return query
 }
