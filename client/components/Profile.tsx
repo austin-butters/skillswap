@@ -5,11 +5,11 @@ import { useParams } from 'react-router-dom'
 export default function Profile() {
   const { user } = useAuth0()
   const { data: userData, isLoading, isError } = useAuth0Id(user?.sub)
-  const id = useParams().id
+  const id = Number(useParams().id)
   if (isLoading) {
     return <p>Loading...</p>
   }
-
+  let isUser = false
   if (!userData) {
     return (
       <>
@@ -20,13 +20,20 @@ export default function Profile() {
       </>
     )
   } else {
+    if (id === userData.id) {
+      isUser = true
+    }
     return (
       <>
         <div className="user-dashboard">
           {/* User Info Section */}
           <div className="user-section">
             <div className="user-greeting">
-              <h1>{`Hi ${userData.name}!`}</h1>
+              <h1>
+                {isUser
+                  ? `Hi ${userData.name}!`
+                  : `${userData.name}'s profile.`}
+              </h1>
               <p className="user-bio">{userData.bio}</p>
             </div>
 
