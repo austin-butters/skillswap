@@ -20,6 +20,7 @@ export default function LoadingAccount() {
       !userLoading &&
       !userAdded
     ) {
+      console.log('Hello')
       addUser.mutate(
         {
           auth0Uid: String(auth0User.sub),
