@@ -1,6 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { useCreateMeeting } from 'client/hooks/useMeetings'
 import { useAuth0Id } from 'client/hooks/useUsers'
+import { useNavigate } from 'react-router-dom'
 
 export default function CreateMeeting() {
   const addMeeting = useCreateMeeting()
@@ -8,6 +9,8 @@ export default function CreateMeeting() {
   const { user } = useAuth0()
 
   const { data: userData } = useAuth0Id(user?.sub)
+
+  const navigate = useNavigate()
 
   const handleCreateMeeting = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -24,6 +27,7 @@ export default function CreateMeeting() {
       url: `https://meet.jit.si/skillShare-${title}`,
       hostId: Number(userData.id),
     })
+    navigate('/yourMeetings')
   }
 
   return (
