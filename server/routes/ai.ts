@@ -20,6 +20,8 @@ router.post('/', checkJwt, async (req: JwtRequest, res) => {
     }
 
     await addAiFix({ userId, title, input, output })
+
+    return res.status(200)
   } catch (err) {
     return res.status(500).json({ error: 'Internal Server Error' })
   }
