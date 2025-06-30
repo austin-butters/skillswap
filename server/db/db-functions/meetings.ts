@@ -23,3 +23,7 @@ export async function getUsersMeetings(userId: number) {
 export async function getPublicMeetings() {
   return await db('meetings').where({ public: true }).select()
 }
+
+export async function getMeetingById(id: number) {
+  return await db('meetings').where({ id: id }).select()
+}
