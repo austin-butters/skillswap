@@ -1,9 +1,11 @@
 import { Router } from 'express'
 import { getSavedMeetings, saveMeeting } from '../db/db-functions/savedMettings'
+import checkJwt, { JwtRequest } from '../auth0'
 
 const router = Router()
 
-router.post('/:userId/:meetingId', async (req, res) => {
+// ------------------------------ CREATE ------------------------------ //
+router.post('/:userId/:meetingId', checkJwt, async (req: JwtRequest, res) => {
   const userId = Number(req.params.userId)
   const meetingId = Number(req.params.meetingId)
   try {
@@ -15,7 +17,8 @@ router.post('/:userId/:meetingId', async (req, res) => {
   }
 })
 
-router.get('/:userId', async (req, res) => {
+// ------------------------------ READ ------------------------------ //
+router.get('/:userId', checkJwt, async (req: JwtRequest, res) => {
   const userId = Number(req.params.userId)
   try {
     const response = await getSavedMeetings(userId)
