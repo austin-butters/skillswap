@@ -5,7 +5,7 @@ import 'dotenv/config'
 import checkJwt from '../auth0'
 import type { JwtRequest } from '../auth0'
 import { AddCodeFixData } from '#models'
-import { addAiFix } from '../db/db-functions/codeFixer'
+import { addAiFix, aiFixesFromUserId } from '../db/db-functions/codeFixer'
 
 const router = Router()
 
@@ -42,6 +42,18 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
     res
       .status(500)
       .json({ message: 'Something went wrong getting ai api response' })
+  }
+})
+
+// ------------------------------ READ ------------------------------ //
+
+router.get('/user/:id', async (req: JwtRequest, res) => {
+  const userId = Number(req.params.id)
+  try {
+    const response = await aiFixesFromUserId(userId)
+    return res.status(200).json(response)
+  } catch (err) {
+    return res.status(500).json({ error: 'Internal Server Error' })
   }
 })
 
