@@ -7,7 +7,7 @@ router.post('/', async (req, res) => {
   const meetingData = req.query.data
   try {
     const response = await addMeeting(meetingData)
-    return res.json(200).json(meetingData)
+    return res.json(200).json(response)
   }
 })
 
