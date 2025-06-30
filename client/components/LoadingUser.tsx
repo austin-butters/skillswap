@@ -20,7 +20,6 @@ export default function LoadingAccount() {
       !userLoading &&
       !userAdded
     ) {
-      console.log('USEEFFECT') // TEST LOG
       addUser.mutateAsync(
         {
           auth0Uid: String(auth0User.sub),
