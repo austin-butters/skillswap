@@ -1,8 +1,9 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { useGetUsersMeetings } from '../hooks/useMeetings'
+import { useGetPublicMeetings, useGetUsersMeetings } from '../hooks/useMeetings'
 import { useAuth0Id } from '../hooks/useUsers'
 import { Link } from 'react-router-dom'
 import { meetingData } from '../../server/db/db-functions/meetings'
+import { useSaveMeeting } from '../hooks/useSavedMeetings'
 
 export default function YourMeetings() {
   const { user } = useAuth0()
@@ -10,28 +11,57 @@ export default function YourMeetings() {
   const { data: userData } = useAuth0Id(user?.sub)
 
   const { data: meetingsData } = useGetUsersMeetings(userData?.id)
+  const { data: publicMeetings } = useGetPublicMeetings()
 
-  if (!meetingsData || !userData) {
+  const saveMeeting = useSaveMeeting()
+
+  function handleSave(meetingId: number) {
+    saveMeeting.mutate({
+      userId: Number(userData?.id),
+      meetingid: meetingId,
+    })
+  }
+
+  if (!meetingsData || !userData || !publicMeetings) {
     return <p>Loading meetings...</p>
   }
 
   return (
     <>
-      <h1>{userData.name}s meetings</h1>
-      <ul>
-        {meetingsData.map((meeting: meetingData, i: number) => {
-          return (
-            <li key={`Meeting ${i}`}>
-              <a href={meeting.url} target="_blank" rel="noreferrer">
-                {meeting.title}
-              </a>
-            </li>
-          )
-        })}
-      </ul>
-      <Link to="/meeting/create">
-        <button>Create a meeting!</button>
-      </Link>
+      <div>
+        <h1>{userData.name}s meetings</h1>
+        <ul>
+          {meetingsData.map((meeting: meetingData, i: number) => {
+            return (
+              <li key={`Meeting ${i}`}>
+                <a href={meeting.url} target="_blank" rel="noreferrer">
+                  {meeting.title}
+                </a>
+              </li>
+            )
+          })}
+        </ul>
+        <Link to="/meeting/create">
+          <button>Create a meeting!</button>
+        </Link>
+      </div>
+      <div>
+        <h1>Reccomended meetings</h1>
+        <ul>
+          {publicMeetings.map((meeting, i) => {
+            return (
+              <li key={`Public meeting ${i}`}>
+                <a href={meeting.url} target="_blank" rel="noreferrer">
+                  {meeting.title}
+                </a>
+                <button onClick={() => handleSave(meeting.id)}>
+                  Save Meeting
+                </button>
+              </li>
+            )
+          })}
+        </ul>
+      </div>
     </>
   )
 }
