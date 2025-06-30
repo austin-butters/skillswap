@@ -10,8 +10,8 @@ import { Questions } from '../db/db-functions'
 
 import { Question, QuestionId, UnassignedQuestion } from '#models'
 
-import type { JwtRequest } from 'server/auth0'
-import checkJwt from 'server/auth0'
+import type { JwtRequest } from '../auth0'
+import checkJwt from '../auth0'
 
 const router = Router()
 
