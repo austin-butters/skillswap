@@ -13,6 +13,7 @@ import {
   QuestionPage,
 } from '#components'
 import CreateMeeting from '#components/CreateMeeting'
+import YourMeetings from '#components/YourMeetings'
 
 export default createRoutesFromElements(
   <>
@@ -30,6 +31,7 @@ export default createRoutesFromElements(
       <Route path="/call/:id" element={<Call />} />
       <Route path="/loadingUser" element={<LoadingUser />} />
       <Route path="/meeting/create" element={<CreateMeeting />} />
+      <Route path="/yourMeetings" element={<YourMeetings />} />
     </Route>
   </>,
 )
