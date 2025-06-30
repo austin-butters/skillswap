@@ -7,3 +7,8 @@ export async function createMeeting(meetingData: meetingData) {
   const response = await request.post(`${rootURL}/meetings`).send(meetingData)
   return response.body
 }
+
+export async function getUserMeetings(userId: number) {
+  const response = await request.get(`${rootURL}/meetings/${userId}`)
+  return response.body
+}
