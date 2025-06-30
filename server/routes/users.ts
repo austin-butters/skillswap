@@ -82,23 +82,6 @@ router.get('/byemail/:email', async (req, res) => {
   }
 })
 
-router.get('/:id', async (req, res) => {
-  console.log('server route: users, GET /:id') // TEST LOG
-  try {
-    const userId: UserId | number = Number(req.params.id)
-    if (isNaN(userId) || !Number.isInteger(userId)) {
-      return res.status(400).json({ error: 'Bad request: invalid user id' })
-    }
-    const user: User | undefined = await Users.getUser(userId as UserId)
-    if (!user) {
-      return res.status(404).json({ error: 'Not Found' })
-    }
-    return res.status(200).json(user)
-  } catch (err) {
-    return res.status(500).json({ error: 'Internal Server Error' })
-  }
-})
-
 router.get('/auth0/:id', async (req, res) => {
   console.log('server route: users, GET /auth0/:id')
   try {
@@ -121,6 +104,22 @@ router.get('/search/:searchTerm', async (req, res) => {
   }
 })
 
+router.get('/:id', async (req, res) => {
+  console.log('server route: users, GET /:id') // TEST LOG
+  try {
+    const userId: UserId | number = Number(req.params.id)
+    if (isNaN(userId) || !Number.isInteger(userId)) {
+      return res.status(400).json({ error: 'Bad request: invalid user id' })
+    }
+    const user: User | undefined = await Users.getUser(userId as UserId)
+    if (!user) {
+      return res.status(404).json({ error: 'Not Found' })
+    }
+    return res.status(200).json(user)
+  } catch (err) {
+    return res.status(500).json({ error: 'Internal Server Error' })
+  }
+})
 // ------------------------------ UPDATE ------------------------------ //
 
 // ------------------------------ DELETE ------------------------------ //

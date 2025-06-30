@@ -1,20 +1,29 @@
-import { Question } from '#models'
-import { useUserById } from '../hooks/useUsers'
+import { Question, User, UserId } from '#models'
+import { useAllUsers, useAuth0Id } from '../hooks/useUsers'
 import { useAddQuestion, useQuestions } from '../hooks/useQuestions'
 import '../styles/main.css'
 import { DEFAULT_PROFILE_PICTURE } from '#server-constants'
 import { Link } from 'react-router-dom'
+import { useAuth0 } from '@auth0/auth0-react'
 export default function Home() {
   const addQuestion = useAddQuestion()
 
   const { questions, isPending, isError } = useQuestions()
 
-  const userId = 1
+  const { user: auth0User } = useAuth0()
+  const { data } = useAuth0Id(auth0User?.sub)
+  const userId: UserId | undefined = data?.id
+
+  console.log({ data })
 
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
     const form = e.target
-    const formData = await new FormData(form)
+    const formData = new FormData(form)
+
+    console.log({ sub: auth0User?.sub })
+    console.log({ userId })
+    if (!userId) return
 
     addQuestion.mutate({
       userId: userId,
@@ -65,7 +74,7 @@ export default function Home() {
                 placeholder="Question Description"
                 name="body"
                 className="input-fields"
-                rows="4"
+                rows={4}
                 required
               ></textarea>
             </label>
@@ -94,8 +103,13 @@ export default function Home() {
 }
 
 function QuestionDisplayBlock(question: Question) {
-  const { title, body, userId } = question
-  const { user } = useUserById(userId)
+  const { allUsers } = useAllUsers()
+  if (!allUsers || !Array.isArray(allUsers)) {
+    return null
+  }
+  const user: User | undefined = allUsers.find(
+    (user) => user?.id === question.userId,
+  )
 
   return (
     <div className="question-box-other">
@@ -109,13 +123,13 @@ function QuestionDisplayBlock(question: Question) {
           </div>
           <Link to={`/questions/${question.id}`}>
             <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
-              {title ?? 'Missing or deleted question title'}
+              {question.title ?? 'Missing or deleted question title'}
             </h1>
           </Link>
         </div>
 
         <div className="question-box-text">
-          <p>{body ?? 'No question body provided.'}</p>
+          <p>{question.body ?? 'No question body provided.'}</p>
         </div>
       </div>
     </div>

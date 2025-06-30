@@ -1,4 +1,4 @@
-import { UnassignedUser, User, UserId } from '#models'
+import { JWT, UnassignedUser, User, UserId } from '#models'
 import request from 'superagent'
 
 const rootUrl = new URL(`/api/v1/users`, document.baseURI)
@@ -8,8 +8,11 @@ export async function getUserByAuth0Uid(auth0Id: string | undefined) {
   return response.body
 }
 
-export async function addUser(user: UnassignedUser) {
-  const response = await request.post(`${rootUrl}`).send(user)
+export async function addUser(user: UnassignedUser, token: JWT) {
+  const response = await request
+    .post(`${rootUrl}`)
+    .set('Authorization', `Bearer ${token}`)
+    .send(user)
   return response.body
 }
 
