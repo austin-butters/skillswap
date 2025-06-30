@@ -12,7 +12,10 @@ export default function Profile() {
   if (!userData) {
     return (
       <>
-        <p>No user found, are you logged in?</p>
+        <p>
+          No user found, you&apos;pre probably loading but if you have time to
+          read all this before the page loads you might not be logged in.
+        </p>
       </>
     )
   } else {
