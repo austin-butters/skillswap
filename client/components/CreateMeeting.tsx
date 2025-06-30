@@ -16,9 +16,11 @@ export default function CreateMeeting() {
 
     const title = String(formdata.get('title'))
 
+    const isPublic = formdata.get('public') === null ? false : true
+
     addMeeting.mutate({
       title: title,
-      public: Boolean(formdata.get('public')),
+      public: isPublic,
       url: `https://meet.jit.si/skillShare-${title}`,
       hostId: Number(userData.id),
     })

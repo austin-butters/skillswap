@@ -12,6 +12,7 @@ import {
   LoadingUser,
   QuestionPage,
 } from '#components'
+import CreateMeeting from '#components/CreateMeeting'
 
 export default createRoutesFromElements(
   <>
@@ -28,6 +29,7 @@ export default createRoutesFromElements(
       <Route path="/inbox/:id" element={<Inbox />} />
       <Route path="/call/:id" element={<Call />} />
       <Route path="/loadingUser" element={<LoadingUser />} />
+      <Route path="/meeting/create" element={<CreateMeeting />} />
     </Route>
   </>,
 )

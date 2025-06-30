@@ -20,7 +20,6 @@ export default function LoadingAccount() {
       !userLoading &&
       !userAdded
     ) {
-      console.log('Hello')
       addUser.mutate(
         {
           auth0Uid: String(auth0User.sub),
@@ -40,6 +39,7 @@ export default function LoadingAccount() {
         },
       )
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth0User, isAuthenticated, isLoading, userAdded, userData, userLoading])
 
   useEffect(() => {

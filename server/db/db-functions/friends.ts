@@ -33,9 +33,6 @@ export async function checkStatus(
     })
     .first()
 
-  console.log(`Sent reqest ${sentRequest}`)
-  console.log(`Received request ${receivedRequest}`)
-
   if (sentRequest && receivedRequest) {
     return 'friends'
   } else if (sentRequest && !receivedRequest) {
