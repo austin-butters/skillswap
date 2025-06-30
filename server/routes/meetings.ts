@@ -29,7 +29,7 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-router.get('/public', async (req, res) => {
+router.get('/public/all', async (req, res) => {
   try {
     const response = await getPublicMeetings()
     return res.status(200).json(response)
