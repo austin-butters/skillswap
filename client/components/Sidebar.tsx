@@ -7,9 +7,17 @@ export default function Sidebar() {
   const { isAuthenticated } = useAuth0()
   const loginPageLinkPath: string = '/login'
   const { user } = useAuth0()
-  const { data: userData } = useAuth0Id(user?.sub)
+  const { data: userData, isLoading, isError } = useAuth0Id(user?.sub)
 
-  const userId = userData.id
+  if (isLoading) {
+    return <p>Loading...</p>
+  }
+
+  if (userData) {
+    const userId = userData.id
+  } else {
+    const userId = 0
+  }
   return (
     <div>
       {console.log(userData)}
