@@ -2,13 +2,17 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { Link } from 'react-router-dom'
 import '../styles/main.css'
 import Auth0Button from './Auth0Button'
+import { useAuth0Id } from 'client/hooks/useUsers'
 export default function Sidebar() {
   const { isAuthenticated } = useAuth0()
   const loginPageLinkPath: string = '/login'
+  const { user } = useAuth0()
+  const { data: userData } = useAuth0Id(user?.sub)
 
-  const userId = 1
+  const userId = userData.id
   return (
     <div>
+      {console.log(userData)}
       <div className="sidebar">
         <ul className="sidebar-menu">
           <h2 className="sidebar-header">Skill Swap</h2>
