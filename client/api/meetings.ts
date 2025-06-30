@@ -17,3 +17,8 @@ export async function getPublicMeetings() {
   const response = await request.get(`${rootURL}/meetings/public/all`)
   return response.body
 }
+
+export async function getMeetingById(meetingId: number) {
+  const response = await request.get(`${rootURL}/meetings/meeting/${meetingId}`)
+  return response.body
+}
