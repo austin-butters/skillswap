@@ -1,3 +1,5 @@
 export * as Users from './users'
 export * as Questions from './questions'
 export * as Answers from './answers'
+export * as DirectMessages from './directMessages'
+export * as Friends from './friends'
