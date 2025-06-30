@@ -2,11 +2,13 @@ import { useAuth0 } from '@auth0/auth0-react'
 import {
   useGetDirectMessages,
   useSendDirectMessage,
-} from 'client/hooks/useDirectMessages'
-import { useAuth0Id, useUserById } from 'client/hooks/useUsers'
+} from '../hooks/useDirectMessages'
+import { useAuth0Id, useUserById } from '../hooks/useUsers'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import FriendButton from './FriendButton'
+import { useGetUsersMeetings } from '../hooks/useMeetings'
+import { meetingData } from '../../server/db/db-functions/meetings'
 
 export default function MessageBox() {
   const [message, setMessage] = useState('')
@@ -24,6 +26,8 @@ export default function MessageBox() {
     Number(id),
   )
 
+  const { data: meetingData } = useGetUsersMeetings(userData?.id)
+
   const sendDirectMessage = useSendDirectMessage()
 
   function handleSendMessage() {
@@ -35,7 +39,22 @@ export default function MessageBox() {
     })
   }
 
-  if (!messageData || !userData || userData === undefined || !otherUserData) {
+  function sendMeetingMessage(mettingUrl: string) {
+    sendDirectMessage.mutate({
+      userId: Number(userData.id),
+      receiverId: Number(id),
+      time: 'idk lol',
+      body: `Come join my meeting! ${mettingUrl}`,
+    })
+  }
+
+  if (
+    !messageData ||
+    !userData ||
+    userData === undefined ||
+    !otherUserData ||
+    !meetingData
+  ) {
     return <p>Loading...</p>
   }
 
@@ -155,6 +174,19 @@ export default function MessageBox() {
             <p>{otherUserData.bio}</p>
           )}
           <FriendButton userId={userData.id} requestId={otherUserData.id} />
+          <h1>Invite to meeting</h1>
+          <ul>
+            {meetingData.map((message: meetingData, i: number) => {
+              return (
+                <button
+                  key={`Metting ${i}`}
+                  onClick={() => sendMeetingMessage(message.url)}
+                >
+                  {message.title}
+                </button>
+              )
+            })}
+          </ul>
         </div>
       </div>
     </>

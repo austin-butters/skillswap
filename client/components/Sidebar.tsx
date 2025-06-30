@@ -49,6 +49,11 @@ export default function Sidebar() {
                 Profile
               </Link>
             </div>
+            <div className="sidebar-button">
+              <Link to={isAuthenticated ? '/yourMeetings' : loginPageLinkPath}>
+                Meetings
+              </Link>
+            </div>
           </li>
         </ul>
       </div>

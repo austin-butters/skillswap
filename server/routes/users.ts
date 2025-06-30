@@ -3,7 +3,7 @@
 //====================================================================================================
 
 // ------------------------------ SETUP ------------------------------ //
-import { UnassignedUser, User, UserEmail, UserId } from '#models'
+import { Auth0Uid, UnassignedUser, User, UserEmail, UserId } from '#models'
 import express from 'express'
 import { Users } from '../db/db-functions'
 
@@ -13,11 +13,20 @@ import type { JwtRequest } from '../auth0'
 const router = express.Router()
 
 // ------------------------------ CREATE ------------------------------ //
-router.post('/', async (req: JwtRequest, res) => {
+router.post('/', checkJwt, async (req: JwtRequest, res) => {
   console.log('server route: users, POST /') // TEST LOG
-  console.log(req.body) // TEST LOG
   try {
+    const auth0UidFromReq: Auth0Uid | undefined = req.auth?.sub
+
+    if (!auth0UidFromReq) {
+      return res.status(401).json({ error: 'Unauthorized' })
+    }
+
     const { auth0Uid, email, name, bio, profilePicture } = req.body
+
+    if (auth0UidFromReq !== auth0Uid) {
+      return res.status(401).json({ error: 'Unauthorized' })
+    }
 
     if (
       typeof auth0Uid !== 'string' ||

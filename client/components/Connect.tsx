@@ -1,6 +1,6 @@
 import { User } from '#models'
 import { useAuth0 } from '@auth0/auth0-react'
-import { useAuth0Id, useGetUsersSearch } from 'client/hooks/useUsers'
+import { useAuth0Id, useGetUsersSearch } from '../hooks/useUsers'
 import { useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import FriendButton from './FriendButton'
