@@ -7,7 +7,7 @@ import { Auth0Uid, UnassignedUser, User, UserEmail, UserId } from '#models'
 import express from 'express'
 import { Users } from '../db/db-functions'
 
-import checkJwt from 'server/auth0'
+import checkJwt from '../auth0'
 import type { JwtRequest } from '../auth0'
 
 const router = express.Router()
