@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   createMeeting,
+  getMeetingById,
   getPublicMeetings,
   getUserMeetings,
 } from '../api/meetings'
@@ -33,6 +34,14 @@ export function useGetPublicMeetings() {
   const query = useQuery({
     queryKey: ['publicMeetings'],
     queryFn: () => getPublicMeetings(),
+  })
+  return query
+}
+
+export function useGetMeetingById(meetingId: number) {
+  const query = useQuery({
+    queryKey: ['meeting', meetingId],
+    queryFn: () => getMeetingById(meetingId),
   })
   return query
 }
