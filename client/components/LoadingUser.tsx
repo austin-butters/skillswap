@@ -2,6 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { useAddUser, useAuth0Id } from '../hooks/useUsers'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { DEFAULT_PROFILE_PICTURE } from '../util/constants'
 
 export default function LoadingAccount() {
   const { user: auth0User, isAuthenticated, isLoading } = useAuth0()
@@ -26,7 +27,7 @@ export default function LoadingAccount() {
           email: String(auth0User.email),
           name: String(auth0User.name),
           bio: null,
-          profilePicture: auth0User.picture,
+          profilePicture: DEFAULT_PROFILE_PICTURE,
         },
         {
           onSuccess: (data) => {
