@@ -5,11 +5,16 @@ import {
   getPublicMeetings,
   getUsersMeetings,
 } from '../db/db-functions/meetings'
+import { MeetingData } from '#models'
+
+import type { JwtRequest } from '../auth0'
+import checkJwt from '../auth0'
 
 const router = Router()
 
-router.post('/', async (req, res) => {
-  const meetingData = req.body
+// ------------------------------ CREATE ------------------------------ //
+router.post('/', checkJwt, async (req: JwtRequest, res) => {
+  const meetingData: MeetingData = req.body
   try {
     const response = await addMeeting(meetingData)
     return res.status(200).json(response)
@@ -19,7 +24,9 @@ router.post('/', async (req, res) => {
   }
 })
 
-router.get('/user/:id', async (req, res) => {
+// ------------------------------ READ ------------------------------ //
+
+router.get('/user/:id', checkJwt, async (req: JwtRequest, res) => {
   const userId = Number(req.params.id)
   try {
     const response = await getUsersMeetings(userId)
@@ -40,7 +47,7 @@ router.get('/public/all', async (req, res) => {
   }
 })
 
-router.get('/meeting/:id', async (req, res) => {
+router.get('/meeting/:id', checkJwt, async (req: JwtRequest, res) => {
   const meetingId = Number(req.params.id)
   try {
     const response = await getMeetingById(meetingId)
