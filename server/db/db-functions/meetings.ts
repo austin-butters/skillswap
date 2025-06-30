@@ -1,3 +1,4 @@
+import { MeetingData } from '#models'
 import db from '../connection'
 
 export interface meetingData {
@@ -7,23 +8,23 @@ export interface meetingData {
   url: string
 }
 
-export async function addMeeting(meeting: meetingData) {
+export async function addMeeting(meeting: MeetingData): Promise<void> {
   await db('meetings').insert({
     public: meeting.public,
-    host_id: meeting.hostId,
+    host_id: meeting.host_id,
     title: meeting.title,
     url: meeting.url,
   })
 }
 
-export async function getUsersMeetings(userId: number) {
+export async function getUsersMeetings(userId: number): Promise<MeetingData[]> {
   return await db('meetings').where({ host_id: userId }).select()
 }
 
-export async function getPublicMeetings() {
+export async function getPublicMeetings(): Promise<MeetingData[]> {
   return await db('meetings').where({ public: true }).select()
 }
 
-export async function getMeetingById(id: number) {
+export async function getMeetingById(id: number): Promise<MeetingData> {
   return await db('meetings').where({ id: id }).first()
 }
