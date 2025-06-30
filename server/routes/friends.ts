@@ -1,9 +1,5 @@
 import { Router } from 'express'
-import {
-  addFriend,
-  checkStatus,
-  unaddFriend,
-} from 'server/db/db-functions/friends'
+import { addFriend, checkStatus, unaddFriend } from '../db/db-functions/friends'
 
 const router = Router()
 
