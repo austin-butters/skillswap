@@ -100,7 +100,7 @@ export default function MessageBox() {
                     <p>{message.body}</p>
                     <img
                       alt="your pfp"
-                      src={user?.picture}
+                      src={userData.profilePicture}
                       style={{
                         width: '50px',
                         aspectRatio: '1 / 1',
