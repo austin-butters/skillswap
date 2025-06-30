@@ -3,7 +3,8 @@ import { useGetPublicMeetings, useGetUsersMeetings } from '../hooks/useMeetings'
 import { useAuth0Id } from '../hooks/useUsers'
 import { Link } from 'react-router-dom'
 import { meetingData } from '../../server/db/db-functions/meetings'
-import { useSaveMeeting } from '../hooks/useSavedMeetings'
+import { useGetSavedMeetings, useSaveMeeting } from '../hooks/useSavedMeetings'
+import SavedMeeting from './SavedMeeting'
 
 export default function YourMeetings() {
   const { user } = useAuth0()
@@ -11,6 +12,7 @@ export default function YourMeetings() {
   const { data: userData } = useAuth0Id(user?.sub)
 
   const { data: meetingsData } = useGetUsersMeetings(userData?.id)
+  const { data: savedMeetings } = useGetSavedMeetings(userData?.id)
   const { data: publicMeetings } = useGetPublicMeetings()
 
   const saveMeeting = useSaveMeeting()
@@ -22,12 +24,12 @@ export default function YourMeetings() {
     })
   }
 
-  if (!meetingsData || !userData || !publicMeetings) {
+  if (!meetingsData || !userData || !publicMeetings || !savedMeetings) {
     return <p>Loading meetings...</p>
   }
 
   return (
-    <>
+    <div className="flex space-x-16">
       <div>
         <h1>{userData.name}s meetings</h1>
         <ul>
@@ -49,6 +51,9 @@ export default function YourMeetings() {
         <h1>Reccomended meetings</h1>
         <ul>
           {publicMeetings.map((meeting, i) => {
+            if (meeting.host_id === userData.id) {
+              return null
+            }
             return (
               <li key={`Public meeting ${i}`}>
                 <a href={meeting.url} target="_blank" rel="noreferrer">
@@ -62,6 +67,16 @@ export default function YourMeetings() {
           })}
         </ul>
       </div>
-    </>
+      <div>
+        <h1>Saved meetings</h1>
+        {savedMeetings.map((meeting, i) => {
+          return (
+            <li key={`Saved meeting ${i}`}>
+              <SavedMeeting meetingId={Number(meeting.meeting_id)} />
+            </li>
+          )
+        })}
+      </div>
+    </div>
   )
 }
