@@ -15,3 +15,7 @@ export async function addMeeting(meeting: meetingData) {
     url: meeting.url,
   })
 }
+
+export async function getUsersMeetings(userId: number) {
+  return await db('meetings').where({ host_id: userId }).select()
+}
