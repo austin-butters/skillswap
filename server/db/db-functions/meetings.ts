@@ -25,5 +25,5 @@ export async function getPublicMeetings() {
 }
 
 export async function getMeetingById(id: number) {
-  return await db('meetings').where({ id: id }).select()
+  return await db('meetings').where({ id: id }).first()
 }
