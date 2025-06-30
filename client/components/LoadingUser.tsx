@@ -20,7 +20,7 @@ export default function LoadingAccount() {
       !userLoading &&
       !userAdded
     ) {
-      addUser.mutate(
+      addUser.mutateAsync(
         {
           auth0Uid: String(auth0User.sub),
           email: String(auth0User.email),
@@ -39,13 +39,14 @@ export default function LoadingAccount() {
         },
       )
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth0User, isAuthenticated, isLoading, userAdded, userData, userLoading])
 
   useEffect(() => {
     if (userAdded || userData) {
-      navigate(`/profile/${userData.id}`)
+      navigate(userData?.id ? `/profile/${userData.id}` : `/`)
     }
-  }, [userAdded, userData])
+  }, [userAdded, userData, navigate])
 
   return (
     <div
