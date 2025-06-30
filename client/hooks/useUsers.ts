@@ -8,6 +8,15 @@ import {
 } from '../api/users'
 import { UnassignedUser, UserId } from '#models'
 
+export function useAllUsers() {
+  const { data: allUsers, ...remainingProperties } = useQuery({
+    queryKey: ['allUsers'],
+    queryFn: async () => await getAllUsers(),
+  })
+
+  return { allUsers, ...remainingProperties }
+}
+
 export function useAuth0Id(auth0Id: string | undefined) {
   const query = useQuery({
     queryKey: ['userAuth0', auth0Id],
