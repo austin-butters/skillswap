@@ -7,6 +7,7 @@ import {
   getUsersFromSearch,
 } from '../api/users'
 import { UnassignedUser, UserId } from '#models'
+import { useAuth0 } from '@auth0/auth0-react'
 
 export function useAllUsers() {
   const { data: allUsers, ...remainingProperties } = useQuery({
@@ -27,9 +28,13 @@ export function useAuth0Id(auth0Id: string | undefined) {
 }
 
 export function useAddUser() {
+  const { getAccessTokenSilently } = useAuth0()
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (user: UnassignedUser) => addUser(user),
+    mutationFn: async (user: UnassignedUser) => {
+      const token = await getAccessTokenSilently()
+      addUser(user, token)
+    },
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({
         queryKey: ['userAuth0', variables.auth0Uid],

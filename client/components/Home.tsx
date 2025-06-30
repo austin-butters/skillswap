@@ -129,7 +129,7 @@ function QuestionDisplayBlock(question: Question) {
         </div>
 
         <div className="question-box-text">
-          <p>{question.title ?? 'No question body provided.'}</p>
+          <p>{question.body ?? 'No question body provided.'}</p>
         </div>
       </div>
     </div>
