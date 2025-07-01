@@ -79,11 +79,7 @@ export function useAnswer(answerId: AnswerId) {
     enabled: answerQuery.status === 'success',
   })
 
-  console.log({
-    answerRepliesQueryEnabled: !!answerQuery.data,
-  }) // TEST LOG
-
-  const authorQuery = useUserById(answerQuery.data?.userId as number)
+  const authorQuery = useUserById(answerQuery.data?.userId as number) // FIX - THIS MAY NEED TO BE CONDITIONALLY ENABLED TO PREVENT INFINITE REFETCHES. SHOULD BE FINE FOR NOW
 
   const addAnswerMutation = useAddAnswer()
 
