@@ -116,10 +116,12 @@ function QuestionDisplayBlock(question: Question) {
       <div className="column-side">
         <div className="profile-title-container">
           <div className="profilepicture-box">
-            <img
-              src={user?.profilePicture ?? DEFAULT_PROFILE_PICTURE}
-              alt={user?.name}
-            />
+            <Link to={!user?.id ? '/' : `/profile/${user?.id}`}>
+              <img
+                src={user?.profilePicture ?? DEFAULT_PROFILE_PICTURE}
+                alt={user?.name}
+              />
+            </Link>
           </div>
           <Link to={`/questions/${question.id}`}>
             <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
