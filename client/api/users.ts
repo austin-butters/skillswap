@@ -31,11 +31,20 @@ export async function getUserById(userId: UserId): Promise<User | undefined> {
   return response.body
 }
 
-export async function editUser({ id, name, bio, profilePicture }) {
+export async function editUser(
+  id: number,
+  name?: string,
+  bio?: string,
+  profilePicture?: string,
+) {
   try {
-    const response = await request
-      .patch(`${rootUrl}/${id}`)
-      .send({ name, bio, profilePicture })
+    const userData = {
+      name: name,
+      bio: bio,
+      profilePicture: profilePicture,
+    }
+    console.log(userData)
+    const response = await request.patch(`${rootUrl}/${id}`).send({ userData })
     return response.body
   } catch (err) {
     throw new Error('Unknown error patching user')

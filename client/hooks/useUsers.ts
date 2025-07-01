@@ -72,8 +72,18 @@ export function useUserById(userId: UserId) {
 export function useEditUser() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: async (userData: { id; name; bio; profilePicture }) => {
-      editUser(userData)
+    mutationFn: async (userData: {
+      id: number
+      name: string | undefined
+      bio: string | undefined
+      profilePicture: string | undefined
+    }) => {
+      editUser(
+        userData.id,
+        userData.name,
+        userData.bio,
+        userData.profilePicture,
+      )
     },
     onSuccess: (data, params) => {
       queryClient.invalidateQueries({

@@ -1,11 +1,13 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { useAuth0Id, useUserById } from 'client/hooks/useUsers'
+import { editUser } from 'client/api/users'
+import { useAuth0Id, useEditUser, useUserById } from 'client/hooks/useUsers'
 import { useParams } from 'react-router-dom'
 import { getUser } from 'server/db/db-functions/users'
 
 export default function Profile() {
   const { user } = useAuth0()
   const id = Number(useParams().id)
+  const editUser = useEditUser()
   const {
     data: userData,
     isLoading: otherUserIsLoading,
@@ -23,6 +25,19 @@ export default function Profile() {
     return <p>Error, this person might not exist.</p>
   }
   let isUser = false
+  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const form = e.target
+    const formData = new FormData(form)
+    console.log('Submit')
+    console.log(formData.get('name'))
+    editUser.mutate({
+      id: id,
+      name: String(formData.get('name')),
+      bio: String(formData.get('bio')),
+      profilePicture: undefined,
+    })
+  }
 
   if (!userData) {
     //users cannot view profiles unless logged in, could be changed later if this is not prefered.
@@ -47,20 +62,29 @@ export default function Profile() {
                 <div className="user-greeting">
                   <h1>Welcome!</h1>
                   <p className="user-bio">
-                    {' '}
                     Let&apos;s finish up your registration.
                   </p>
                 </div>
-
                 <div className="user-details-box">
                   <h1>User details:</h1>
-                  <h2>
-                    Name: <input type="text" />
-                  </h2>
-                  <h2>
-                    Bio: <input type="text" />
-                  </h2>
-                  <button className="update-button">Update</button>
+                  <form onSubmit={handleSubmit}>
+                    <h2>
+                      Name:{' '}
+                      <label htmlFor="name">
+                        <input type="text" name="name" required />
+                      </label>
+                    </h2>
+                    <h2>
+                      Bio:{' '}
+                      <label htmlFor="bio">
+                        <input type="text" name="bio" required />
+                      </label>
+                    </h2>
+
+                    <button type="submit" className="update-button">
+                      Update
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>
