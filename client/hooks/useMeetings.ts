@@ -5,20 +5,20 @@ import {
   getPublicMeetings,
   getUserMeetings,
 } from '../api/meetings'
-import { meetingData } from '../../server/db/db-functions/meetings'
+import { MeetingData } from '#models'
 import { useAuth0 } from '@auth0/auth0-react'
 
 export function useCreateMeeting() {
   const queryClient = useQueryClient()
   const { getAccessTokenSilently } = useAuth0()
   return useMutation({
-    mutationFn: async (meetingData: meetingData) => {
+    mutationFn: async (meetingData: MeetingData) => {
       const token = await getAccessTokenSilently()
       createMeeting(meetingData, token)
     },
     onSuccess: (data, params) => {
       queryClient.invalidateQueries({
-        queryKey: ['meetings', params.hostId],
+        queryKey: ['meetings', params.host_id],
       })
       queryClient.invalidateQueries({
         queryKey: ['publicMeetings'],
