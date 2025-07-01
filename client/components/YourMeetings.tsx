@@ -2,7 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { useGetPublicMeetings, useGetUsersMeetings } from '../hooks/useMeetings'
 import { useAuth0Id } from '../hooks/useUsers'
 import { Link } from 'react-router-dom'
-import { MeetingData } from '#models'
+import { MeetingData, SavedMeetingData } from '#models'
 import { useGetSavedMeetings, useSaveMeeting } from '../hooks/useSavedMeetings'
 import SavedMeeting from './SavedMeeting'
 
@@ -69,7 +69,7 @@ export default function YourMeetings() {
       </div>
       <div>
         <h1>Saved meetings</h1>
-        {savedMeetings.map((meeting, i) => {
+        {savedMeetings.map((meeting: SavedMeetingData, i: number) => {
           return (
             <li key={`Saved meeting ${i}`}>
               <SavedMeeting
