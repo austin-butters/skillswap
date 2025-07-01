@@ -3,6 +3,7 @@ import {
   useGetStatus,
   useUnaddFriend,
 } from 'client/hooks/useFriends'
+//Might need to fix file import path here
 
 export default function FriendButton({
   userId,

@@ -1,4 +1,4 @@
-import { useRemoveSavedMeeting } from 'client/hooks/useSavedMeetings'
+import { useRemoveSavedMeeting } from '../hooks/useSavedMeetings'
 import { useGetMeetingById } from '../hooks/useMeetings'
 import { UserId } from '#models'
 
