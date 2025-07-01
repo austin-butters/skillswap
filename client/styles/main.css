@@ -15,7 +15,7 @@ body {
   left: 30px;
   width: 220px;
   height: calc(100vh - 40px);
-  background-color: #f2f4f8; /* Matches question box background */
+  background-color: #f2f4f8;
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   display: flex;
@@ -26,7 +26,6 @@ body {
   transition: all 0.3s ease-in-out;
 }
 
-/* Sidebar Header */
 .sidebar-header {
   color: #5a67d8;
   font-size: 1.8rem;
@@ -36,7 +35,6 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
-/* Sidebar Menu */
 .sidebar-menu {
   list-style: none;
   padding: 0;
@@ -75,7 +73,6 @@ body {
   color: #5a67d8;
 }
 
-/* Optional Button Style */
 .sidebar-button {
   background-color: #5a67d8;
   color: white;
@@ -99,7 +96,6 @@ body {
 
 /* <--Home Page HTML --> */
 
-/* Layout */
 .side-flex {
   display: flex;
   flex-direction: row;
@@ -132,7 +128,6 @@ body {
   }
 }
 
-/* Form Elements */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -166,14 +161,12 @@ body {
   background-color: #fefefe;
 }
 
-/* Placeholder */
 input::placeholder,
 textarea::placeholder {
   color: #999;
   font-weight: 500;
 }
 
-/* Question Box Styles */
 .question-box,
 .question-box-other {
   display: flex;
@@ -223,7 +216,6 @@ textarea::placeholder {
   object-fit: cover;
 }
 
-/* Button */
 button {
   background-color: #5a67d8;
   color: white;
@@ -243,7 +235,6 @@ button:hover {
   transform: translateY(-1px);
 }
 
-/* Animations */
 @keyframes appear {
   from {
     opacity: 0;
@@ -259,7 +250,6 @@ button:hover {
   animation: appear 0.6s ease-in-out both;
 }
 
-/* Loading Spinner */
 .loading-indicator {
   display: block;
   width: 20vh;
@@ -282,11 +272,11 @@ button:hover {
 .inbox-box {
   display: flex;
   flex-direction: column;
-  background-color: #f2f4f8; /* Matches the sidebar & home theme */
+  background-color: #f2f4f8;
   align-items: center;
   padding: 30px 20px;
   border-radius: 16px;
-  margin-left: 260px; /* Leaves space for the sidebar */
+  margin-left: 90px;
   margin-top: 40px;
   width: calc(100% - 300px);
   gap: 16px;
@@ -341,7 +331,6 @@ button:hover {
   margin: 0;
 }
 
-/* Header */
 .header {
   color: #5a67d8;
   font-size: 2rem;
@@ -349,7 +338,8 @@ button:hover {
   padding: 40px 0 10px;
   text-align: center;
   font-family: 'Inter', sans-serif;
-  margin-left: 260px;
+  /* margin-left: 20px; */
+  margin-right: 135px;
 }
 
 @media (max-width: 768px) {
@@ -361,18 +351,32 @@ button:hover {
 
 /* <-- Ai fixer HTML */
 
-/* Main layout container */
 .ai-container {
   display: flex;
   flex-direction: row;
-  height: 100vh;
+  height: 90vh;
   align-items: center;
-  justify-content: space-between;
-  padding-right: 10vw;
-  padding-left: 260px; /* Adjust if sidebar is present */
+  justify-content: space-evenly;
   background-color: #f2f4f8;
   font-family: 'Inter', sans-serif;
   gap: 40px;
+  margin-top: 50px;
+  margin-right: 200px;
+  padding-left: 20px;
+}
+
+.ai-title-container {
+  width: 50%;
+  height: 40px;
+  background-color: #f6f8fa;
+  border: 2px solid #fff2e0;
+  border-radius: 12px;
+  padding: 16px; /* top right bottom left */
+  font-size: 1rem;
+  color: #1e1e1e;
+  box-sizing: border-box;
+  resize: vertical;
+  font-family: 'Inter', sans-serif;
 }
 
 @media (max-width: 1024px) {
@@ -383,17 +387,18 @@ button:hover {
   }
 }
 
-/* Input section (left card) */
 .input-section,
 .response-section {
   background-color: #a2aadb;
   display: flex;
   flex-direction: column;
+  gap: 20px;
   justify-content: space-between;
   align-items: center;
   width: 30vw;
   height: 60vh;
   padding: 24px;
+
   border-radius: 20px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   transition: transform 0.2s ease;
@@ -412,7 +417,6 @@ button:hover {
   }
 }
 
-/* Input field */
 .input-box {
   width: 100%;
   height: 100%;
@@ -428,7 +432,6 @@ button:hover {
   font-family: 'Inter', sans-serif;
 }
 
-/* Fix Now button */
 .fix-button {
   margin-top: 20px;
   background-color: white;
@@ -448,7 +451,6 @@ button:hover {
   transform: scale(1.02);
 }
 
-/* Response box */
 .response-box {
   width: 100%;
   height: 100%;
@@ -461,6 +463,15 @@ button:hover {
   line-height: 1.5;
   white-space: pre-wrap;
   border: 2px solid #fff2e0;
+}
+
+input.ai-title-container:-webkit-autofill,
+input.ai-title-container:-webkit-autofill:hover,
+input.ai-title-container:-webkit-autofill:focus,
+input.ai-title-container:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #f6f8fa inset !important; /* Match your background */
+  -webkit-text-fill-color: #1e1e1e !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 /* < -- User page HTML --> */
@@ -573,4 +584,222 @@ button:hover {
   margin-top: 10px;
   color: #333;
   font-size: 0.95rem;
+}
+
+/* <--Connect Page--> */
+
+.search-container {
+  padding: 7vh 10vw 0 10vw;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  /* padding-top: 300px; */
+  margin-right: 350px;
+}
+
+.search-box {
+  background-color: #f3f4f6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.search-title {
+  font-weight: 700;
+  font-size: 2rem;
+  color: #1f2937;
+}
+
+.search-input-container {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: #3b82f6;
+}
+
+.search-button {
+  background-color: #3b82f6;
+  color: white;
+  margin-left: 10px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.search-button:hover {
+  background-color: #2563eb;
+}
+
+.results-container {
+  margin-top: 40px;
+}
+
+.user-card {
+  background-color: #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: #111827;
+}
+
+.user-actions a {
+  padding: 8px 16px;
+  color: white;
+  border-radius: 6px;
+  font-weight: 600;
+  margin-left: 10px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.user-actions .message-button {
+  background-color: #3b82f6;
+}
+
+.user-actions .message-button:hover {
+  background-color: #2563eb;
+}
+
+.user-actions .call-button {
+  background-color: #10b981;
+}
+
+.user-actions .call-button:hover {
+  background-color: #059669;
+}
+
+/* <--Meetings HTML--> */
+
+/* Page background */
+body {
+  background: #fcefdc;
+}
+
+/* Container for the three columns */
+.mt-20.flex.space-x-8 {
+  display: flex;
+  gap: 2rem; /* space-x-8 */
+  margin-top: 5rem; /* mt-20 */
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Each column/card */
+.meeting-card {
+  background: #f6f8fa;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 2rem 1.5rem;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 350px;
+}
+
+/* Headings */
+.meeting-card h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #6366f1;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Lists */
+.meeting-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+  width: 100%;
+}
+
+/* List items */
+.meeting-card li {
+  background: #fff;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1rem;
+  color: #1e1e1e;
+}
+
+/* Links */
+.meeting-card a {
+  color: #6366f1;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.meeting-card a:hover {
+  text-decoration: underline;
+  color: #434190;
+}
+
+/* Buttons */
+.meeting-card button {
+  background-color: #6366f1;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px;
+  border: none;
+  margin-left: 1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition:
+    background 0.2s,
+    transform 0.1s;
+}
+.meeting-card button:hover {
+  background: #434190;
+  transform: translateY(-2px);
+}
+
+/* Responsive for mobile */
+@media (max-width: 1000px) {
+  .mt-20.flex.space-x-8 {
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+  }
+  .meeting-card {
+    width: 90vw;
+    min-width: unset;
+  }
 }
