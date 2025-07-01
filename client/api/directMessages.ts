@@ -1,4 +1,4 @@
-import { JWT } from '#models'
+import { JWT, UserId } from '#models'
 import request from 'superagent'
 
 const rootURL = new URL('/api/v1', document.baseURI)
@@ -25,5 +25,12 @@ export async function sendDirectMessage(
     .post(`${rootURL}/directMessages/${userId}/${receiverId}`)
     .send({ time, body })
     .set('Authorization', `Bearer ${token}`)
+  return response.body
+}
+
+export async function getDirectMessagesByUser(userId: UserId, token: JWT) {
+  const response = await request
+    .get(`${rootURL}/directMessages/${userId}`)
+    .set({ Authorization: `Bearer ${token}` })
   return response.body
 }
