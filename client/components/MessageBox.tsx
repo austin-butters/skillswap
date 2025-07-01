@@ -8,7 +8,7 @@ import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import FriendButton from './FriendButton'
 import { useGetUsersMeetings } from '../hooks/useMeetings'
-import { meetingData } from '../../server/db/db-functions/meetings'
+import { MeetingData } from '#models'
 
 export default function MessageBox() {
   const [message, setMessage] = useState('')
@@ -176,7 +176,7 @@ export default function MessageBox() {
           <FriendButton userId={userData.id} requestId={otherUserData.id} />
           <h1>Invite to meeting</h1>
           <ul>
-            {meetingData.map((message: meetingData, i: number) => {
+            {meetingData.map((message: MeetingData, i: number) => {
               return (
                 <button
                   key={`Metting ${i}`}

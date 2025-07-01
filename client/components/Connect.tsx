@@ -68,7 +68,7 @@ export default function SearchResults() {
               }}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
-                  navigate(`/search?input=${search}`)
+                  navigate(`/connect?input=${search}`)
                   window.location.reload()
                 }
               }}
@@ -82,7 +82,7 @@ export default function SearchResults() {
                 borderRadius: '5px',
               }}
               onClick={() => {
-                navigate(`/search?input=${search}`)
+                navigate(`/connect?input=${search}`)
                 window.location.reload()
               }}
             >
