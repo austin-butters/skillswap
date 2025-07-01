@@ -1,4 +1,4 @@
-import { MeetingData } from '#models'
+import { AddMeetingData, MeetingData } from '#models'
 import db from '../connection'
 
 export interface meetingData {
@@ -8,10 +8,10 @@ export interface meetingData {
   url: string
 }
 
-export async function addMeeting(meeting: MeetingData): Promise<void> {
+export async function addMeeting(meeting: AddMeetingData): Promise<void> {
   await db('meetings').insert({
     public: meeting.public,
-    host_id: meeting.host_id,
+    host_id: meeting.hostId,
     title: meeting.title,
     url: meeting.url,
   })

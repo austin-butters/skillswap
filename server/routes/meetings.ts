@@ -5,7 +5,7 @@ import {
   getPublicMeetings,
   getUsersMeetings,
 } from '../db/db-functions/meetings'
-import { MeetingData } from '#models'
+import { AddMeetingData } from '#models'
 
 import type { JwtRequest } from '../auth0'
 import checkJwt from '../auth0'
@@ -14,7 +14,7 @@ const router = Router()
 
 // ------------------------------ CREATE ------------------------------ //
 router.post('/', checkJwt, async (req: JwtRequest, res) => {
-  const meetingData: MeetingData = req.body
+  const meetingData: AddMeetingData = req.body
   try {
     const response = await addMeeting(meetingData)
     return res.status(200).json(response)
