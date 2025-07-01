@@ -30,50 +30,46 @@ export default function YourMeetings() {
 
   return (
     <div className="mt-20 flex space-x-8">
-      <div className="h-full w-full flex-col justify-items-center bg-gray-200 p-3">
+      {/* User's Meetings */}
+      <div className="meeting-card">
         <h1>{userData.name}s meetings</h1>
         <ul>
           {meetingsData.length === 0 ? (
             <p>No meetings...</p>
           ) : (
-            meetingsData.map((meeting: MeetingData, i: number) => {
-              return (
-                <li key={`Meeting ${i}`}>
-                  <a href={meeting.url} target="_blank" rel="noreferrer">
-                    {meeting.title}
-                  </a>
-                </li>
-              )
-            })
+            meetingsData.map((meeting: MeetingData, i: number) => (
+              <li key={`Meeting ${i}`}>
+                <a href={meeting.url} target="_blank" rel="noreferrer">
+                  {meeting.title}
+                </a>
+              </li>
+            ))
           )}
         </ul>
         <Link to="/meeting/create">
           <button>Create a meeting!</button>
         </Link>
       </div>
-      <div className="w-full flex-col justify-items-center bg-gray-200 p-3">
-        <h1>Reccomended public meetings</h1>
+
+      {/* Recommended Public Meetings */}
+      <div className="meeting-card">
+        <h1>Recommended public meetings</h1>
         <ul>
           {publicMeetings.length === 0 ? (
             <p>No meetings...</p>
           ) : (
             publicMeetings.map((meeting, i) => {
-              if (meeting.host_id === userData.id) {
-                return null
-              }
+              // Exclude meetings hosted by the user or already saved
+              if (meeting.host_id === userData.id) return null
               if (
                 savedMeetings.some(
                   (savedMeeting: SavedMeetingData) =>
                     meeting.id === savedMeeting.meeting_id,
                 )
-              ) {
+              )
                 return null
-              }
               return (
-                <li
-                  key={`Public meeting ${i}`}
-                  className="w-full flex-row items-center"
-                >
+                <li key={`Public meeting ${i}`}>
                   <a href={meeting.url} target="_blank" rel="noreferrer">
                     {meeting.title}
                   </a>
@@ -89,25 +85,22 @@ export default function YourMeetings() {
           )}
         </ul>
       </div>
-      <div className="w-full flex-col justify-items-center bg-gray-200 p-3">
+
+      {/* Saved Meetings */}
+      <div className="meeting-card">
         <h1>Saved meetings</h1>
         <ul>
           {savedMeetings.length === 0 ? (
             <p>No saved meetings...</p>
           ) : (
-            savedMeetings.map((meeting: SavedMeetingData, i: number) => {
-              return (
-                <li
-                  key={`Saved meeting ${i}`}
-                  className="w-full flex-row items-center"
-                >
-                  <SavedMeeting
-                    meetingId={Number(meeting.meeting_id)}
-                    userId={Number(userData.id)}
-                  />
-                </li>
-              )
-            })
+            savedMeetings.map((meeting: SavedMeetingData, i: number) => (
+              <li key={`Saved meeting ${i}`}>
+                <SavedMeeting
+                  meetingId={Number(meeting.meeting_id)}
+                  userId={Number(userData.id)}
+                />
+              </li>
+            ))
           )}
         </ul>
       </div>

@@ -64,24 +64,23 @@ export default function CodeFixer() {
             <p>{response}</p>
           </div>
         </div>
-      </div>
-
-      {/* Previous fixes */}
-      <div>
-        {pastFixes.length === 0 ? (
-          <p>Ask a question to see your past responses!</p>
-        ) : (
-          pastFixes.map((data: GetCodeFixData) => {
-            return (
-              <div key={`Past response ${data.id}`}>
-                <h1>{data.title}</h1>
-                <p>{data.input}</p>
-                <h1>Ai response:</h1>
-                <p>{data.output}</p>
-              </div>
-            )
-          })
-        )}
+        {/* Previous fixes */}
+        <div>
+          {pastFixes.length === 0 ? (
+            <p>Ask a question to see your past responses!</p>
+          ) : (
+            pastFixes.map((data: GetCodeFixData) => {
+              return (
+                <div key={`Past response ${data.id}`}>
+                  <h1>{data.title}</h1>
+                  <p>{data.input}</p>
+                  <h1>Ai response:</h1>
+                  <p>{data.output}</p>
+                </div>
+              )
+            })
+          )}
+        </div>
       </div>
     </>
   )

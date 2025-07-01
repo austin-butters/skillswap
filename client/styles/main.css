@@ -362,6 +362,7 @@ button:hover {
   gap: 40px;
   margin-top: 50px;
   margin-right: 200px;
+  padding-left: 20px;
 }
 
 .ai-title-container {
@@ -695,4 +696,110 @@ input.ai-title-container:-webkit-autofill:active {
 
 .user-actions .call-button:hover {
   background-color: #059669;
+}
+
+/* <--Meetings HTML--> */
+
+/* Page background */
+body {
+  background: #fcefdc;
+}
+
+/* Container for the three columns */
+.mt-20.flex.space-x-8 {
+  display: flex;
+  gap: 2rem; /* space-x-8 */
+  margin-top: 5rem; /* mt-20 */
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Each column/card */
+.meeting-card {
+  background: #f6f8fa;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 2rem 1.5rem;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 350px;
+}
+
+/* Headings */
+.meeting-card h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #6366f1;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Lists */
+.meeting-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+  width: 100%;
+}
+
+/* List items */
+.meeting-card li {
+  background: #fff;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1rem;
+  color: #1e1e1e;
+}
+
+/* Links */
+.meeting-card a {
+  color: #6366f1;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.meeting-card a:hover {
+  text-decoration: underline;
+  color: #434190;
+}
+
+/* Buttons */
+.meeting-card button {
+  background-color: #6366f1;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px;
+  border: none;
+  margin-left: 1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition:
+    background 0.2s,
+    transform 0.1s;
+}
+.meeting-card button:hover {
+  background: #434190;
+  transform: translateY(-2px);
+}
+
+/* Responsive for mobile */
+@media (max-width: 1000px) {
+  .mt-20.flex.space-x-8 {
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+  }
+  .meeting-card {
+    width: 90vw;
+    min-width: unset;
+  }
 }
