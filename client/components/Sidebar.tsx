@@ -57,7 +57,9 @@ export default function Sidebar() {
                 <div className="sidebar-button">
                   <Link
                     to={
-                      isAuthenticated ? `/profile/${userId}` : loginPageLinkPath
+                      isAuthenticated
+                        ? `/profile/${userData.id}`
+                        : loginPageLinkPath
                     }
                   >
                     Profile
