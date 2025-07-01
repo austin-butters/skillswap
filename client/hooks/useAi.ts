@@ -25,7 +25,7 @@ export async function useGetUsersCodeFixes(userId: UserId) {
     queryKey: ['aiResponses', userId],
     queryFn: async () => {
       const token = await getAccessTokenSilently()
-      return getUsersCodeFixes(userId, token)
+      return await getUsersCodeFixes(userId, token)
     },
   })
   return query

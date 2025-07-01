@@ -14,6 +14,10 @@ export default function CodeFixer() {
   const { data: pastFixes } = useGetUsersCodeFixes(userData?.id)
   const addAiResponse = useAddAiResponse()
 
+  if (!userData || !pastFixes) {
+    return <p>Loading...</p>
+  }
+
   return (
     <>
       <div className="ai-container">
