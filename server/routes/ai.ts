@@ -27,7 +27,7 @@ const genAI = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 })
 // This is techincally creating I guess?
-router.get('/:title', checkJwt, async (req: JwtRequest, res) => {
+router.get('/response/:title', checkJwt, async (req: JwtRequest, res) => {
   const title = String(req.params.title)
   const userInput = req.query.prompt
   try {
