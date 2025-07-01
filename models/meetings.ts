@@ -11,3 +11,10 @@ export interface SavedMeeting {
   user_id: number
   meeting_id: number
 }
+
+export interface AddMeetingData {
+  public: boolean
+  hostId: number
+  title: string
+  url: string
+}
