@@ -55,6 +55,24 @@ router.post('/', checkJwt, async (req: JwtRequest, res) => {
 })
 
 // ------------------------------ READ ------------------------------ //
+router.get('questionbyanswer/:answerid', async (req, res) => {
+  console.log('server route: answers, GET /questionbyanswer/:answerid') // TEST LOG
+  try {
+    const answerId: AnswerId = Number(req.params.answerid)
+    if (!Number.isInteger(answerId)) {
+      return res.status(400).json({ error: 'Bad request: invalid answer id' })
+    }
+    const questionId: QuestionId | undefined =
+      await Answers.getQuestionIdFromAnswer(answerId)
+    if (!questionId) {
+      return res.status(404).json({ error: 'Not Found' })
+    }
+    return res.status(200).json(questionId)
+  } catch (err) {
+    return res.status(500).json({ error: 'Internal Server Error' })
+  }
+})
+
 router.get('/replysto/:answerid', async (req, res) => {
   console.log('server route: answers GET /replysto/:answerid')
   try {

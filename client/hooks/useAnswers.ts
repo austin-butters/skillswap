@@ -53,6 +53,7 @@ export function useAddAnswer() {
   const queryClient = useQueryClient()
   const mutation = useMutation({
     mutationFn: async (newAnswer: UnassignedAnswer) => {
+      console.log('mutationFn for useAddAnswer') // TEST LOG
       const token: JWT = await getAccessTokenSilently()
       addAnswer(newAnswer, token)
     },
@@ -63,15 +64,24 @@ export function useAddAnswer() {
 
 export function useAnswer(answerId: AnswerId) {
   const answerQuery = useQuery({
-    queryKey: ['answer'],
+    queryKey: ['answer', answerId],
     queryFn: async () => await getAnswerById(answerId),
   })
 
+  console.log(answerQuery.status)
+
   const answerReplysQuery = useQuery({
-    queryKey: ['replys'],
-    queryFn: async () => await getAnswerReplys(answerId),
-    enabled: !!answerQuery.data && answerQuery.data.replyTo !== null,
+    queryKey: ['replys', answerId],
+    queryFn: async () => {
+      if (answerQuery.status !== 'success') return []
+      return await getAnswerReplys(answerId)
+    },
+    enabled: answerQuery.status === 'success',
   })
+
+  console.log({
+    answerRepliesQueryEnabled: !!answerQuery.data,
+  }) // TEST LOG
 
   const authorQuery = useUserById(answerQuery.data?.userId as number)
 
@@ -91,15 +101,6 @@ export function useAnswer(answerId: AnswerId) {
   const answer: Answer | undefined = answerQuery.data
   const author: User | undefined = authorQuery.user
   const replies: Answer[] | undefined = answerReplysQuery.data
-
-  console.log({
-    author,
-    isPending,
-    isError,
-    answer,
-    replies,
-    replyToAnswer,
-  }) // TEST LOG
 
   return {
     author,
