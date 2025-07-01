@@ -13,8 +13,6 @@ export default function Profile() {
   } = useAuth0Id(user?.sub)
   const { user: OtherUserData, isLoading, isError } = useUserById(id)
 
-  export default function editUserFourm()
-
   if (isLoading) {
     return <p>Loading...</p>
   }
