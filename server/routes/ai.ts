@@ -15,10 +15,6 @@ router.post('/', checkJwt, async (req: JwtRequest, res) => {
   try {
     const { userId, title, input, output }: AddCodeFixData = req.body
 
-    if (!userId || !title || !input || !output) {
-      return res.status(400).json({ error: `Bad request: Missing inputs` })
-    }
-
     await addAiFix({ userId, title, input, output })
 
     return res.status(200)
