@@ -3,7 +3,7 @@ import { AnswerId, UserId } from '#models'
 import { useAnswer } from '../hooks/useAnswers'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useState } from 'react'
-import { useAuth0Id } from 'client/hooks/useUsers'
+import { useAuth0Id } from '../hooks/useUsers'
 
 interface Props {
   answerId: AnswerId
