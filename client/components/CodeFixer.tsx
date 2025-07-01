@@ -41,7 +41,8 @@ export default function CodeFixer() {
               className="fix-button"
               onClick={async () => {
                 const token: JWT = await getAccessTokenSilently()
-                const result = await getAiResponse(input, token)
+                setResponse('Thinking...')
+                const result = await getAiResponse(questionTitle, input, token)
                 setResponse(result)
                 addAiResponse.mutate({
                   userId: userData.id,
