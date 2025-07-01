@@ -41,7 +41,7 @@ export function useRemoveSavedMeeting() {
   return useMutation({
     mutationFn: async (ids: { userId: UserId; meetingId: number }) => {
       const token = await getAccessTokenSilently()
-      removeSavedMeeting(ids.userId, ids.userId, token)
+      removeSavedMeeting(ids.userId, ids.meetingId, token)
     },
     onSuccess: (data, params) => {
       queryClient.invalidateQueries({
