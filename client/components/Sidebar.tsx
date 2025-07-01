@@ -17,8 +17,6 @@ export default function Sidebar() {
     )
   }
 
-  const userId = 1
-
   return (
     <div>
       <div className="sidebar">
