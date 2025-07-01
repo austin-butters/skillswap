@@ -9,8 +9,9 @@ export async function getAiResponse(
   token: JWT,
 ) {
   const response = await request
-    .get(`${rootURL}/ai/response/${title}?prompt=${userInput}`)
+    .post(`${rootURL}/ai/response/${title}`)
     .set('Authorization', `Bearer ${token}`)
+    .send({ userInput })
   return `${response.body[0].content.parts[0].text}`
 }
 
