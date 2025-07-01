@@ -19,7 +19,7 @@ export function useAddAiResponse() {
   })
 }
 
-export async function useGetUsersCodeFixes(userId: UserId) {
+export function useGetUsersCodeFixes(userId: UserId) {
   const { getAccessTokenSilently } = useAuth0()
   const query = useQuery({
     queryKey: ['aiResponses', userId],
