@@ -4,7 +4,7 @@ import request from 'superagent'
 const rootURL = new URL('/api/v1', document.baseURI)
 
 export async function saveMeeting(
-  userId: number,
+  userId: UserId,
   meetingId: number,
   token: JWT,
 ) {
