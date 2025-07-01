@@ -15,7 +15,7 @@ body {
   left: 30px;
   width: 220px;
   height: calc(100vh - 40px);
-  background-color: #f2f4f8; /* Matches question box background */
+  background-color: #f2f4f8;
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   display: flex;
@@ -26,7 +26,6 @@ body {
   transition: all 0.3s ease-in-out;
 }
 
-/* Sidebar Header */
 .sidebar-header {
   color: #5a67d8;
   font-size: 1.8rem;
@@ -36,7 +35,6 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
-/* Sidebar Menu */
 .sidebar-menu {
   list-style: none;
   padding: 0;
@@ -75,7 +73,6 @@ body {
   color: #5a67d8;
 }
 
-/* Optional Button Style */
 .sidebar-button {
   background-color: #5a67d8;
   color: white;
@@ -99,7 +96,6 @@ body {
 
 /* <--Home Page HTML --> */
 
-/* Layout */
 .side-flex {
   display: flex;
   flex-direction: row;
@@ -132,7 +128,6 @@ body {
   }
 }
 
-/* Form Elements */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -166,14 +161,12 @@ body {
   background-color: #fefefe;
 }
 
-/* Placeholder */
 input::placeholder,
 textarea::placeholder {
   color: #999;
   font-weight: 500;
 }
 
-/* Question Box Styles */
 .question-box,
 .question-box-other {
   display: flex;
@@ -223,7 +216,6 @@ textarea::placeholder {
   object-fit: cover;
 }
 
-/* Button */
 button {
   background-color: #5a67d8;
   color: white;
@@ -282,11 +274,11 @@ button:hover {
 .inbox-box {
   display: flex;
   flex-direction: column;
-  background-color: #f2f4f8; /* Matches the sidebar & home theme */
+  background-color: #f2f4f8;
   align-items: center;
   padding: 30px 20px;
   border-radius: 16px;
-  margin-left: 260px; /* Leaves space for the sidebar */
+  margin-left: 260px;
   margin-top: 40px;
   width: calc(100% - 300px);
   gap: 16px;
@@ -341,7 +333,6 @@ button:hover {
   margin: 0;
 }
 
-/* Header */
 .header {
   color: #5a67d8;
   font-size: 2rem;
@@ -361,18 +352,18 @@ button:hover {
 
 /* <-- Ai fixer HTML */
 
-/* Main layout container */
 .ai-container {
   display: flex;
   flex-direction: row;
-  height: 100vh;
+  height: 90vh;
   align-items: center;
-  justify-content: space-between;
-  padding-right: 10vw;
-  padding-left: 260px; /* Adjust if sidebar is present */
+  justify-content: space-evenly;
   background-color: #f2f4f8;
   font-family: 'Inter', sans-serif;
   gap: 40px;
+  margin-top: 50px;
+  margin-bottom: px;
+  margin-right: 200px;
 }
 
 @media (max-width: 1024px) {
@@ -383,7 +374,6 @@ button:hover {
   }
 }
 
-/* Input section (left card) */
 .input-section,
 .response-section {
   background-color: #a2aadb;
@@ -412,7 +402,6 @@ button:hover {
   }
 }
 
-/* Input field */
 .input-box {
   width: 100%;
   height: 100%;
@@ -428,7 +417,6 @@ button:hover {
   font-family: 'Inter', sans-serif;
 }
 
-/* Fix Now button */
 .fix-button {
   margin-top: 20px;
   background-color: white;
@@ -448,7 +436,6 @@ button:hover {
   transform: scale(1.02);
 }
 
-/* Response box */
 .response-box {
   width: 100%;
   height: 100%;
@@ -573,4 +560,114 @@ button:hover {
   margin-top: 10px;
   color: #333;
   font-size: 0.95rem;
+}
+
+/* <--Connect Page--> */
+
+.search-container {
+  padding: 7vh 10vw 0 10vw;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.search-box {
+  background-color: #f3f4f6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.search-title {
+  font-weight: 700;
+  font-size: 2rem;
+  color: #1f2937;
+}
+
+.search-input-container {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: #3b82f6;
+}
+
+.search-button {
+  background-color: #3b82f6;
+  color: white;
+  margin-left: 10px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.search-button:hover {
+  background-color: #2563eb;
+}
+
+.results-container {
+  margin-top: 40px;
+}
+
+.user-card {
+  background-color: #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: #111827;
+}
+
+.user-actions a {
+  padding: 8px 16px;
+  color: white;
+  border-radius: 6px;
+  font-weight: 600;
+  margin-left: 10px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.user-actions .message-button {
+  background-color: #3b82f6;
+}
+
+.user-actions .message-button:hover {
+  background-color: #2563eb;
+}
+
+.user-actions .call-button {
+  background-color: #10b981;
+}
+
+.user-actions .call-button:hover {
+  background-color: #059669;
 }
