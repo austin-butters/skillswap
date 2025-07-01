@@ -7,6 +7,7 @@ import { useState } from 'react'
 
 export default function CodeFixer() {
   const { getAccessTokenSilently, user } = useAuth0()
+  const [questionTitle, setQuestionTitle] = useState('')
   const [input, setInput] = useState('')
   const [response, setResponse] = useState('')
   const { data: userData } = useAuth0Id(user?.sub)
@@ -24,23 +25,15 @@ export default function CodeFixer() {
         {/* Input Card */}
         <div className="input-section">
           <div className="input-wrapper" style={{ width: '100%', flex: 1 }}>
+            <input
+              type="text"
+              placeholder="Ask your question here..."
+              onChange={(e) => setQuestionTitle(e.target.value)}
+            />
             <textarea
               className="input-box"
-              placeholder="Enter your code or text here..."
+              placeholder="Paste code here..."
               onChange={(e) => setInput(e.target.value)}
-              onKeyDown={async (e) => {
-                if (e.key === 'Enter') {
-                  const token: JWT = await getAccessTokenSilently()
-                  const result = await getAiResponse(input, token)
-                  setResponse(result)
-                  addAiResponse.mutate({
-                    userId: userData.id,
-                    title: 'Test title',
-                    input: input,
-                    output: response,
-                  })
-                }
-              }}
             />
           </div>
           <div>
@@ -50,6 +43,12 @@ export default function CodeFixer() {
                 const token: JWT = await getAccessTokenSilently()
                 const result = await getAiResponse(input, token)
                 setResponse(result)
+                addAiResponse.mutate({
+                  userId: userData.id,
+                  title: questionTitle,
+                  input: input,
+                  output: result,
+                })
               }}
             >
               Fix Now!
