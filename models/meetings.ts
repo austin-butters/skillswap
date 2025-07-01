@@ -6,8 +6,15 @@ export interface MeetingData {
   url: string
 }
 
-export interface SavedMeeting {
+export interface SavedMeetingData {
   id: number
   user_id: number
   meeting_id: number
+}
+
+export interface AddMeetingData {
+  public: boolean
+  hostId: number
+  title: string
+  url: string
 }

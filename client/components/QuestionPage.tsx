@@ -74,13 +74,6 @@ function QuestionPage() {
       <p>{isAnswersPending && 'Answers Loading...'}</p>
       <p>{isAnswersError && 'Error getting answers'}</p>
       <p>{isAnswersError && answerError.message}</p>
-      {!answers ? null : answers.length === 0 ? (
-        <p>No answers for this question.</p>
-      ) : (
-        answers.map((answer, i) => {
-          return <AnswerDisplayBox key={i} answerId={answer.id} />
-        })
-      )}
       {userCanAddAnswer && (
         <form onSubmit={handleAddAnswer}>
           <label htmlFor="add-answer">Add an answer</label>
@@ -91,6 +84,13 @@ function QuestionPage() {
           ></textarea>
           <button type="submit">Submit Answer</button>
         </form>
+      )}
+      {!answers ? null : answers.length === 0 ? (
+        <p>No answers for this question.</p>
+      ) : (
+        [...answers].reverse().map((answer, i) => {
+          return <AnswerDisplayBox key={i} answerId={answer.id} depth={0} />
+        })
       )}
     </>
   )

@@ -1,10 +1,10 @@
-import { JWT, MeetingData } from '#models'
+import { AddMeetingData, JWT, MeetingData } from '#models'
 import request from 'superagent'
 
 const rootURL = new URL('/api/v1', document.baseURI)
 
 export async function createMeeting(
-  meetingData: MeetingData,
+  meetingData: AddMeetingData,
   token: JWT,
 ): Promise<void> {
   const response = await request
