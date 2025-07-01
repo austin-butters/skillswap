@@ -27,11 +27,19 @@ export default function SavedMeeting({
 
   return (
     <>
-      <a href={meetingData.url} target="_blank" rel="noreferrer">
+      <a
+        href={meetingData.url}
+        target="_blank"
+        rel="noreferrer"
+        className="w-3/6"
+      >
         {meetingData.title}
       </a>
-      <button onClick={() => handleRemoveSave(meetingData.id)}>
-        Unsave meeting
+      <button
+        onClick={() => handleRemoveSave(meetingData.id)}
+        className="w-30 text-base"
+      >
+        Unsave
       </button>
     </>
   )

@@ -29,8 +29,8 @@ export default function YourMeetings() {
   }
 
   return (
-    <div className="flex space-x-16">
-      <div>
+    <div className="mt-20 flex space-x-8">
+      <div className="h-full w-full flex-col justify-items-center bg-gray-200 p-3">
         <h1>{userData.name}s meetings</h1>
         <ul>
           {meetingsData.length === 0 ? (
@@ -51,7 +51,7 @@ export default function YourMeetings() {
           <button>Create a meeting!</button>
         </Link>
       </div>
-      <div>
+      <div className="w-full flex-col justify-items-center bg-gray-200 p-3">
         <h1>Reccomended public meetings</h1>
         <ul>
           {publicMeetings.length === 0 ? (
@@ -70,12 +70,18 @@ export default function YourMeetings() {
                 return null
               }
               return (
-                <li key={`Public meeting ${i}`}>
+                <li
+                  key={`Public meeting ${i}`}
+                  className="w-full flex-row items-center"
+                >
                   <a href={meeting.url} target="_blank" rel="noreferrer">
                     {meeting.title}
                   </a>
-                  <button onClick={() => handleSave(meeting.id)}>
-                    Save Meeting
+                  <button
+                    onClick={() => handleSave(meeting.id)}
+                    className="w-30 ml-3 text-base"
+                  >
+                    Save
                   </button>
                 </li>
               )
@@ -83,22 +89,27 @@ export default function YourMeetings() {
           )}
         </ul>
       </div>
-      <div>
+      <div className="w-full flex-col justify-items-center bg-gray-200 p-3">
         <h1>Saved meetings</h1>
-        {savedMeetings.length === 0 ? (
-          <p>No saved meetings...</p>
-        ) : (
-          savedMeetings.map((meeting: SavedMeetingData, i: number) => {
-            return (
-              <li key={`Saved meeting ${i}`}>
-                <SavedMeeting
-                  meetingId={Number(meeting.meeting_id)}
-                  userId={Number(userData.id)}
-                />
-              </li>
-            )
-          })
-        )}
+        <ul>
+          {savedMeetings.length === 0 ? (
+            <p>No saved meetings...</p>
+          ) : (
+            savedMeetings.map((meeting: SavedMeetingData, i: number) => {
+              return (
+                <li
+                  key={`Saved meeting ${i}`}
+                  className="w-full flex-row items-center"
+                >
+                  <SavedMeeting
+                    meetingId={Number(meeting.meeting_id)}
+                    userId={Number(userData.id)}
+                  />
+                </li>
+              )
+            })
+          )}
+        </ul>
       </div>
     </div>
   )
