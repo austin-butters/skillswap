@@ -1,4 +1,4 @@
-import { SavedMeeting, UserId } from '#models'
+import { SavedMeetingData, UserId } from '#models'
 import db from '../connection'
 
 export async function saveMeeting(
@@ -19,7 +19,7 @@ export async function saveMeeting(
 
 export async function getSavedMeetings(
   userId: number,
-): Promise<SavedMeeting[]> {
+): Promise<SavedMeetingData[]> {
   return await db('saved_meetings').where({ user_id: userId }).select()
 }
 
