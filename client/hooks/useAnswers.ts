@@ -64,14 +64,14 @@ export function useAddAnswer() {
 
 export function useAnswer(answerId: AnswerId) {
   const answerQuery = useQuery({
-    queryKey: ['answer', answerId],
+    queryKey: ['answer', 'answers', answerId],
     queryFn: async () => await getAnswerById(answerId),
   })
 
   console.log(answerQuery.status)
 
   const answerReplysQuery = useQuery({
-    queryKey: ['replys', answerId],
+    queryKey: ['replys', 'answers', answerId],
     queryFn: async () => {
       if (answerQuery.status !== 'success') return []
       return await getAnswerReplys(answerId)
