@@ -1,4 +1,4 @@
-import { useGetMeetingById } from 'client/hooks/useMeetings'
+import { useGetMeetingById } from '../hooks/useMeetings'
 
 export default function SavedMeeting({ meetingId }: { meetingId: number }) {
   const { data: meetingData } = useGetMeetingById(meetingId)
