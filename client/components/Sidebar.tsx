@@ -44,9 +44,7 @@ export default function Sidebar() {
           </li>
           <li>
             <div className="sidebar-button">
-              <Link
-                to={isAuthenticated ? `/inbox/${userId}` : loginPageLinkPath}
-              >
+              <Link to={isAuthenticated ? `/inbox` : loginPageLinkPath}>
                 Inbox
               </Link>
             </div>
