@@ -24,12 +24,13 @@ export default function CodeFixer() {
       <div className="ai-container">
         {/* Input Card */}
         <div className="input-section">
+          <input
+            type="text"
+            placeholder="Ask your question here..."
+            onChange={(e) => setQuestionTitle(e.target.value)}
+            className="ai-title-container"
+          />
           <div className="input-wrapper" style={{ width: '100%', flex: 1 }}>
-            <input
-              type="text"
-              placeholder="Ask your question here..."
-              onChange={(e) => setQuestionTitle(e.target.value)}
-            />
             <textarea
               className="input-box"
               placeholder="Paste code here..."

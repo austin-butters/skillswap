@@ -235,7 +235,6 @@ button:hover {
   transform: translateY(-1px);
 }
 
-/* Animations */
 @keyframes appear {
   from {
     opacity: 0;
@@ -251,7 +250,6 @@ button:hover {
   animation: appear 0.6s ease-in-out both;
 }
 
-/* Loading Spinner */
 .loading-indicator {
   display: block;
   width: 20vh;
@@ -278,7 +276,7 @@ button:hover {
   align-items: center;
   padding: 30px 20px;
   border-radius: 16px;
-  margin-left: 260px;
+  margin-left: 90px;
   margin-top: 40px;
   width: calc(100% - 300px);
   gap: 16px;
@@ -340,7 +338,8 @@ button:hover {
   padding: 40px 0 10px;
   text-align: center;
   font-family: 'Inter', sans-serif;
-  margin-left: 260px;
+  /* margin-left: 20px; */
+  margin-right: 135px;
 }
 
 @media (max-width: 768px) {
@@ -362,8 +361,21 @@ button:hover {
   font-family: 'Inter', sans-serif;
   gap: 40px;
   margin-top: 50px;
-  margin-bottom: px;
   margin-right: 200px;
+}
+
+.ai-title-container {
+  width: 50%;
+  height: 40px;
+  background-color: #f6f8fa;
+  border: 2px solid #fff2e0;
+  border-radius: 12px;
+  padding: 16px; /* top right bottom left */
+  font-size: 1rem;
+  color: #1e1e1e;
+  box-sizing: border-box;
+  resize: vertical;
+  font-family: 'Inter', sans-serif;
 }
 
 @media (max-width: 1024px) {
@@ -379,11 +391,13 @@ button:hover {
   background-color: #a2aadb;
   display: flex;
   flex-direction: column;
+  gap: 20px;
   justify-content: space-between;
   align-items: center;
   width: 30vw;
   height: 60vh;
   padding: 24px;
+
   border-radius: 20px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   transition: transform 0.2s ease;
@@ -448,6 +462,15 @@ button:hover {
   line-height: 1.5;
   white-space: pre-wrap;
   border: 2px solid #fff2e0;
+}
+
+input.ai-title-container:-webkit-autofill,
+input.ai-title-container:-webkit-autofill:hover,
+input.ai-title-container:-webkit-autofill:focus,
+input.ai-title-container:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #f6f8fa inset !important; /* Match your background */
+  -webkit-text-fill-color: #1e1e1e !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 /* < -- User page HTML --> */
@@ -569,6 +592,8 @@ button:hover {
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
+  /* padding-top: 300px; */
+  margin-right: 350px;
 }
 
 .search-box {
