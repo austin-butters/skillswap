@@ -32,7 +32,7 @@ export function useAnswersByQuestion(
   enable: boolean = true,
 ) {
   const { data: answers, ...properties } = useQuery({
-    queryKey: ['answers'],
+    queryKey: ['answer'],
     queryFn: () => getAnswersByQuestion(questionId),
     enabled: enable,
   })
@@ -41,7 +41,7 @@ export function useAnswersByQuestion(
 
 export function useAnswersByUser(userId: UserId, enable: boolean = true) {
   const { data: answers, ...properties } = useQuery({
-    queryKey: ['answers'],
+    queryKey: ['answer'],
     queryFn: () => getAnswersByUser(userId),
     enabled: enable,
   })
@@ -57,21 +57,22 @@ export function useAddAnswer() {
       const token: JWT = await getAccessTokenSilently()
       addAnswer(newAnswer, token)
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['answers'] }),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ['answer', 'replies'] }),
   })
   return mutation
 }
 
 export function useAnswer(answerId: AnswerId) {
   const answerQuery = useQuery({
-    queryKey: ['answer', answerId],
+    queryKey: ['answer', 'answers', answerId],
     queryFn: async () => await getAnswerById(answerId),
   })
 
   console.log(answerQuery.status)
 
   const answerReplysQuery = useQuery({
-    queryKey: ['replys', answerId],
+    queryKey: ['replies', 'answer', 'answers', answerId],
     queryFn: async () => {
       if (answerQuery.status !== 'success') return []
       return await getAnswerReplys(answerId)
