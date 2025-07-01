@@ -72,7 +72,10 @@ export default function YourMeetings() {
         {savedMeetings.map((meeting, i) => {
           return (
             <li key={`Saved meeting ${i}`}>
-              <SavedMeeting meetingId={Number(meeting.meeting_id)} />
+              <SavedMeeting
+                meetingId={Number(meeting.meeting_id)}
+                userId={Number(userData.id)}
+              />
             </li>
           )
         })}
