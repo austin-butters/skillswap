@@ -11,7 +11,7 @@ export async function saveMeeting(
       meeting_id: meetingId,
     })
     .first()
-  if (existingSave === undefined) {
+  if (existingSave !== undefined) {
     return
   }
   await db('saved_meetings').insert({ user_id: userId, meeting_id: meetingId })
