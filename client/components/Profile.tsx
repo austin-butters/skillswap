@@ -11,11 +11,13 @@ export default function Profile() {
   }
   let isUser = false
   if (!userData) {
+    //users cannot view profiles unless logged in, could be changed later if this is not prefered.
     return (
       <>
         <p>
           No user found, you&apos;pre probably loading but if you have time to
-          read all this before the page loads you might not be logged in.
+          read all this before the page loads you might not be logged in. Also
+          going to hide the CHICKEN JOCKEY here.
         </p>
       </>
     )
