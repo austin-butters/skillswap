@@ -15,7 +15,7 @@ export default function Profile() {
     return (
       <>
         <p>
-          No user found, you&apos;pre probably loading but if you have time to
+          No user found, you&apos;re probably loading but if you have time to
           read all this before the page loads you might not be logged in. Also
           going to hide the CHICKEN JOCKEY here.
         </p>
