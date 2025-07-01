@@ -79,6 +79,12 @@ export async function getAnswersByUser(userId: UserId): Promise<Answer[]> {
     .select(...answerFieldsToCamelCase)
 }
 
+export async function getReplysToAnswer(answerId: AnswerId): Promise<Answer[]> {
+  if (!answerId) return []
+  return await db('answers')
+    .where('reply_to', answerId)
+    .select(...answerFieldsToCamelCase)
+}
 // ------------------------------ UPDATE ------------------------------ //
 
 // ------------------------------ DELETE ------------------------------ //

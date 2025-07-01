@@ -8,7 +8,14 @@ import { Router } from 'express'
 
 import { Answers } from '../db/db-functions'
 
-import { Answer, AnswerId, QuestionId, UnassignedAnswer, UserId } from '#models'
+import {
+  Answer,
+  AnswerId,
+  AnswerReplyTo,
+  QuestionId,
+  UnassignedAnswer,
+  UserId,
+} from '#models'
 import checkJwt from '../auth0'
 import type { JwtRequest } from '../auth0'
 
@@ -48,6 +55,22 @@ router.post('/', checkJwt, async (req: JwtRequest, res) => {
 })
 
 // ------------------------------ READ ------------------------------ //
+router.get('/replysto/:answerid', async (req, res) => {
+  console.log('server route: answers GET /replysto/:answerid')
+  try {
+    const replyTo: AnswerReplyTo = Number(req.params.answerid)
+    if (!replyTo || !Number.isInteger(replyTo)) {
+      return res
+        .status(400)
+        .json({ error: 'Bad request: invalid replyTo answer id' })
+    }
+    const answers: Answer[] = await Answers.getReplysToAnswer(replyTo)
+    return res.status(200).json(answers)
+  } catch (err) {
+    return res.status(500).json({ error: 'Internal Server Error' })
+  }
+})
+
 router.get('/question/:id', async (req, res) => {
   console.log('server route: answers, GET /question/:id') // TEST LOG
   try {
