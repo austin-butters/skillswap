@@ -54,6 +54,14 @@ export default function YourMeetings() {
             if (meeting.host_id === userData.id) {
               return null
             }
+            if (
+              savedMeetings.some(
+                (savedMeeting: SavedMeetingData) =>
+                  meeting.id === savedMeeting.meeting_id,
+              )
+            ) {
+              return null
+            }
             return (
               <li key={`Public meeting ${i}`}>
                 <a href={meeting.url} target="_blank" rel="noreferrer">
