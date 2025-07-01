@@ -54,3 +54,12 @@ export async function addAnswer(
     throw new Error('Unknown error posting answer')
   }
 }
+
+export async function getAnswerReplys(answerId: AnswerId): Promise<Answer[]> {
+  try {
+    const response = await request.get(`${rootUrl}/replysto/${answerId}`)
+    return response.body
+  } catch (err) {
+    throw new Error('Unknown error getting answer replys')
+  }
+}

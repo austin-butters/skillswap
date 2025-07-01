@@ -5,6 +5,7 @@ import { QuestionId, UnassignedAnswer } from '#models'
 import { useState } from 'react'
 import { useAuth0Id } from '../hooks/useUsers'
 import { useAuth0 } from '@auth0/auth0-react'
+import AnswerDisplayBox from './AnswerDisplayBox'
 
 function QuestionPage() {
   const { user: auth0User } = useAuth0()
@@ -77,13 +78,7 @@ function QuestionPage() {
         <p>No answers for this question.</p>
       ) : (
         answers.map((answer, i) => {
-          return (
-            <div key={i}>
-              <p>{`Answer id: ${answer.id}`}</p>
-              <p>{`Answer user id: ${answer.userId}`}</p>
-              <p>{`Answer body: ` + answer.body}</p>
-            </div>
-          )
+          return <AnswerDisplayBox key={i} answerId={answer.id} />
         })
       )}
       {userCanAddAnswer && (
