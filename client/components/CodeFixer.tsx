@@ -1,12 +1,18 @@
-import { JWT } from '#models'
+import { GetCodeFixData, JWT } from '#models'
 import { useAuth0 } from '@auth0/auth0-react'
-import { getAiResponse } from 'client/api/ai'
+import { getAiResponse } from '../api/ai'
+import { useAddAiResponse, useGetUsersCodeFixes } from '../hooks/useAi'
+import { useAuth0Id } from '../hooks/useUsers'
 import { useState } from 'react'
 
 export default function CodeFixer() {
-  const { getAccessTokenSilently } = useAuth0()
+  const { getAccessTokenSilently, user } = useAuth0()
   const [input, setInput] = useState('')
   const [response, setResponse] = useState('')
+  const { data: userData } = useAuth0Id(user?.sub)
+
+  const { data: pastFixes } = useGetUsersCodeFixes(userData?.id)
+  const addAiResponse = useAddAiResponse()
 
   return (
     <>
@@ -23,6 +29,12 @@ export default function CodeFixer() {
                   const token: JWT = await getAccessTokenSilently()
                   const result = await getAiResponse(input, token)
                   setResponse(result)
+                  addAiResponse.mutate({
+                    userId: userData.id,
+                    title: 'Test title',
+                    input: input,
+                    output: response,
+                  })
                 }
               }}
             />
@@ -47,6 +59,24 @@ export default function CodeFixer() {
             <p>{response}</p>
           </div>
         </div>
+      </div>
+
+      {/* Previous fixes */}
+      <div>
+        {pastFixes.length === 0 ? (
+          <p>Ask a question to see your past responses!</p>
+        ) : (
+          pastFixes.map((data: GetCodeFixData) => {
+            return (
+              <div key={`Past response ${data.id}`}>
+                <h1>{data.title}</h1>
+                <p>{data.input}</p>
+                <h1>Ai response:</h1>
+                <p>{data.output}</p>
+              </div>
+            )
+          })
+        )}
       </div>
     </>
   )
