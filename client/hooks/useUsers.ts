@@ -61,6 +61,7 @@ export function useUserById(userId: UserId) {
   const { data: user, ...properties } = useQuery({
     queryKey: ['otherUsers'],
     queryFn: () => getUserById(userId),
+    enabled: Number.isInteger(userId),
   })
   return { user, ...properties }
 }

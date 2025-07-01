@@ -7,6 +7,7 @@ import directMessagesRoutes from './routes/directMessages.ts'
 import answerRoutes from './routes/answers.ts'
 import friendRoutes from './routes/friends.ts'
 import meetingRoutes from './routes/meetings.ts'
+import savedMeetingsRoutes from './routes/savedMeetings.ts'
 // import checkJwt, { JwtRequest } from './auth0.ts'
 
 const server = express()
@@ -33,6 +34,7 @@ server.use('/api/v1/directMessages', directMessagesRoutes)
 server.use('/api/v1/answers', answerRoutes)
 server.use('/api/v1/friends', friendRoutes)
 server.use('/api/v1/meetings', meetingRoutes)
+server.use('/api/v1/savedMeetings', savedMeetingsRoutes)
 
 if (process.env.NODE_ENV === 'production') {
   server.use(express.static(Path.resolve('public')))

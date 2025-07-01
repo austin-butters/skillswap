@@ -65,11 +65,12 @@ export async function getAnswerById(
     .first()
 }
 
+// THIS FUNCTION HAS BEEN CHANGED SO THAT IT ONLY RETURNS DIRECT ANSWERS WITHOUT REPLIES - SHOULD NOT AFFECT OTHER FUNCTIONALITY.
 export async function getAnswersByQuestion(
   questionId: QuestionId,
 ): Promise<Answer[]> {
   return await db('answers')
-    .where('question_id', questionId)
+    .where({ question_id: questionId, reply_to: null })
     .select(...answerFieldsToCamelCase)
 }
 
@@ -79,6 +80,22 @@ export async function getAnswersByUser(userId: UserId): Promise<Answer[]> {
     .select(...answerFieldsToCamelCase)
 }
 
+export async function getReplysToAnswer(answerId: AnswerId): Promise<Answer[]> {
+  if (!answerId) return []
+  return await db('answers')
+    .where('reply_to', answerId)
+    .select(...answerFieldsToCamelCase)
+}
+
+export async function getQuestionIdFromAnswer(
+  answerId: AnswerId,
+): Promise<QuestionId | undefined> {
+  if (!answerId) return
+  return await db('answers')
+    .where({ id: answerId })
+    .select('question_id')
+    .first()
+}
 // ------------------------------ UPDATE ------------------------------ //
 
 // ------------------------------ DELETE ------------------------------ //
