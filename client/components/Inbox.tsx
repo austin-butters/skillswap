@@ -75,12 +75,14 @@ export default function Inbox() {
         {inbox.map((message, i) => {
           return (
             <div className="inbox-message" key={i}>
-              <img
-                src={
-                  message.otherUser.profilePicture ?? DEFAULT_PROFILE_PICTURE
-                }
-                alt={`${message.otherUser.name}'s profile`}
-              />
+              <Link to={`/profile/${message.otherUser.id}`}>
+                <img
+                  src={
+                    message.otherUser.profilePicture ?? DEFAULT_PROFILE_PICTURE
+                  }
+                  alt={`${message.otherUser.name}'s profile`}
+                />
+              </Link>
               <Link to={`/message/${message.otherUser.id}`}>
                 <h1>{message.otherUser.name}</h1>
                 <p>{message.recentMessageBody}</p>
