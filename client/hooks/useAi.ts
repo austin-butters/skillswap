@@ -1,7 +1,7 @@
 import { AddCodeFixData, UserId } from '#models'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { addAiResponse, getUsersCodeFixes } from 'client/api/ai'
+import { addAiResponse, getUsersCodeFixes } from '../api/ai'
 
 export function useAddAiResponse() {
   const { getAccessTokenSilently } = useAuth0()
