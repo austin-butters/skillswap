@@ -130,7 +130,7 @@ router.patch('/:id', async (req, res) => {
       id: id,
       name: name,
       bio: bio,
-      profilePicture: profilePicture,
+      profile_picture: profilePicture,
     }
     Users.updateUser(updatedUser)
     res.sendStatus(204)

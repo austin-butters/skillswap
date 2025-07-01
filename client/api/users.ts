@@ -31,12 +31,7 @@ export async function getUserById(userId: UserId): Promise<User | undefined> {
   return response.body
 }
 
-export async function editUser(
-  id: number,
-  name?: string,
-  bio?: string,
-  profilePicture?: string,
-) {
+export async function editUser({ id, name, bio, profilePicture }) {
   try {
     const response = await request
       .patch(`${rootUrl}/${id}`)
