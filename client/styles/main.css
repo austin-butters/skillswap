@@ -902,7 +902,15 @@ body {
 }
 
 /* <--Messaging HTML --> */
+/* .cc > *,
+.cc > *::before,
+.cc > *::after {
+  box-sizing: border-box;
+  margin: 0;
+} */
+
 .cc {
+  /* Reset and base styles */
   display: flex;
   margin-top: 10vh;
   gap: 20px;
