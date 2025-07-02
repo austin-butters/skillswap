@@ -922,3 +922,252 @@ body {
   background-color: #e2e8f0;
   transform: translateY(-1px);
 }
+
+/* <--Question Page HTML--> */
+.question-wrapper {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+}
+
+.question-author-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.author-profile-link img.profilepicture-box {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #007bff;
+}
+
+.author-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.question-title {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+.question-body {
+  font-size: 1.1rem;
+  color: #444;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.answers-status .loading-text {
+  color: #555;
+  font-style: italic;
+}
+
+.answers-status .error-text {
+  color: #d9534f;
+  font-weight: 600;
+}
+
+.answers-status .error-message {
+  color: #a94442;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+.answer-form {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.answer-textarea {
+  min-height: 100px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  resize: vertical;
+  transition: border-color 0.3s ease;
+}
+
+.answer-textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.submit-answer-button {
+  align-self: flex-start;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-answer-button:hover {
+  background-color: #0056b3;
+}
+
+.answers-list {
+  margin-top: 1rem;
+}
+
+.no-answers-text {
+  color: #666;
+  font-style: italic;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* <--Nested Comments--> */
+.answer-display-box {
+  background: #f9f9f9;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.answer-display-box.main-answer {
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.answer-display-box.nested-answer {
+  background: #f0f4f8;
+}
+
+.answer-top-divider {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin-bottom: 1rem;
+}
+
+.answer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.answer-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.author-profile-link img.profilepicture-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #007bff;
+}
+
+.answer-author {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #222;
+  margin: 0;
+}
+
+.answer-body {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+.reply-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.form-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.reply-textarea {
+  min-height: 80px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  resize: vertical;
+  transition: border-color 0.3s ease;
+}
+
+.reply-textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
+}
+
+.reply-button {
+  align-self: flex-start;
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.reply-button:hover {
+  background-color: #0056b3;
+}
+
+.reply-toggle {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.reply-toggle p {
+  font-weight: 600;
+  color: #555;
+  margin: 0;
+}
+
+.toggle-replies-button {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.toggle-replies-button:hover {
+  color: #0056b3;
+}
+
+.replies-container {
+  margin-top: 1rem;
+  border-left: 2px solid #ddd;
+  padding-left: 1rem;
+}
