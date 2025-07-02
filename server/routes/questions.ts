@@ -61,7 +61,7 @@ router.get('/:id', async (req, res) => {
   try {
     const questionId: QuestionId | number = Number(req.params.id)
     if (isNaN(questionId) || !Number.isInteger(questionId)) {
-      return res.status(400).json({ error: 'Bad request: invalid user id' })
+      return res.status(400).json({ error: 'Bad request: invalid question id' })
     }
     const question: Question | undefined =
       await Questions.getQuestion(questionId)
@@ -70,6 +70,25 @@ router.get('/:id', async (req, res) => {
     }
 
     return res.status(200).json(question)
+  } catch (err) {
+    return res.status(500).json({ error: 'Internal Server Error' })
+  }
+})
+
+router.get('/:userid', async (req, res) => {
+  console.log('server route: questions, GET /:userid') // TEST LOG
+  try {
+    const userId = Number(req.params.userid)
+    if (isNaN(userId) || !Number.isInteger(userId)) {
+      return res.status(400).json({ error: 'Bad request: invalid user id' })
+    }
+    const questions: Question[] | undefined =
+      await Questions.getQuestionByUserId(userId)
+    if (!questions) {
+      return res.status(404).json({ error: 'Not Found' })
+    }
+
+    return res.status(200).json(questions)
   } catch (err) {
     return res.status(500).json({ error: 'Internal Server Error' })
   }
