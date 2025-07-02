@@ -77,16 +77,18 @@ export default function Inbox() {
           return (
             <div className="inbox-message" key={i}>
               <div className="sub-inbox-message">
-                <Link to={`/profile/${message.otherUser.id}`}>
-                  <img
-                    className="profilepicture-box"
-                    src={
-                      message.otherUser.profilePicture ??
-                      DEFAULT_PROFILE_PICTURE
-                    }
-                    alt={`${message.otherUser.name}'s profile`}
-                  />
-                </Link>
+                <div className="inbox-left">
+                  <Link to={`/profile/${message.otherUser.id}`}>
+                    <img
+                      className="profilepicture-box"
+                      src={
+                        message.otherUser.profilePicture ??
+                        DEFAULT_PROFILE_PICTURE
+                      }
+                      alt={`${message.otherUser.name}'s profile`}
+                    />
+                  </Link>
+                </div>
                 <Link to={`/message/${message.otherUser.id}`}>
                   <h1>{message.otherUser.name}</h1>
                 </Link>
