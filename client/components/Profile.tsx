@@ -6,7 +6,6 @@ import { useQueryClient } from '@tanstack/react-query'
 
 export default function Profile() {
   const queryClient = useQueryClient()
-  let editDropdown = false
   const { user } = useAuth0()
   const id = Number(useParams().id)
   const editUser = useEditUser()
@@ -31,7 +30,12 @@ export default function Profile() {
   if (otherUserIsError) {
     return <p>Error, this person might not exist.</p>
   }
-  let isUser = false
+  if (questionsError) {
+    return <p>Error, this persons questions could not be loaded.</p>
+  }
+  if (isError) {
+    return <p>Unknown Error.</p>
+  }
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
     const form = e.target
@@ -52,14 +56,6 @@ export default function Profile() {
     })
   }
 
-  function dropdownPress() {
-    if (editDropdown) {
-      return (editDropdown = false)
-    } else {
-      return (editDropdown = true)
-    }
-  }
-
   if (!userData) {
     //users cannot view profiles unless logged in, could be changed later if this is not prefered.
     return (
@@ -73,7 +69,6 @@ export default function Profile() {
     )
   } else {
     if (id === userData.id) {
-      isUser = true
       if (userData.name === null || userData.bio === null) {
         //if user has yet to register
         return (
