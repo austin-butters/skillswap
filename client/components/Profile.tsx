@@ -2,8 +2,10 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { useQuestionByUserId } from '../hooks/useQuestions'
 import { useAuth0Id, useEditUser, useUserById } from '../hooks/useUsers'
 import { useParams } from 'react-router-dom'
+import { useQueryClient } from '@tanstack/react-query'
 
 export default function Profile() {
+  const queryClient = useQueryClient()
   let editDropdown = false
   const { user } = useAuth0()
   const id = Number(useParams().id)
@@ -41,6 +43,12 @@ export default function Profile() {
       name: String(formData.get('name')),
       bio: String(formData.get('bio')),
       profilePicture: undefined,
+    })
+    queryClient.invalidateQueries({
+      queryKey: ['userAuth0', user?.sub ?? 'unauthenticated'],
+    })
+    queryClient.invalidateQueries({
+      queryKey: ['questions'],
     })
   }
 

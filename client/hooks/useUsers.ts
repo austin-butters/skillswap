@@ -90,7 +90,7 @@ export function useEditUser() {
         queryKey: ['users'],
       })
       queryClient.invalidateQueries({
-        queryKey: ['users'],
+        queryKey: ['users', 'userAuth0'],
       })
     },
   })
