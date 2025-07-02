@@ -79,30 +79,36 @@ export default function Profile() {
         return (
           <>
             <div className="user-dashboard">
+              {/* User Info Section */}
               <div className="user-section">
                 <div className="user-greeting">
-                  <h1>Welcome!</h1>
-                  <p className="user-bio">
-                    Let&apos;s finish up your registration.
-                  </p>
+                  <h1>{`Hi ${userData.name}!`}</h1>
+                  <p className="user-bio">{userData.bio}</p>
                 </div>
                 <div className="user-details-box">
                   <h1>User details:</h1>
-                  <form onSubmit={handleSubmit}>
-                    <h2>
-                      Name:{' '}
-                      <label htmlFor="name">
-                        <input type="text" name="name" required />
-                      </label>
-                    </h2>
-                    <h2>
-                      Bio:{' '}
-                      <label htmlFor="bio">
-                        <input type="text" name="bio" required />
-                      </label>
-                    </h2>
+                  <form onSubmit={handleSubmit} className="profile-page-form">
+                    <input
+                      type="text"
+                      name="name"
+                      required
+                      placeholder="Name"
+                    />
+                    <div className="profile-form-bio-input">
+                      <input
+                        type="text"
+                        name="bio"
+                        required
+                        className="profile-form-bio-input"
+                        placeholder="Bio"
+                      />
+                    </div>
 
-                    <button type="submit" className="update-button">
+                    <button
+                      type="submit"
+                      className="update-button"
+                      style={{ color: '#5a67d8' }}
+                    >
                       Update
                     </button>
                   </form>
@@ -124,7 +130,7 @@ export default function Profile() {
               {/* User Info Section */}
               <div className="user-section">
                 <div className="user-greeting">
-                  <h1>{`Hi ${userData.name}!`}</h1>
+                  <h1>{`Hi ${userData.name ?? ''}!`}</h1>
                   <p className="user-bio">{userData.bio}</p>
                 </div>
                 <div className="user-details-box">
