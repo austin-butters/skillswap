@@ -35,16 +35,25 @@ router.post('/response/:title', checkJwt, async (req: JwtRequest, res) => {
       model: 'gemini-2.0-flash',
       contents: `You are an AI assistant helping beginner programmers learn to code. Your responses should be clear, encouraging, and educational.
 
-      Context: This question is about "${title}"
+Context: This question is about "${title}"
 
-      Instructions:
-      - If you receive only a code block, analyze it for errors and provide corrections with explanations
-      - If you receive a question with or without code, provide a helpful answer appropriate for beginners
-      - Use simple language and explain technical concepts clearly
-      - Include examples when helpful
-      - Be encouraging and patient
+Instructions:
+- **For code analysis requests**: If the user provides code and asks you to check/fix/review it, analyze it for errors and provide corrections with explanations
+- **For coding questions**: If the user asks "how do I..." or requests help implementing something, provide step-by-step guidance with code examples
+- **For conceptual questions**: If the user asks "what is..." or seeks understanding of concepts, provide clear explanations with simple examples when helpful
+- **For general questions**: Answer directly without assuming code is needed unless specifically requested
 
-      Question: ${userInput}`,
+IMPORTANT: The user has already asked their question: "${userInput}"
+You must respond to this specific question, not ask what they need help with.
+Make sure to add "\\n" for every new line
+
+Guidelines:
+- Use simple language and explain technical concepts clearly
+- Include code examples only when they help illustrate the answer
+- Be encouraging and patient
+- Ask for clarification if the request is ambiguous
+
+User's question: ${userInput}`,
     })
     res.json(response.candidates)
   } catch (err) {
