@@ -29,7 +29,10 @@ export default function YourMeetings() {
   }
 
   return (
-    <div className="mt-20 flex space-x-8">
+    <div
+      className="mt-20 flex space-x-2"
+      style={{ marginRight: '5vw', marginLeft: '5vw' }}
+    >
       {/* User's Meetings */}
       <div className="meeting-card">
         <h1>{userData.name}s meetings</h1>
@@ -69,13 +72,14 @@ export default function YourMeetings() {
               )
                 return null
               return (
-                <li key={`Public meeting ${i}`}>
+                <li key={`Public meeting ${i}`} style={{ display: 'flex' }}>
                   <a href={meeting.url} target="_blank" rel="noreferrer">
                     {meeting.title}
                   </a>
                   <button
                     onClick={() => handleSave(meeting.id)}
                     className="w-30 ml-3 text-base"
+                    style={{ marginTop: '0' }}
                   >
                     Save
                   </button>

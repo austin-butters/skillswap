@@ -7,6 +7,22 @@ body {
   background-color: #fff2e0;
 }
 
+/*Profile Page form*/
+.profile-page-form {
+  padding: 0%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.profile-form-bio-input {
+  justify-content: center;
+  width: fill;
+  height: 100%;
+}
+
 /*<!-- Sidebar HTML-->  */
 
 .sidebar {
@@ -509,6 +525,7 @@ button:hover {
   line-height: 1.5;
   white-space: pre-wrap;
   border: 2px solid #fff2e0;
+  color: rgb(90, 103, 216);
 }
 
 input.ai-title-container:-webkit-autofill,
@@ -720,6 +737,7 @@ input.ai-title-container:-webkit-autofill:active {
   background-color: #3b82f6;
   color: white;
   margin-left: 10px;
+  margin-top: 0;
   font-weight: bold;
   padding: 10px 20px;
   border-radius: 8px;
@@ -904,6 +922,7 @@ body {
 
 /* Main chat container */
 .cc {
+  /* Reset and base styles */
   display: flex;
   justify-content: center;
   align-items: flex-start;
