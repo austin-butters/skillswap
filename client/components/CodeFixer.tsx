@@ -22,46 +22,51 @@ export default function CodeFixer() {
   return (
     <>
       <div className="ai-container">
-        {/* Input Card */}
-        <div className="input-section">
-          <input
-            type="text"
-            placeholder="Ask your question here..."
-            onChange={(e) => setQuestionTitle(e.target.value)}
-            className="ai-title-container"
-          />
-          <div className="input-wrapper" style={{ width: '100%', flex: 1 }}>
-            <textarea
-              className="input-box"
-              placeholder="Paste code here..."
-              onChange={(e) => setInput(e.target.value)}
+        <h1 className="ai-header">Get code help and fixes from AI!</h1>
+        <div className="ai-input-container">
+          {/* Input Card */}
+          <div className="input-section">
+            <input
+              type="text"
+              placeholder="Ask your question here..."
+              onChange={(e) => setQuestionTitle(e.target.value)}
+              className="ai-title-container"
             />
+            <div className="input-wrapper" style={{ width: '100%', flex: 1 }}>
+              <textarea
+                className="input-box"
+                placeholder="Paste code here..."
+                onChange={(e) => setInput(e.target.value)}
+              />
+            </div>
+            <div>
+              <button
+                className="fix-button"
+                onClick={async () => {
+                  const token: JWT = await getAccessTokenSilently()
+                  setResponse('Thinking...')
+                  const result = await getAiResponse(
+                    questionTitle,
+                    input,
+                    token,
+                  )
+                  setResponse(result)
+                  addAiResponse.mutate({
+                    userId: userData.id,
+                    title: questionTitle,
+                    input: input,
+                    output: result,
+                  })
+                }}
+              >
+                Fix Now!
+              </button>
+            </div>
           </div>
-          <div>
-            <button
-              className="fix-button"
-              onClick={async () => {
-                const token: JWT = await getAccessTokenSilently()
-                setResponse('Thinking...')
-                const result = await getAiResponse(questionTitle, input, token)
-                setResponse(result)
-                addAiResponse.mutate({
-                  userId: userData.id,
-                  title: questionTitle,
-                  input: input,
-                  output: result,
-                })
-              }}
-            >
-              Fix Now!
-            </button>
-          </div>
-        </div>
 
-        {/* Response Card */}
-        <div className="response-section">
-          <div className="response-box">
-            <p>{response}</p>
+          {/* Response Card */}
+          <div className="response-section">
+            <div className="response-box">{response}</div>
           </div>
         </div>
         {/* Previous fixes */}
@@ -71,11 +76,17 @@ export default function CodeFixer() {
           ) : (
             pastFixes.map((data: GetCodeFixData) => {
               return (
-                <div key={`Past response ${data.id}`}>
-                  <h1>{data.title}</h1>
-                  <p>{data.input}</p>
+                <div
+                  key={`Past response ${data.id}`}
+                  className="ai-past-response"
+                >
+                  <h1 className="ai-past-user-question">{data.title}</h1>
+                  {!data.input ? null : (
+                    <p className="ai-past-user-code">{data.input}</p>
+                  )}
+
                   <h1>Ai response:</h1>
-                  <p>{data.output}</p>
+                  <div className="past-ai-response">{data.output}</div>
                 </div>
               )
             })
