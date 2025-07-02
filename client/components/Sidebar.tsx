@@ -2,7 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { Link } from 'react-router-dom'
 import '../styles/main.css'
 import Auth0Button from './Auth0Button'
-import { useAuth0Id } from 'client/hooks/useUsers'
+import { useAuth0Id } from '../hooks/useUsers'
 export default function Sidebar() {
   const { isAuthenticated } = useAuth0()
   const loginPageLinkPath: string = '/login'
