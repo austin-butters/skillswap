@@ -29,6 +29,15 @@ function AnswerDisplayBox({ answerId, depth = 0 }: Props) {
   const userCanReply: boolean =
     isAuthenticated && !!auth0User?.sub && depth < maxdepth
 
+  // const answerAuthor: User = {
+  //   id: 0,
+  //   name: 'HARDCODED ANSWER AUTHOR',
+  //   email: 'EMAIL',
+  //   profilePicture: DEFAULT_PROFILE_PICTURE,
+  //   auth0Uid: 'HARDCODED AUTH0UID',
+  //   bio: null,
+  // }
+
   const handleAddAnswer = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (!answer?.questionId || !userId)
