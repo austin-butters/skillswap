@@ -30,7 +30,7 @@ export function useAddQuestion() {
 export function useQuestions() {
   const { data: questions, ...properties } = useQuery({
     queryKey: ['questions'],
-    queryFn: getAllQuestions,
+    queryFn: async () => await getAllQuestions(),
   })
 
   return { questions, ...properties }
@@ -39,7 +39,7 @@ export function useQuestions() {
 export function useQuestionById(id: QuestionId) {
   const { data: question, ...properties } = useQuery({
     queryKey: ['question'],
-    queryFn: () => getQuestionById(id),
+    queryFn: async () => await getQuestionById(id),
   })
   return { question, ...properties }
 }
