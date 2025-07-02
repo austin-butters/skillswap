@@ -1,6 +1,5 @@
 export { default as App } from './App'
 export { default as Auth0Button } from './Auth0Button'
-export { default as Call } from './Call'
 export { default as CodeFixer } from './CodeFixer'
 export { default as Connect } from './Connect'
 export { default as Home } from './Home'
