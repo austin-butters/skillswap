@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   addUser,
+  editUser,
   getAllUsers,
   getUserByAuth0Uid,
   getUserById,
@@ -8,6 +9,8 @@ import {
 } from '../api/users'
 import { UnassignedUser, UserId } from '#models'
 import { useAuth0 } from '@auth0/auth0-react'
+import request from 'superagent'
+const rootURL = new URL(`/api/v1`, document.baseURI)
 
 export function useAllUsers() {
   const { data: allUsers, ...remainingProperties } = useQuery({
@@ -64,4 +67,31 @@ export function useUserById(userId: UserId) {
     enabled: Number.isInteger(userId),
   })
   return { user, ...properties }
+}
+
+export function useEditUser() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (userData: {
+      id: number
+      name: string | undefined
+      bio: string | undefined
+      profilePicture: string | undefined
+    }) => {
+      editUser(
+        userData.id,
+        userData.name,
+        userData.bio,
+        userData.profilePicture,
+      )
+    },
+    onSuccess: (data, params) => {
+      queryClient.invalidateQueries({
+        queryKey: ['users'],
+      })
+      queryClient.invalidateQueries({
+        queryKey: ['users'],
+      })
+    },
+  })
 }

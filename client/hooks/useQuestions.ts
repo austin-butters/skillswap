@@ -1,7 +1,6 @@
 import { QuestionId, UserId } from '#models'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-//Might need to fix file path for import here
-import { getAllQuestions } from '../api/questions'
+import { getAllQuestions, getQuestionByUser } from '../api/questions'
 import { getQuestionById } from '../api/questions'
 import request from 'superagent'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -43,6 +42,14 @@ export function useQuestionById(id: QuestionId) {
   })
   return { question, ...properties }
 }
+
+
+export function useQuestionByUserId(userId: number) {
+  const { data: question, ...properties } = useQuery({
+    queryKey: ['questions'],
+    queryFn: () => getQuestionByUser(userId),
+  })
+  return { question, ...properties }
 
 export function useQuestionAuthor(authorId: UserId | undefined) {
   const { data: author, ...props } = useQuery({

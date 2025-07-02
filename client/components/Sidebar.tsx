@@ -6,6 +6,16 @@ import { useAuth0Id } from '../hooks/useUsers'
 export default function Sidebar() {
   const { isAuthenticated, user } = useAuth0()
   const loginPageLinkPath: string = '/login'
+  const { user } = useAuth0()
+  const { data: userData, isLoading, isError } = useAuth0Id(user?.sub)
+  let userId = 0
+  if (isLoading) {
+    return <p>Loading...</p>
+  }
+
+  if (userData) {
+    userId = userData.id
+  }
 
   const { data: userData } = useAuth0Id(user?.sub)
 
@@ -19,8 +29,10 @@ export default function Sidebar() {
     )
   }
 
+
   return (
     <div>
+      {console.log(userData)}
       <div className="sidebar">
         <ul className="sidebar-menu">
           <h2 className="sidebar-header">Skill Swap</h2>

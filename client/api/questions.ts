@@ -26,3 +26,14 @@ export async function getQuestionById(
     throw new Error('Unknown error fetching question')
   }
 }
+export async function getQuestionByUser(userId: number): Promise<Question[]> {
+  try {
+    if (isNaN(userId) || !Number.isInteger(userId)) {
+      throw new Error('Bad request: invalid user id')
+    }
+    const response = await request.get(`${rootUrl}/userid/${String(userId)}`)
+    return response.body
+  } catch (err) {
+    throw new Error('Unknown error fetching questions')
+  }
+}

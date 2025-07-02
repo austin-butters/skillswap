@@ -139,6 +139,19 @@ export async function fuzzyUserSearch(
 }
 
 // ------------------------------ UPDATE ------------------------------ //
+export async function updateUser(updatedUser: {
+  id: number
+  name?: string
+  bio?: string
+  profilePicture?: string
+}) {
+  console.log(updatedUser)
+  return db('users').where('id', updatedUser.id).update({
+    name: updatedUser.name,
+    bio: updatedUser.bio,
+    profile_picture: updatedUser.profilePicture,
+  })
+}
 
 // ------------------------------ DELETE ------------------------------ //
 /**

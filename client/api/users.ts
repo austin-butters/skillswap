@@ -30,3 +30,25 @@ export async function getUserById(userId: UserId): Promise<User | undefined> {
   const response = await request.get(`${rootUrl}/${userId}`)
   return response.body
 }
+
+export async function editUser(
+  id: number,
+  name?: string,
+  bio?: string,
+  profilePicture?: string,
+) {
+  try {
+    const userData = {
+      name: name,
+      bio: bio,
+      profilePicture: profilePicture,
+    }
+    console.log('userData')
+    console.log(userData)
+    console.log(`${rootUrl}/${id}`)
+    const response = await request.patch(`${rootUrl}/${id}`).send({ userData })
+    return response.body
+  } catch (err) {
+    throw new Error('Unknown error patching user')
+  }
+}

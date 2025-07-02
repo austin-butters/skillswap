@@ -121,7 +121,25 @@ router.get('/:id', async (req, res) => {
   }
 })
 // ------------------------------ UPDATE ------------------------------ //
-
+router.patch('/:id', async (req, res) => {
+  const id = Number(req.params.id)
+  console.log(`server route: users, Patch /${id}`)
+  console.log(req.body)
+  try {
+    const updatedUser = {
+      id: id,
+      name: req.body.userData.name,
+      bio: req.body.userData.bio,
+      profile_picture: req.body.userData.profilePicture,
+    }
+    console.log('Route data')
+    console.log(updatedUser)
+    Users.updateUser(updatedUser)
+    res.sendStatus(204)
+  } catch (err) {
+    return res.status(500).json({ error: 'Internal Server Error' })
+  }
+})
 // ------------------------------ DELETE ------------------------------ //
 router.delete('/:id', checkJwt, async (req, res) => {
   console.log('server route: users, DELETE /:id') // TEST LOG
