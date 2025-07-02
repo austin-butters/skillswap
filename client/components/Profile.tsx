@@ -133,7 +133,11 @@ export default function Profile() {
                       </label>
                     </h2>
 
-                    <button type="submit" className="update-button">
+                    <button
+                      type="submit"
+                      className="update-button"
+                      style={{ color: '#5a67d8' }}
+                    >
                       Update
                     </button>
                   </form>
