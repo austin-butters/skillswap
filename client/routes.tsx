@@ -6,7 +6,6 @@ import {
   CodeFixer,
   Profile,
   Inbox,
-  Call,
   Login,
   Home,
   LoadingUser,
@@ -28,7 +27,6 @@ export default createRoutesFromElements(
       <Route path="/codeFixer" element={<CodeFixer />} />
       <Route path="/profile/:id" element={<Profile />} />
       <Route path="/inbox" element={<Inbox />} />
-      <Route path="/call/:id" element={<Call />} />
       <Route path="/loadingUser" element={<LoadingUser />} />
       <Route path="/meeting/create" element={<CreateMeeting />} />
       <Route path="/yourMeetings" element={<YourMeetings />} />
