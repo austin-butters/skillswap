@@ -78,6 +78,7 @@ export default function Inbox() {
             <div className="inbox-message" key={i}>
               <Link to={`/profile/${message.otherUser.id}`}>
                 <img
+                  className="profilepicture-box"
                   src={
                     message.otherUser.profilePicture ?? DEFAULT_PROFILE_PICTURE
                   }
