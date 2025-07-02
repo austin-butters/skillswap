@@ -7,6 +7,22 @@ body {
   background-color: #fff2e0;
 }
 
+/*Profile Page form*/
+.profile-page-form {
+  padding: 0%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.profile-form-bio-input {
+  justify-content: center;
+  width: fill;
+  height: 100%;
+}
+
 /*<!-- Sidebar HTML-->  */
 
 .sidebar {
@@ -886,7 +902,15 @@ body {
 }
 
 /* <--Messaging HTML --> */
+/* .cc > *,
+.cc > *::before,
+.cc > *::after {
+  box-sizing: border-box;
+  margin: 0;
+} */
+
 .cc {
+  /* Reset and base styles */
   display: flex;
   margin-top: 10vh;
   gap: 20px;

@@ -102,7 +102,6 @@ export default function MessageBox() {
             }}
           />
         </div>
-
         {/* Sidebar */}
         <div className="chat-sidebar">
           <h1 className="sidebar-name">{otherUserData.name}</h1>
