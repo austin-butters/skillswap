@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import { getUser } from 'server/db/db-functions/users'
 
 export default function Profile() {
+  let editDropdown = false
   const { user } = useAuth0()
   const id = Number(useParams().id)
   const editUser = useEditUser()
@@ -37,6 +38,14 @@ export default function Profile() {
       bio: String(formData.get('bio')),
       profilePicture: undefined,
     })
+  }
+
+  function dropdownPress() {
+    if (editDropdown) {
+      return (editDropdown = false)
+    } else {
+      return (editDropdown = true)
+    }
   }
 
   if (!userData) {
@@ -93,20 +102,16 @@ export default function Profile() {
       } else if (isLoading) {
         return <p>Loading...</p>
       } else if (OtherUserData.id === userData.id)
+        //Own profile
         return (
           <>
             <div className="user-dashboard">
               {/* User Info Section */}
               <div className="user-section">
                 <div className="user-greeting">
-                  <h1>
-                    {isUser
-                      ? `Hi ${userData.name}!`
-                      : `${OtherUserData.name}'s profile.`}
-                  </h1>
+                  <h1>{`Hi ${userData.name}!`}</h1>
                   <p className="user-bio">{userData.bio}</p>
                 </div>
-
                 <div className="user-details-box">
                   <h1>User details:</h1>
                   <form onSubmit={handleSubmit}>
@@ -132,7 +137,7 @@ export default function Profile() {
 
               {/* Past Solutions Section */}
               <div className="solutions-section">
-                <h1>Past solutions</h1>
+                <h1>Past posts</h1>
 
                 <div className="solution-card">
                   <h1>Title</h1>
@@ -154,6 +159,7 @@ export default function Profile() {
           </>
         )
     } else if (OtherUserData)
+      //other people
       return (
         <>
           <div className="user-dashboard">
@@ -166,8 +172,7 @@ export default function Profile() {
             </div>
             {/* Past Solutions Section */}
             <div className="solutions-section">
-              <h1>Past solutions</h1>
-
+              <h1>Past posts</h1>
               <div className="solution-card">
                 <h1>Title</h1>
                 <p>
