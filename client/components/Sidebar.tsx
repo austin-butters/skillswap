@@ -12,7 +12,9 @@ export default function Sidebar() {
   if (!userData && isAuthenticated) {
     return (
       <div>
-        <div className="sidebar"></div>
+        <div className="sidebar">
+          <Auth0Button />
+        </div>
       </div>
     )
   }

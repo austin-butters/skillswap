@@ -1,10 +1,11 @@
-import { QuestionId } from '#models'
+import { QuestionId, UserId } from '#models'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 //Might need to fix file path for import here
 import { getAllQuestions } from 'client/api/questions'
 import { getQuestionById } from '../api/questions'
 import request from 'superagent'
 import { useAuth0 } from '@auth0/auth0-react'
+import { getUserById } from 'client/api/users'
 
 export function useAddQuestion() {
   const { getAccessTokenSilently } = useAuth0()
@@ -41,4 +42,13 @@ export function useQuestionById(id: QuestionId) {
     queryFn: () => getQuestionById(id),
   })
   return { question, ...properties }
+}
+
+export function useQuestionAuthor(authorId: UserId | undefined) {
+  const { data: author, ...props } = useQuery({
+    queryKey: ['questionAuthor', authorId],
+    queryFn: async () => await getUserById(authorId as UserId),
+    enabled: !!authorId,
+  })
+  return { author, ...props }
 }
