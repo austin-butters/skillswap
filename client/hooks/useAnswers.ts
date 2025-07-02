@@ -57,6 +57,7 @@ export function useAddAnswer() {
       addAnswer(newAnswer, token)
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['question'] })
       queryClient.invalidateQueries({ queryKey: ['answer', 'replies'] })
       queryClient.invalidateQueries({ queryKey: ['answersByQuestion'] })
     },
