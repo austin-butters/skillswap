@@ -16,7 +16,7 @@ import {
 } from '../api/answers'
 import { useAuth0 } from '@auth0/auth0-react'
 import { getAnswerReplys } from '../api/answers'
-import { getUserById } from 'client/api/users'
+import { getUserById } from '../api/users'
 
 export function useAnswerById(answerId: AnswerId, enable: boolean = true) {
   const { data: answer, ...properties } = useQuery({
