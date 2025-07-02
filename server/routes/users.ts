@@ -122,16 +122,18 @@ router.get('/:id', async (req, res) => {
 })
 // ------------------------------ UPDATE ------------------------------ //
 router.patch('/:id', async (req, res) => {
-  console.log('server route: users, Patch /:id')
   const id = Number(req.params.id)
+  console.log(`server route: users, Patch /${id}`)
+  console.log(req.body)
   try {
-    const { name, bio, profilePicture } = req.body
     const updatedUser = {
       id: id,
-      name: name,
-      bio: bio,
-      profile_picture: profilePicture,
+      name: req.body.userData.name,
+      bio: req.body.userData.bio,
+      profile_picture: req.body.userData.profilePicture,
     }
+    console.log('Route data')
+    console.log(updatedUser)
     Users.updateUser(updatedUser)
     res.sendStatus(204)
   } catch (err) {

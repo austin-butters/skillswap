@@ -43,7 +43,9 @@ export async function editUser(
       bio: bio,
       profilePicture: profilePicture,
     }
+    console.log('userData')
     console.log(userData)
+    console.log(`${rootUrl}/${id}`)
     const response = await request.patch(`${rootUrl}/${id}`).send({ userData })
     return response.body
   } catch (err) {
