@@ -1,5 +1,4 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { editUser } from '../api/users'
 import { useQuestionByUserId } from '../hooks/useQuestions'
 import { useAuth0Id, useEditUser, useUserById } from '../hooks/useUsers'
 import { useParams } from 'react-router-dom'
@@ -106,6 +105,9 @@ export default function Profile() {
         )
       } else if (isLoading) {
         return <p>Loading...</p>
+      } else if (!OtherUserData) {
+        // No user
+        return <p>No profile for user.</p>
       } else if (OtherUserData.id === userData.id)
         //Own profile
         return (
@@ -133,7 +135,11 @@ export default function Profile() {
                       </label>
                     </h2>
 
-                    <button type="submit" className="update-button">
+                    <button
+                      type="submit"
+                      className="update-button"
+                      style={{ color: '#5a67d8' }}
+                    >
                       Update
                     </button>
                   </form>
@@ -143,12 +149,14 @@ export default function Profile() {
               {/* Past Solutions Section */}
               <div className="solutions-section">
                 <h1>Past posts</h1>
-                {question.map((questionData) => (
-                  <div key={questionData.id} className="solution-card">
-                    <h1>{questionData.title}</h1>
-                    <p>{questionData.body}</p>
-                  </div>
-                ))}
+                {!question
+                  ? null
+                  : question.map((questionData) => (
+                      <div key={questionData.id} className="solution-card">
+                        <h1>{questionData.title}</h1>
+                        <p>{questionData.body}</p>
+                      </div>
+                    ))}
               </div>
             </div>
           </>
@@ -168,12 +176,14 @@ export default function Profile() {
             {/* Past Solutions Section */}
             <div className="solutions-section">
               <h1>Past posts</h1>
-              {question.map((questionData) => (
-                <div key={questionData.id} className="solution-card">
-                  <h1>{questionData.title}</h1>
-                  <p>{questionData.body}</p>
-                </div>
-              ))}
+              {!question
+                ? null
+                : question.map((questionData) => (
+                    <div key={questionData.id} className="solution-card">
+                      <h1>{questionData.title}</h1>
+                      <p>{questionData.body}</p>
+                    </div>
+                  ))}
             </div>
           </div>
         </>
