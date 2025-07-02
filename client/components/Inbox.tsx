@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import { useUserDirectMessages } from 'client/hooks/useDirectMessages'
+// Maybe need to fix import file path here?
+import { useUserDirectMessages } from '../hooks/useDirectMessages'
 import { DirectMessage, User, UserId } from '#models'
 import { useAllUsers } from '../hooks/useUsers'
 import { DEFAULT_PROFILE_PICTURE } from '#server-constants'

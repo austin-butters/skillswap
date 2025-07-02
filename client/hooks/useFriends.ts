@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { addFriend, getStatus, unaddFriend } from 'client/api/friends'
+//Might need to fix file path for import here
+import { addFriend, getStatus, unaddFriend } from '../api/friends'
 
 export function useAddFriend() {
   const queryClient = useQueryClient()

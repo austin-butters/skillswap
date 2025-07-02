@@ -27,42 +27,13 @@ export default function SearchResults() {
 
   return (
     <>
-      <div
-        style={{
-          paddingRight: '10vw',
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          width: '60vw',
-          marginTop: '7vh',
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: 'gray',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            padding: '20px',
-            borderRadius: '10px',
-          }}
-        >
-          <h1
-            style={{
-              fontWeight: 'bold',
-              fontSize: '2rem',
-            }}
-          >
-            Search for a user:
-          </h1>
-          <div style={{ width: '80%' }}>
+      <div className="search-container">
+        <div className="search-box">
+          <h1 className="search-title">Search for a user:</h1>
+          <div className="search-input-container">
             <input
               type="text"
-              style={{
-                width: '70%',
-                padding: '5px 20px',
-                borderRadius: '5px',
-                marginTop: '20px',
-              }}
+              className="search-input"
               onChange={(e) => {
                 setSearch(e.target.value)
               }}
@@ -74,13 +45,7 @@ export default function SearchResults() {
               }}
             />
             <button
-              style={{
-                backgroundColor: 'white',
-                marginLeft: '10px',
-                fontWeight: 'bold',
-                padding: '5px 20px',
-                borderRadius: '5px',
-              }}
+              className="search-button"
               onClick={() => {
                 navigate(`/connect?input=${search}`)
                 window.location.reload()
@@ -91,55 +56,21 @@ export default function SearchResults() {
           </div>
         </div>
 
-        <div style={{ marginTop: '30px' }}>
+        <div className="results-container">
           {usersData.length === 0 ? (
             <h1>No Results...</h1>
           ) : (
             usersData.map((user: User, i: number) => {
-              if (user.id === userData.id) {
-                return null
-              }
+              if (user.id === userData.id) return null
               return (
-                <div
-                  style={{
-                    backgroundColor: 'lightgrey',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    padding: '10px 30px',
-                    borderRadius: '10px',
-                    alignItems: 'center',
-                    marginBottom: '20px',
-                  }}
-                  key={`user-${i}`}
-                >
-                  <h1 style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>
-                    {user.name}
-                  </h1>
-                  <div>
+                <div className="user-card" key={`user-${i}`}>
+                  <h1 className="user-name">{user.name}</h1>
+                  <div className="user-actions">
                     <FriendButton userId={userData.id} requestId={user.id} />
-                    <Link
-                      to={`/message/${user.id}`}
-                      style={{
-                        backgroundColor: 'blue',
-                        padding: '5px 15px',
-                        color: 'white',
-                        borderRadius: '5px',
-                        fontWeight: 'bold',
-                      }}
-                    >
+                    <Link to={`/message/${user.id}`} className="message-button">
                       Message
                     </Link>
-                    <Link
-                      to={`/call/${user.id}`}
-                      style={{
-                        backgroundColor: 'green',
-                        padding: '5px 15px',
-                        color: 'white',
-                        borderRadius: '5px',
-                        fontWeight: 'bold',
-                        marginLeft: '10px',
-                      }}
-                    >
+                    <Link to={`/call/${user.id}`} className="call-button">
                       Call
                     </Link>
                   </div>

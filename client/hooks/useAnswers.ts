@@ -16,7 +16,7 @@ import {
 } from '../api/answers'
 import { useAuth0 } from '@auth0/auth0-react'
 import { getAnswerReplys } from '../api/answers'
-import { useUserById } from './useUsers'
+import { getUserById } from '../api/users'
 
 export function useAnswerById(answerId: AnswerId, enable: boolean = true) {
   const { data: answer, ...properties } = useQuery({
@@ -32,7 +32,7 @@ export function useAnswersByQuestion(
   enable: boolean = true,
 ) {
   const { data: answers, ...properties } = useQuery({
-    queryKey: ['answers'],
+    queryKey: ['answersByQuestion', questionId],
     queryFn: () => getAnswersByQuestion(questionId),
     enabled: enable,
   })
@@ -41,7 +41,7 @@ export function useAnswersByQuestion(
 
 export function useAnswersByUser(userId: UserId, enable: boolean = true) {
   const { data: answers, ...properties } = useQuery({
-    queryKey: ['answers'],
+    queryKey: ['answer'],
     queryFn: () => getAnswersByUser(userId),
     enabled: enable,
   })
@@ -53,25 +53,26 @@ export function useAddAnswer() {
   const queryClient = useQueryClient()
   const mutation = useMutation({
     mutationFn: async (newAnswer: UnassignedAnswer) => {
-      console.log('mutationFn for useAddAnswer') // TEST LOG
       const token: JWT = await getAccessTokenSilently()
       addAnswer(newAnswer, token)
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['answers'] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['question'] })
+      queryClient.invalidateQueries({ queryKey: ['answer', 'replies'] })
+      queryClient.invalidateQueries({ queryKey: ['answersByQuestion'] })
+    },
   })
   return mutation
 }
 
 export function useAnswer(answerId: AnswerId) {
   const answerQuery = useQuery({
-    queryKey: ['answer', answerId],
+    queryKey: ['answer', 'answers', answerId],
     queryFn: async () => await getAnswerById(answerId),
   })
 
-  console.log(answerQuery.status)
-
   const answerReplysQuery = useQuery({
-    queryKey: ['replys', answerId],
+    queryKey: ['replies', 'answer', 'answers', answerId],
     queryFn: async () => {
       if (answerQuery.status !== 'success') return []
       return await getAnswerReplys(answerId)
@@ -79,7 +80,11 @@ export function useAnswer(answerId: AnswerId) {
     enabled: answerQuery.status === 'success',
   })
 
-  const authorQuery = useUserById(answerQuery.data?.userId as number) // FIX - THIS MAY NEED TO BE CONDITIONALLY ENABLED TO PREVENT INFINITE REFETCHES. SHOULD BE FINE FOR NOW
+  const authorQuery = useQuery({
+    queryKey: ['answerAuthor', answerId],
+    queryFn: async () => await getUserById(answerQuery?.data?.userId as UserId),
+    enabled: !!answerQuery && !!answerQuery.data?.userId,
+  })
 
   const addAnswerMutation = useAddAnswer()
 
@@ -95,7 +100,7 @@ export function useAnswer(answerId: AnswerId) {
     addAnswerMutation.isError ||
     authorQuery.isError
   const answer: Answer | undefined = answerQuery.data
-  const author: User | undefined = authorQuery.user
+  const author: User | undefined = authorQuery.data
   const replies: Answer[] | undefined = answerReplysQuery.data
 
   return {

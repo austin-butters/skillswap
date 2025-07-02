@@ -1,6 +1,6 @@
 import { useAddAnswer, useAnswersByQuestion } from '../hooks/useAnswers'
-import { useQuestionById } from '../hooks/useQuestions'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useQuestionAuthor, useQuestionById } from '../hooks/useQuestions'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { QuestionId, UnassignedAnswer } from '#models'
 import { useState } from 'react'
 import { useAuth0Id } from '../hooks/useUsers'
@@ -40,6 +40,12 @@ function QuestionPage() {
     error: answerError,
   } = useAnswersByQuestion(question?.id as QuestionId, enableAnswerSearch)
 
+  const {
+    author: questionAuthor,
+    isPending: isPendingAuthor,
+    isError: isErrorAuthor,
+  } = useQuestionAuthor(question?.userId)
+
   const navigate = useNavigate()
   if (!idParam) navigate('/')
 
@@ -48,7 +54,7 @@ function QuestionPage() {
   ) => {
     setAnswer(event.target.value)
   }
-  const handleAddAnswer = (event: React.ChangeEvent<HTMLFormElement>) => {
+  const handleAddAnswer = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     const newAnswer: UnassignedAnswer = {
@@ -57,30 +63,32 @@ function QuestionPage() {
       questionId: Number(idParam),
       userId: data.id,
     }
-    addAnswer.mutateAsync(newAnswer)
+    await addAnswer.mutateAsync(newAnswer)
+    setAnswer('')
   }
 
-  if (isPending) return <p>Loading Question...</p>
-  if (isError) return <p>Error: {error.message}</p>
+  if (isPending || isPendingAuthor) return <p>Loading Question...</p>
+  if (isError || isErrorAuthor)
+    return <p>Error: {!error ? 'Unknown' : error.message}</p>
   if (!question) return <p>No question found.</p>
+  if (!questionAuthor)
+    return <p>The author of this question could not be found.</p>
 
   return (
     <>
-      <p>This is the question page.</p>
-      <p>QuestionId: {question.id}</p>
-      <p>Question user id: {question.userId}</p>
-      <p>Question Title: {question.title}</p>
-      <p>Question Body: {question.body}</p>
+      <Link to={`/profile/${questionAuthor.id}`}>
+        <img
+          className="profilepicture-box"
+          src={questionAuthor.profilePicture}
+          alt={`Profile for ${questionAuthor.name}`}
+        />
+      </Link>
+      <p>{questionAuthor.name}</p>
+      <h1>{question.title}</h1>
+      <p>{question.body}</p>
       <p>{isAnswersPending && 'Answers Loading...'}</p>
       <p>{isAnswersError && 'Error getting answers'}</p>
       <p>{isAnswersError && answerError.message}</p>
-      {!answers ? null : answers.length === 0 ? (
-        <p>No answers for this question.</p>
-      ) : (
-        answers.map((answer, i) => {
-          return <AnswerDisplayBox key={i} answerId={answer.id} />
-        })
-      )}
       {userCanAddAnswer && (
         <form onSubmit={handleAddAnswer}>
           <label htmlFor="add-answer">Add an answer</label>
@@ -91,6 +99,13 @@ function QuestionPage() {
           ></textarea>
           <button type="submit">Submit Answer</button>
         </form>
+      )}
+      {!answers ? null : answers.length === 0 ? (
+        <p>No answers for this question.</p>
+      ) : (
+        [...answers].reverse().map((answer, i) => {
+          return <AnswerDisplayBox key={i} answerId={answer.id} depth={0} />
+        })
       )}
     </>
   )

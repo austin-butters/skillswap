@@ -1,9 +1,10 @@
-import { QuestionId } from '#models'
+import { QuestionId, UserId } from '#models'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { getAllQuestions, getQuestionByUser } from '../api/questions'
 import { getQuestionById } from '../api/questions'
 import request from 'superagent'
 import { useAuth0 } from '@auth0/auth0-react'
+import { getUserById } from '../api/users'
 
 export function useAddQuestion() {
   const { getAccessTokenSilently } = useAuth0()
@@ -28,7 +29,7 @@ export function useAddQuestion() {
 export function useQuestions() {
   const { data: questions, ...properties } = useQuery({
     queryKey: ['questions'],
-    queryFn: getAllQuestions,
+    queryFn: async () => await getAllQuestions(),
   })
 
   return { questions, ...properties }
@@ -37,10 +38,11 @@ export function useQuestions() {
 export function useQuestionById(id: QuestionId) {
   const { data: question, ...properties } = useQuery({
     queryKey: ['question'],
-    queryFn: () => getQuestionById(id),
+    queryFn: async () => await getQuestionById(id),
   })
   return { question, ...properties }
 }
+
 
 export function useQuestionByUserId(userId: number) {
   const { data: question, ...properties } = useQuery({
@@ -48,4 +50,12 @@ export function useQuestionByUserId(userId: number) {
     queryFn: () => getQuestionByUser(userId),
   })
   return { question, ...properties }
+
+export function useQuestionAuthor(authorId: UserId | undefined) {
+  const { data: author, ...props } = useQuery({
+    queryKey: ['questionAuthor', authorId],
+    queryFn: async () => await getUserById(authorId as UserId),
+    enabled: !!authorId,
+  })
+  return { author, ...props }
 }

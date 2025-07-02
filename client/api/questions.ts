@@ -15,6 +15,7 @@ export async function getAllQuestions(): Promise<Question[]> {
 export async function getQuestionById(
   questionId: QuestionId,
 ): Promise<Question> {
+  console.log(`getQuestionById(${questionId})`)
   try {
     if (isNaN(questionId) || !Number.isInteger(questionId)) {
       throw new Error('Bad request: invalid question id')
