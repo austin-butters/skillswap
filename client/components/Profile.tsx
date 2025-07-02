@@ -106,6 +106,9 @@ export default function Profile() {
         )
       } else if (isLoading) {
         return <p>Loading...</p>
+      } else if (!OtherUserData) {
+        // No user
+        return <p>No profile for user.</p>
       } else if (OtherUserData.id === userData.id)
         //Own profile
         return (
