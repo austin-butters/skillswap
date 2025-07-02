@@ -8,7 +8,7 @@ import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import FriendButton from './FriendButton'
 import { useGetUsersMeetings } from '../hooks/useMeetings'
-import { MeetingData } from '#models'
+import { DBDirectMessage, MeetingData } from '#models'
 
 export default function MessageBox() {
   const [message, setMessage] = useState('')
@@ -21,10 +21,12 @@ export default function MessageBox() {
 
   const { user: otherUserData } = useUserById(Number(id))
 
-  const { data: messageData } = useGetDirectMessages(
+  const { data: queryMessageData } = useGetDirectMessages(
     Number(userData?.id),
     Number(id),
   )
+
+  const messageData = queryMessageData as DBDirectMessage[]
 
   const { data: meetingData } = useGetUsersMeetings(userData?.id)
 
@@ -111,15 +113,19 @@ export default function MessageBox() {
           <FriendButton userId={userData.id} requestId={otherUserData.id} />
           <h2 className="meeting-heading">Invite to meeting</h2>
           <ul className="meeting-list">
-            {meetingData.map((message: MeetingData, i: number) => (
-              <button
-                key={`Meeting ${i}`}
-                className="meeting-button"
-                onClick={() => sendMeetingMessage(message.url)}
-              >
-                {message.title}
-              </button>
-            ))}
+            {meetingData.length === 0 ? (
+              <p>You have no meetings.</p>
+            ) : (
+              meetingData.map((message: MeetingData, i: number) => (
+                <button
+                  key={`Meeting ${i}`}
+                  className="meeting-button"
+                  onClick={() => sendMeetingMessage(message.url)}
+                >
+                  {message.title}
+                </button>
+              ))
+            )}
           </ul>
         </div>
       </div>
