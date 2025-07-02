@@ -31,7 +31,7 @@ export default function CreateMeeting() {
   }
 
   return (
-    <form onSubmit={handleCreateMeeting}>
+    <form onSubmit={handleCreateMeeting} className="meeting-form">
       <label>
         Meeting Title:
         <input type="text" name="title" />
@@ -41,7 +41,8 @@ export default function CreateMeeting() {
         Keep Public?
         <input type="checkbox" name="public" />
       </label>
-      <button>Add!</button>
+
+      <button type="submit">Add!</button>
     </form>
   )
 }
