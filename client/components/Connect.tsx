@@ -70,9 +70,6 @@ export default function SearchResults() {
                     <Link to={`/message/${user.id}`} className="message-button">
                       Message
                     </Link>
-                    <Link to={`/call/${user.id}`} className="call-button">
-                      Call
-                    </Link>
                   </div>
                 </div>
               )
