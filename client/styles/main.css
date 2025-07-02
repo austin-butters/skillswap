@@ -509,6 +509,7 @@ button:hover {
   line-height: 1.5;
   white-space: pre-wrap;
   border: 2px solid #fff2e0;
+  color: rgb(90, 103, 216);
 }
 
 input.ai-title-container:-webkit-autofill,
