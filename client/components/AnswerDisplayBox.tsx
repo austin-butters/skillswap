@@ -74,75 +74,78 @@ function AnswerDisplayBox({ answerId, depth = 0 }: Props) {
 
   if (depth > maxdepth || isError) return null
   return (
-    <div className="answer-display-box">
-      <hr style={{ borderColor: 'black' }} />
+    <div
+      className={`answer-display-box ${depth === 0 ? 'main-answer' : 'nested-answer'}`}
+      style={{ marginLeft: `${depth * 2}rem` }} // Indent nested replies
+    >
+      <hr className="answer-top-divider" />
+
       {isPending ? (
-        <p>Loading answer...</p>
+        <p className="loading-text">Loading answer...</p>
       ) : (
         <>
-          {/*The initial answer is displayed here.*/}
-          <div className="initial-answer-container">
-            <Link to={`/profile/${author?.id}`}>
-              <img
-                className="profilepicture-box"
-                src={author?.profilePicture}
-                alt={`Profile for ${author?.name ?? 'user'}`}
-              />
-            </Link>
-            <h3>{author?.name}</h3>
-            <p>{answer?.body}</p>
-            {/* <Link to={`/questions/${answerId}`}>  */}
-            {/* </Link> */}
+          <article className="answer-content">
+            <header className="answer-header">
+              <Link
+                to={`/profile/${author?.id}`}
+                className="author-profile-link"
+              >
+                <img
+                  className="profilepicture-box"
+                  src={author?.profilePicture}
+                  alt={`Profile for ${author?.name ?? 'user'}`}
+                />
+              </Link>
+              <h3 className="answer-author">{author?.name}</h3>
+            </header>
+
+            <p className="answer-body">{answer?.body}</p>
+
             {userCanReply && (
-              <form onSubmit={handleAddAnswer}>
-                <label htmlFor="add-answer">Add a reply</label>
+              <form onSubmit={handleAddAnswer} className="reply-form">
+                <label htmlFor="add-answer" className="form-label">
+                  Add a reply
+                </label>
                 <textarea
                   id="add-answer"
                   value={reply}
                   onChange={handleAnswerChange}
-                ></textarea>
-                <button type="submit">Reply</button>
+                  className="reply-textarea"
+                  placeholder="Write your reply..."
+                />
+                <button type="submit" className="reply-button">
+                  Reply
+                </button>
               </form>
             )}
-            <p>Replies: {replies?.length ?? '0'}</p>
-            {!replies || replies.length === 0 ? null : displayReplies ? (
-              <button onClick={() => setDisplayReplies(false)}>
-                Hide Replies ({replies?.length ?? '0'})
-              </button>
-            ) : (
-              <button onClick={() => setDisplayReplies(true)}>
-                Show replies ({replies?.length ?? '0'})
-              </button>
-            )}
-          </div>
 
-          {/*Sub-answers are displayed here as replies*/}
-          {displayReplies && (
-            <div
-              className="replies-container"
-              style={{ paddingLeft: '4rem' /* 4rem CREATES NESTING */ }}
-            >
-              {!replies
-                ? null
-                : [...replies].reverse().map((reply) => {
-                    return (
-                      <AnswerDisplayBox
-                        answerId={reply.id}
-                        key={reply.id}
-                        depth={depth + 1}
-                      />
-                    )
-                  })}
-            </div>
+            {replies && replies.length > 0 && (
+              <div className="reply-toggle">
+                <p>Replies: {replies.length}</p>
+                <button
+                  onClick={() => setDisplayReplies(!displayReplies)}
+                  className="toggle-replies-button"
+                >
+                  {displayReplies
+                    ? `Hide Replies (${replies.length})`
+                    : `Show Replies (${replies.length})`}
+                </button>
+              </div>
+            )}
+          </article>
+
+          {displayReplies && replies && replies.length > 0 && (
+            <section className="replies-container">
+              {[...replies].reverse().map((reply) => (
+                <AnswerDisplayBox
+                  key={reply.id}
+                  answerId={reply.id}
+                  depth={depth + 1}
+                />
+              ))}
+            </section>
           )}
         </>
-      )}
-      {depth === 0 && (
-        <hr
-          style={{
-            borderColor: 'black',
-          }} /* Display bottom line only if it doesn't meet another comment's top line.*/
-        />
       )}
     </div>
   )

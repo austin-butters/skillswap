@@ -76,37 +76,68 @@ function QuestionPage() {
 
   return (
     <>
-      <Link to={`/profile/${questionAuthor.id}`}>
-        <img
-          className="profilepicture-box"
-          src={questionAuthor.profilePicture}
-          alt={`Profile for ${questionAuthor.name}`}
-        />
-      </Link>
-      <p>{questionAuthor.name}</p>
-      <h1>{question.title}</h1>
-      <p>{question.body}</p>
-      <p>{isAnswersPending && 'Answers Loading...'}</p>
-      <p>{isAnswersError && 'Error getting answers'}</p>
-      <p>{isAnswersError && answerError.message}</p>
-      {userCanAddAnswer && (
-        <form onSubmit={handleAddAnswer}>
-          <label htmlFor="add-answer">Add an answer</label>
-          <textarea
-            id="add-answer"
-            value={answer}
-            onChange={handleAnswerChange}
-          ></textarea>
-          <button type="submit">Submit Answer</button>
-        </form>
-      )}
-      {!answers ? null : answers.length === 0 ? (
-        <p>No answers for this question.</p>
-      ) : (
-        [...answers].reverse().map((answer, i) => {
-          return <AnswerDisplayBox key={i} answerId={answer.id} depth={0} />
-        })
-      )}
+      <div className="question-wrapper">
+        <header className="question-author-header">
+          <Link
+            to={`/profile/${questionAuthor.id}`}
+            className="author-profile-link"
+          >
+            <img
+              className="profilepicture-box"
+              src={questionAuthor.profilePicture}
+              alt={`Profile for ${questionAuthor.name}`}
+            />
+          </Link>
+          <p className="author-name">{questionAuthor.name}</p>
+        </header>
+
+        <section className="question-content">
+          <h1 className="question-title">{question.title}</h1>
+          <p className="question-body">{question.body}</p>
+        </section>
+
+        <section className="answers-status">
+          {isAnswersPending && (
+            <p className="loading-text">Answers Loading...</p>
+          )}
+          {isAnswersError && (
+            <>
+              <p className="error-text">Error getting answers</p>
+              <p className="error-message">{answerError.message}</p>
+            </>
+          )}
+        </section>
+
+        {userCanAddAnswer && (
+          <form onSubmit={handleAddAnswer} className="answer-form">
+            <label htmlFor="add-answer" className="answer-label">
+              Add an answer
+            </label>
+            <textarea
+              id="add-answer"
+              className="answer-textarea"
+              value={answer}
+              onChange={handleAnswerChange}
+              placeholder="Write your answer here..."
+            />
+            <button type="submit" className="submit-answer-button">
+              Submit Answer
+            </button>
+          </form>
+        )}
+
+        <section className="answers-list">
+          {!answers ? null : answers.length === 0 ? (
+            <p className="no-answers-text">No answers for this question.</p>
+          ) : (
+            [...answers]
+              .reverse()
+              .map((answer, i) => (
+                <AnswerDisplayBox key={i} answerId={answer.id} depth={0} />
+              ))
+          )}
+        </section>
+      </div>
     </>
   )
 }
