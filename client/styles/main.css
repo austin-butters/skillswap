@@ -351,22 +351,33 @@ button:hover {
 
 /* <-- Ai fixer HTML */
 
+.ai-header {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
 .ai-container {
   display: flex;
-  flex-direction: row;
-  height: 90vh;
+  flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  background-color: #f2f4f8;
   font-family: 'Inter', sans-serif;
   gap: 40px;
-  margin-top: 50px;
   margin-right: 200px;
   padding-left: 20px;
+  width: 79vw;
+  padding: 20px;
+}
+
+.ai-input-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 85%;
 }
 
 .ai-title-container {
-  width: 50%;
+  width: 80%;
   height: 40px;
   background-color: #f6f8fa;
   border: 2px solid #fff2e0;
@@ -396,7 +407,7 @@ button:hover {
   justify-content: space-between;
   align-items: center;
   width: 30vw;
-  height: 60vh;
+  height: 65vh;
   padding: 24px;
 
   border-radius: 20px;
@@ -433,7 +444,6 @@ button:hover {
 }
 
 .fix-button {
-  margin-top: 20px;
   background-color: white;
   color: #1e1e1e;
   font-size: 1.25rem;
@@ -472,6 +482,28 @@ input.ai-title-container:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 1000px #f6f8fa inset !important; /* Match your background */
   -webkit-text-fill-color: #1e1e1e !important;
   transition: background-color 5000s ease-in-out 0s;
+}
+
+.ai-past-response {
+  background-color: white;
+  max-width: 60vw;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 15px;
+}
+
+.ai-past-response h1 {
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+.past-ai-response,
+.ai-past-user-code {
+  max-height: 25vh;
+  overflow: scroll;
+  scrollbar-width: none;
+  background-color: lightgray;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 /* < -- User page HTML --> */
