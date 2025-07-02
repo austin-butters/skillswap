@@ -30,7 +30,7 @@ export async function getQuestionByUser(userId: number): Promise<Question[]> {
     if (isNaN(userId) || !Number.isInteger(userId)) {
       throw new Error('Bad request: invalid user id')
     }
-    const response = await request.get(`${rootUrl}/${String(userId)}`)
+    const response = await request.get(`${rootUrl}/userid/${String(userId)}`)
     return response.body
   } catch (err) {
     throw new Error('Unknown error fetching questions')
