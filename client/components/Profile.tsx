@@ -1,5 +1,4 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { editUser } from '../api/users'
 import { useQuestionByUserId } from '../hooks/useQuestions'
 import { useAuth0Id, useEditUser, useUserById } from '../hooks/useUsers'
 import { useParams } from 'react-router-dom'
