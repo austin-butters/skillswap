@@ -498,12 +498,14 @@ input.ai-title-container:-webkit-autofill:active {
 }
 .past-ai-response,
 .ai-past-user-code {
-  max-height: 25vh;
+  max-height: 30vh;
   overflow: scroll;
   scrollbar-width: none;
   background-color: lightgray;
   padding: 5px;
   border-radius: 5px;
+  white-space: pre-wrap;
+  line-height: 1.6;
 }
 
 /* < -- User page HTML --> */

@@ -66,9 +66,7 @@ export default function CodeFixer() {
 
           {/* Response Card */}
           <div className="response-section">
-            <div className="response-box">
-              <p>{response}</p>
-            </div>
+            <div className="response-box">{response}</div>
           </div>
         </div>
         {/* Previous fixes */}
@@ -88,7 +86,7 @@ export default function CodeFixer() {
                   )}
 
                   <h1>Ai response:</h1>
-                  <p className="past-ai-response">{data.output}</p>
+                  <div className="past-ai-response">{data.output}</div>
                 </div>
               )
             })
