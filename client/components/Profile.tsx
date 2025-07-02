@@ -90,49 +90,80 @@ export default function Profile() {
             </div>
           </>
         )
-      }
-    }
+      } else if (isLoading) {
+        return <p>Loading...</p>
+      } else if (OtherUserData.id === userData.id)
+        return (
+          <>
+            <div className="user-dashboard">
+              {/* User Info Section */}
+              <div className="user-section">
+                <div className="user-greeting">
+                  <h1>
+                    {isUser
+                      ? `Hi ${userData.name}!`
+                      : `${OtherUserData.name}'s profile.`}
+                  </h1>
+                  <p className="user-bio">{userData.bio}</p>
+                </div>
 
-    if (isLoading) {
-      return <p>Loading...</p>
-    } else if (!OtherUserData)
+                <div className="user-details-box">
+                  <h1>User details:</h1>
+                  <form onSubmit={handleSubmit}>
+                    <h2>
+                      Name:{' '}
+                      <label htmlFor="name">
+                        <input type="text" name="name" required />
+                      </label>
+                    </h2>
+                    <h2>
+                      Bio:{' '}
+                      <label htmlFor="bio">
+                        <input type="text" name="bio" required />
+                      </label>
+                    </h2>
+
+                    <button type="submit" className="update-button">
+                      Update
+                    </button>
+                  </form>
+                </div>
+              </div>
+
+              {/* Past Solutions Section */}
+              <div className="solutions-section">
+                <h1>Past solutions</h1>
+
+                <div className="solution-card">
+                  <h1>Title</h1>
+                  <p>
+                    Description blah blah blah blah blah blah blah blah blah
+                    blah blah blah blah blah blah blah
+                  </p>
+                </div>
+
+                <div className="solution-card">
+                  <h1>Title</h1>
+                  <p>
+                    Description blah blah blah blah blah blah blah blah blah
+                    blah blah blah blah blah blah blah
+                  </p>
+                </div>
+              </div>
+            </div>
+          </>
+        )
+    } else if (OtherUserData)
       return (
         <>
           <div className="user-dashboard">
             {/* User Info Section */}
             <div className="user-section">
               <div className="user-greeting">
-                <h1>
-                  {isUser
-                    ? `Hi ${userData.name}!`
-                    : `${OtherUserData.name}'s profile.`}
-                </h1>
+                <h1>{`${OtherUserData.name}'s profile.`}</h1>
                 <p className="user-bio">{userData.bio}</p>
               </div>
-
-              <div className="user-details-box">
-                <h1>User details:</h1>
-                <form onSubmit={handleSubmit}>
-                  <h2>
-                    Name:{' '}
-                    <label htmlFor="name">
-                      <input type="text" name="name" required />
-                    </label>
-                  </h2>
-                  <h2>
-                    Bio:{' '}
-                    <label htmlFor="bio">
-                      <input type="text" name="bio" required />
-                    </label>
-                  </h2>
-
-                  <button type="submit" className="update-button">
-                    Update
-                  </button>
-                </form>
-              </div>
             </div>
-
             {/* Past Solutions Section */}
             <div className="solutions-section">
               <h1>Past solutions</h1>
