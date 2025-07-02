@@ -147,12 +147,14 @@ export default function Profile() {
               {/* Past Solutions Section */}
               <div className="solutions-section">
                 <h1>Past posts</h1>
-                {question.map((questionData) => (
-                  <div key={questionData.id} className="solution-card">
-                    <h1>{questionData.title}</h1>
-                    <p>{questionData.body}</p>
-                  </div>
-                ))}
+                {!question
+                  ? null
+                  : question.map((questionData) => (
+                      <div key={questionData.id} className="solution-card">
+                        <h1>{questionData.title}</h1>
+                        <p>{questionData.body}</p>
+                      </div>
+                    ))}
               </div>
             </div>
           </>
@@ -172,12 +174,14 @@ export default function Profile() {
             {/* Past Solutions Section */}
             <div className="solutions-section">
               <h1>Past posts</h1>
-              {question.map((questionData) => (
-                <div key={questionData.id} className="solution-card">
-                  <h1>{questionData.title}</h1>
-                  <p>{questionData.body}</p>
-                </div>
-              ))}
+              {!question
+                ? null
+                : question.map((questionData) => (
+                    <div key={questionData.id} className="solution-card">
+                      <h1>{questionData.title}</h1>
+                      <p>{questionData.body}</p>
+                    </div>
+                  ))}
             </div>
           </div>
         </>
