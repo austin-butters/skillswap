@@ -1,7 +1,9 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { editUser } from 'client/api/users'
+import { useQuestionByUserId } from 'client/hooks/useQuestions'
 import { useAuth0Id, useEditUser, useUserById } from 'client/hooks/useUsers'
 import { useParams } from 'react-router-dom'
+import { Questions } from 'server/db/db-functions'
 import { getUser } from 'server/db/db-functions/users'
 
 export default function Profile() {
@@ -15,10 +17,15 @@ export default function Profile() {
     isError: otherUserIsError,
   } = useAuth0Id(user?.sub)
   const { user: OtherUserData, isLoading, isError } = useUserById(id)
-
-  if (isLoading) {
+  const {
+    question,
+    isLoading: questionsLoading,
+    isError: questionsError,
+  } = useQuestionByUserId(id)
+  if (isLoading || questionsLoading) {
     return <p>Loading...</p>
   }
+  console.log(question)
   if (otherUserIsLoading) {
     return <p>Loading...</p>
   }
@@ -138,7 +145,6 @@ export default function Profile() {
               {/* Past Solutions Section */}
               <div className="solutions-section">
                 <h1>Past posts</h1>
-
                 <div className="solution-card">
                   <h1>Title</h1>
                   <p>

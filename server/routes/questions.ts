@@ -75,7 +75,7 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-router.get('/:userid', async (req, res) => {
+router.get('/userid/:userid', async (req, res) => {
   console.log('server route: questions, GET /:userid') // TEST LOG
   try {
     const userId = Number(req.params.userid)
@@ -83,7 +83,7 @@ router.get('/:userid', async (req, res) => {
       return res.status(400).json({ error: 'Bad request: invalid user id' })
     }
     const questions: Question[] | undefined =
-      await Questions.getQuestionByUserId(userId)
+      await Questions.getQuestionsByUser(userId)
     if (!questions) {
       return res.status(404).json({ error: 'Not Found' })
     }
