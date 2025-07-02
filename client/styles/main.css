@@ -19,7 +19,7 @@ body {
 
 .profile-form-bio-input {
   justify-content: center;
-  width: fill;
+  width: stretch;
   height: 100%;
 }
 
@@ -1400,4 +1400,66 @@ body {
   margin-top: 1rem;
   border-left: 2px solid #ddd;
   padding-left: 1rem;
+}
+
+/* <--Create Meetings--> */
+
+.meeting-form {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1.5rem 2rem;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.meeting-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 1.25rem;
+}
+
+.meeting-form input[type='text'] {
+  margin-top: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  font-size: 1rem;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+}
+
+.meeting-form input[type='text']:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.15);
+}
+
+.meeting-form input[type='checkbox'] {
+  margin-top: 0.75rem;
+  width: 18px;
+  height: 18px;
+  accent-color: #007bff;
+  cursor: pointer;
+}
+
+.meeting-form button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.65rem 1.25rem;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.meeting-form button:hover {
+  background-color: #0056b3;
 }
