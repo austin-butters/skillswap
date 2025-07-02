@@ -60,132 +60,67 @@ export default function MessageBox() {
 
   return (
     <>
-      <div style={{ display: 'flex', marginTop: '10vh' }}>
-        <div
-          style={{
-            backgroundColor: 'gray',
-            width: '50vw',
-            padding: '30px',
-            borderRadius: '20px',
-            height: '80vh',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              height: '90%',
-              overflowY: 'scroll',
-              scrollbarWidth: 'none',
-              scrollBehavior: 'smooth',
-              width: '100%',
-              justifyContent: 'end',
-            }}
-          >
+      <div className="cc">
+        {/* Chat Window */}
+        <div className="chat-window">
+          <div className="chat-messages">
             {messageData.map((message, i) => {
-              if (message.sender_id === userData.id) {
-                return (
-                  <div
-                    key={i}
-                    style={{
-                      display: 'flex',
-                      alignSelf: 'end',
-                      marginBottom: '10px',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <p>{message.body}</p>
+              const isUser = message.sender_id === userData.id
+              return (
+                <div
+                  key={i}
+                  className={`chat-message ${isUser ? 'sent' : 'received'}`}
+                >
+                  {!isUser && (
                     <img
-                      alt="your pfp"
-                      src={userData.profilePicture}
-                      style={{
-                        width: '50px',
-                        aspectRatio: '1 / 1',
-                        objectFit: 'cover',
-                        borderRadius: '5px',
-                        marginLeft: '10px',
-                      }}
-                    />
-                  </div>
-                )
-              } else {
-                return (
-                  <div
-                    key={i}
-                    style={{
-                      display: 'flex',
-                      alignSelf: 'start',
-                      marginBottom: '10px',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <img
-                      alt="your pfp"
+                      alt="profile"
                       src={otherUserData.profilePicture}
-                      style={{
-                        width: '50px',
-                        aspectRatio: '1 / 1',
-                        objectFit: 'cover',
-                        borderRadius: '5px',
-                        marginRight: '10px',
-                      }}
+                      className="chat-avatar"
                     />
-                    <p>{message.body}</p>
-                  </div>
-                )
-              }
+                  )}
+                  <p className="chat-text">{message.body}</p>
+                  {isUser && (
+                    <img
+                      alt="profile"
+                      src={userData.profilePicture}
+                      className="chat-avatar"
+                    />
+                  )}
+                </div>
+              )
             })}
           </div>
           <input
             type="text"
             placeholder="Enter message here"
-            style={{ width: '90%', padding: '10px 20px', borderRadius: '10px' }}
-            onChange={(e) => {
-              setMessage(e.target.value)
-            }}
-            onKeyDown={async (e) => {
+            className="chat-input"
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 handleSendMessage()
               }
             }}
           />
         </div>
-        <div
-          style={{
-            backgroundColor: 'gray',
-            width: '25vw',
-            marginLeft: '20px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            padding: '20px',
-            borderRadius: '10px',
-          }}
-        >
-          <h1 style={{ fontWeight: 'bold', fontSize: '2rem' }}>
-            {otherUserData.name}
-          </h1>
-          {!otherUserData.bio ? (
-            <p>This user doesnt have a bio...</p>
-          ) : (
-            <p>{otherUserData.bio}</p>
-          )}
+
+        {/* Sidebar */}
+        <div className="chat-sidebar">
+          <h1 className="sidebar-name">{otherUserData.name}</h1>
+          <p className="sidebar-bio">
+            {otherUserData.bio || 'This user doesn’t have a bio...'}
+          </p>
           <FriendButton userId={userData.id} requestId={otherUserData.id} />
-          <h1>Invite to meeting</h1>
-          <ul>
-            {meetingData.map((message: MeetingData, i: number) => {
-              return (
-                <button
-                  key={`Metting ${i}`}
-                  onClick={() => sendMeetingMessage(message.url)}
-                >
-                  {message.title}
-                </button>
-              )
-            })}
+          <h2 className="meeting-heading">Invite to meeting</h2>
+          <ul className="meeting-list">
+            {meetingData.map((message: MeetingData, i: number) => (
+              <button
+                key={`Meeting ${i}`}
+                className="meeting-button"
+                onClick={() => sendMeetingMessage(message.url)}
+              >
+                {message.title}
+              </button>
+            ))}
           </ul>
         </div>
       </div>
