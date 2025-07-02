@@ -129,19 +129,22 @@ export default function Profile() {
                 </div>
                 <div className="user-details-box">
                   <h1>User details:</h1>
-                  <form onSubmit={handleSubmit}>
-                    <h2>
-                      Name:{' '}
-                      <label htmlFor="name">
-                        <input type="text" name="name" required />
-                      </label>
-                    </h2>
-                    <h2>
-                      Bio:{' '}
-                      <label htmlFor="bio">
-                        <input type="text" name="bio" required />
-                      </label>
-                    </h2>
+                  <form onSubmit={handleSubmit} className="profile-page-form">
+                    <input
+                      type="text"
+                      name="name"
+                      required
+                      placeholder="Name"
+                    />
+                    <div className="profile-form-bio-input">
+                      <input
+                        type="text"
+                        name="bio"
+                        required
+                        className="profile-form-bio-input"
+                        placeholder="Bio"
+                      />
+                    </div>
 
                     <button
                       type="submit"
