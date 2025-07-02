@@ -9,8 +9,8 @@ import {
 } from '../api/users'
 import { UnassignedUser, UserId } from '#models'
 import { useAuth0 } from '@auth0/auth0-react'
-import request from 'superagent'
-const rootURL = new URL(`/api/v1`, document.baseURI)
+// import request from 'superagent'
+// const rootURL = new URL(`/api/v1`, document.baseURI)
 
 export function useAllUsers() {
   const { data: allUsers, ...remainingProperties } = useQuery({
@@ -85,7 +85,7 @@ export function useEditUser() {
         userData.profilePicture,
       )
     },
-    onSuccess: (data, params) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['users'],
       })

@@ -43,13 +43,13 @@ export function useQuestionById(id: QuestionId) {
   return { question, ...properties }
 }
 
-
 export function useQuestionByUserId(userId: number) {
   const { data: question, ...properties } = useQuery({
     queryKey: ['questions'],
     queryFn: () => getQuestionByUser(userId),
   })
   return { question, ...properties }
+}
 
 export function useQuestionAuthor(authorId: UserId | undefined) {
   const { data: author, ...props } = useQuery({
