@@ -5,7 +5,7 @@ import { getAllQuestions } from 'client/api/questions'
 import { getQuestionById } from '../api/questions'
 import request from 'superagent'
 import { useAuth0 } from '@auth0/auth0-react'
-import { getUserById } from 'client/api/users'
+import { getUserById } from '../api/users'
 
 export function useAddQuestion() {
   const { getAccessTokenSilently } = useAuth0()
