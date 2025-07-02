@@ -1,6 +1,6 @@
 import { QuestionId } from '#models'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { getAllQuestions, getQuestionByUser } from 'client/api/questions'
+import { getAllQuestions, getQuestionByUser } from '../api/questions'
 import { getQuestionById } from '../api/questions'
 import request from 'superagent'
 import { useAuth0 } from '@auth0/auth0-react'
