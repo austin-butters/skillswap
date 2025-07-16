@@ -1,6 +1,10 @@
-# SkillShare
+# SkillSwap
 
 _A beginner friendly website where users can connect, ask questions, message, join collaborative meetings, and evene get AI assistance!._
+
+In the fifteenth week of DevAcademy we'd learnt to use technologies across the full stack, and we were given a full week to make our final project. I worked in a group of four to create 'SkillSwap', a beginner-friedly code forum with questions, answers, profiles, messaging and video calls. We aimed to create the best user experience for our target users, prioritising simplicity and intuitive use over completeness. We weren't creating a thorough library of coding knowledge, we were creating a place to introduce new people to code.
+
+Please note: this is a publicly visible copy of a project I completed with three other students in a private repository, not a personal project.
 
 ___
 
